@@ -23,7 +23,7 @@ javac -d bin src/*.java
 
 ## Pour executer :
 ```
-java -cp .:/usr/share/java/mariadb-java-client.jar --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls TestJDBC
+java -cp .:/usr/share/java/mariadb-java-client.jar --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls ExempleConnec
 ```
 
 ## Générer la doc
