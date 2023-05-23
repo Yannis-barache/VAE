@@ -9,9 +9,13 @@ public class ExempleConnec{
                 String res="";
                 laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
                 Statement s=laConnexion.createStatement();
-                ResultSet rs= s.executeQuery("Select nome from EMPLOYE");
-                rs.next();
-                res += rs.getString("nome");
+                ResultSet rs= s.executeQuery("select montant , idVe, nomob  from PrixVente natural join VENTE natural join OBJET where idacheteur=707");
+                while (rs.next()){
+                    int montant = rs.getInt("montant");
+                    String idVe= rs.getString("idVe");
+                    String nomob = rs.getString("nomob");
+                    res+= montant + " "+ idVe + " "  + nomob + "\n";
+                }
                 System.out.println(res);
 
             }
