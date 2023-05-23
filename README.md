@@ -16,14 +16,14 @@ git push -uf origin main
 
 ## Pour compiler :
 ```
-javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls -d bin ./src/*.java
+javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls *.java
 
 javac -d bin src/*.java
 ```
 
 ## Pour executer :
 ```
-java -cp bin:img --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls Executable
+java -cp .:/usr/share/java/mariadb-java-client.jar --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls TestJDBC
 ```
 
 ## Générer la doc
