@@ -10,8 +10,9 @@ public class ExecutableTest{
                 String res= test.venteAVenir();
                 System.out.println("Exemple des ventes à venir \n  ");
                 System.out.println(res);
-
-                res=test.
+                System.out.println("-------------------------------------------- \n" + "\n");
+                res=test.venteUtilisateur(707);
+                System.out.println(res);
     
             } catch (SQLException ex){
             }

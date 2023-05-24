@@ -18,7 +18,7 @@ public class TestJDBC {
                 String debutVente= rs.getString("debutve");
                 String finVente=rs.getString("finve");
                 String pseudoUtilisateur=rs.getString("pseudout");
-                resultat+= nomob + " " + prixbase + " " + " " + prixmin + " " +debutVente + " " + finVente + " " + pseudoUtilisateur + "\n";
+                resultat+= nomob + " " + prixbase + " " + " " + prixmin + " " +debutVente + " " + finVente + " " + pseudoUtilisateur + "\n" + "\n";
             }
             return resultat;
         }
@@ -31,16 +31,16 @@ public class TestJDBC {
         String resultat ="";
         try{
             Statement s=laConnexion.createStatement();
-            ResultSet rs= s.executeQuery("select montant , idVe, nomob from PrixVente natural join VENTE natural join OBJET where idacheteur="idUtilisateur);
+            ResultSet rs= s.executeQuery("select * from PrixVentePasFini natural join OBJET natural join VENTE  where idut=" + idUtilisateur);
             while (rs.next()){
                 Double montant = rs.getDouble("montant");
-                int idVe= rs.getInt("idVe");
+                int idVe= rs.getInt("idve");
                 String nomob=rs.getString("nomob");
-                resultat= "La vente "+idVe + " concerne "+ nomob + " l'enchère est à "+montant + "\n";
+                resultat+= "La vente numéro "+idVe + " concerne "+ nomob + " l'enchère la plus haute est à "+montant + " euros." +"\n";
             }
         } catch (SQLException ex){
             throw new SQLException("L'utilisateur n'a pas de vente à son actif");
         }
-        return resultat
+        return resultat;
     }
 }

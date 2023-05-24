@@ -1099,7 +1099,7 @@ Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum ali
 	(37,'Pantalon vert','Pantalon vertLorem ipsum dolor sit amet, consectetur adipiscing elit.
 Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',1,57),
 	(38,'Tournevis comme neuf','Tournevis comme neufLorem ipsum dolor sit amet, consectetur adipiscing elit.
-Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',4,886),
+Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',4,707),
 	(39,'Pantalon rouge','Pantalon rougeLorem ipsum dolor sit amet, consectetur adipiscing elit.
 Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',1,490),
 	(40,'Commode jamais servie','Commode jamais servieLorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -1343,7 +1343,7 @@ Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum ali
 	(159,'Chapeau bleu','Chapeau bleuLorem ipsum dolor sit amet, consectetur adipiscing elit.
 Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',1,413),
 	(160,'Commode de qualité','Commode de qualitéLorem ipsum dolor sit amet, consectetur adipiscing elit.
-Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',3,485),
+Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',3,707),
 	(161,'Armoire verte','Armoire verteLorem ipsum dolor sit amet, consectetur adipiscing elit.
 Donec facilisis, ligula vel posuere cursus, sapien leo dictum nisi, interdum aliquam sem nisi ac purus.',3,42),
 	(162,'Chemise jamais servie','Chemise jamais servieLorem ipsum dolor sit amet, consectetur adipiscing elit.

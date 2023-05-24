@@ -7,23 +7,20 @@
 - Quentin PIEDANNA
 - Marin TRÉMINE
 
+## Pour clone le répertoire
+
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/Ya.nnis/sae_vae.git
-git branch -M main
-git push -uf origin main
+git clone 
 ```
 
 ## Pour compiler :
 ```
 javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls *.java
-
-javac -d bin src/*.java
 ```
 
 ## Pour executer :
 ```
-java -cp .:/usr/share/java/mariadb-java-client.jar --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls ExempleConnec
+java -cp .:/usr/share/java/mariadb-java-client.jar --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls ExecutableTest
 ```
 
 ## Générer la doc
