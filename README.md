@@ -10,7 +10,7 @@
 ## Pour clone le répertoire
 
 ```
-git clone 
+git clone https://gitlab.com/Ya.nnis/sae_vae.git
 ```
 
 ## Pour compiler :
