@@ -15,6 +15,16 @@ public class ExecutableTest{
                 System.out.println(res);
     
             } catch (SQLException ex){
+                System.out.println("Erreur SQL : " + ex.getMessage());
+            }
+            finally{
+                try{
+                    laConnexion.close();
+                }
+                catch(SQLException ex){
+                    System.out.println("Erreur SQL : " + ex.getMessage());
+                }
+
             }
 
         
