@@ -23,8 +23,12 @@ import java.util.ArrayList;
 
 public class FenetreConnexion extends BorderPane {
     
-    public FenetreConnexion() {
+    private ApplicationVAE appli;
+
+    public FenetreConnexion(ApplicationVAE appli) {
         super();
+        this.appli = appli;
+
         this.content();
     }
 
@@ -71,14 +75,23 @@ public class FenetreConnexion extends BorderPane {
 
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
+        login.setOnAction((key) -> appli.fenetreAccueil());
+        login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        login.setPadding(new Insets(10,30,10,30));
+        login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
         loginContent.getChildren().add(login);
         loginContent.setAlignment(Pos.TOP_RIGHT);
-        passwordContent.setPadding(new Insets(20,0,40,0));
+        loginContent.setPadding(new Insets(20,0,40,0));
 
 
         VBox registerContent = new VBox();
         Label registerLabel = new Label("Pas de compte ?");
+        registerLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         Button register = new Button("Créer un compte");
+        register.setOnAction((key) -> appli.fenetreRegiser());
+        register.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        register.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        register.setTextFill(Color.web("#5D48D7"));
         registerContent.getChildren().addAll(registerLabel,register);
         registerContent.setAlignment(Pos.TOP_RIGHT);
 
