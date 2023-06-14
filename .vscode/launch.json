@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApplicationVAE",
+            "request": "launch",
+            "mainClass": "ApplicationVAE",
+            "projectName": "sae_vae_8332e5a7"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "vmArgs": "--module-path 'C:/Program Files/Java/javafx-sdk-20/lib/' --add-modules javafx.controls",
