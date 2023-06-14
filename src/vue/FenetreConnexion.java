@@ -75,7 +75,7 @@ public class FenetreConnexion extends BorderPane {
 
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
-        login.setOnAction((key) -> appli.fenetreAccueil());
+        login.setOnAction((key) -> this.appli.fenetreAccueil());
         login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         login.setPadding(new Insets(10,30,10,30));
         login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -84,11 +84,12 @@ public class FenetreConnexion extends BorderPane {
         loginContent.setPadding(new Insets(20,0,40,0));
 
 
-        VBox registerContent = new VBox();
+        HBox registerContent = new HBox();
         Label registerLabel = new Label("Pas de compte ?");
         registerLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        registerLabel.setPadding(new Insets(5,0,0,0));
         Button register = new Button("Créer un compte");
-        register.setOnAction((key) -> appli.fenetreRegiser());
+        register.setOnAction((key) -> this.appli.fenetreRegiser());
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         register.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         register.setTextFill(Color.web("#5D48D7"));

@@ -20,6 +20,12 @@ public class ApplicationVAE extends Application{
 
     }
 
+     public void fenetreConnexion() {
+        BorderPane root = new FenetreConnexion(this);
+        root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.scene.setRoot(root);
+    }
+
     public void fenetreAccueil() {
         BorderPane root = new FenetreAccueil(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
