@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData ;
+import javafx.scene.effect.DropShadow;
 
 import java.util.List;
 import java.util.Arrays;
@@ -33,6 +34,12 @@ public class FenetreInscription extends BorderPane {
     }
 
      private void content() {
+        
+        //Shadows
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(6.0f);
+        ds.setOffsetX(4.0f);
+        ds.setColor(Color.web("lightgray"));
 
         //Rectangle de gauche
         Rectangle leftAside = new Rectangle();
@@ -54,6 +61,7 @@ public class FenetreInscription extends BorderPane {
         pseudoLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         pseudoLabel.setTextFill(Color.web("#5D48D7"));
         TextField pseudoEntry = new TextField();
+        pseudoEntry.setEffect(ds);
         pseudoEntry.setPrefHeight(40);
         pseudoEntry.setPrefWidth(350);
         pseudoEntry.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -67,6 +75,7 @@ public class FenetreInscription extends BorderPane {
         mailLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         mailLabel.setTextFill(Color.web("#5D48D7"));
         TextField mailEntry = new TextField();
+        mailEntry.setEffect(ds);
         mailEntry.setPrefHeight(40);
         mailEntry.setPrefWidth(350);
         mailEntry.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -80,6 +89,7 @@ public class FenetreInscription extends BorderPane {
         passwordLabel1.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel1.setTextFill(Color.web("#5D48D7"));
         PasswordField passwordEntry1 = new PasswordField();
+        passwordEntry1.setEffect(ds);
         passwordEntry1.setPrefHeight(40);
         passwordEntry1.setPrefWidth(350);
         passwordEntry1.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -93,6 +103,7 @@ public class FenetreInscription extends BorderPane {
         passwordLabel2.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel2.setTextFill(Color.web("#5D48D7"));
         PasswordField passwordEntry2 = new PasswordField();
+        passwordEntry2.setEffect(ds);
         passwordEntry2.setPrefHeight(40);
         passwordEntry2.setPrefWidth(350);
         passwordEntry2.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -103,6 +114,7 @@ public class FenetreInscription extends BorderPane {
         //Buttons register cancel
         BorderPane buttons = new BorderPane();
         Button cancel = new Button("Annuler");
+        cancel.setEffect(ds);
         cancel.setOnAction((key) -> this.appli.fenetreConnexion());
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
@@ -110,6 +122,7 @@ public class FenetreInscription extends BorderPane {
         cancel.setAlignment(Pos.TOP_LEFT);
 
         Button register = new Button("Créer un compte");
+        register.setEffect(ds);
         register.setOnAction((key) -> this.appli.fenetreConnexion()); //ICI AJOUTER LES VALEURS A LA BASE DE DONNEE JE SAIS PAS COMMENT FAIRE
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         register.setPadding(new Insets(10,30,10,30));

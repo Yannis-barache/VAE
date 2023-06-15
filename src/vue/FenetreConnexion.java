@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData ;
+import javafx.scene.effect.DropShadow;
 
 import java.util.List;
 import java.util.Arrays;
@@ -33,6 +34,13 @@ public class FenetreConnexion extends BorderPane {
     }
 
     private void content() {
+
+        //Shadows
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(6.0f);
+        ds.setOffsetX(4.0f);
+        ds.setColor(Color.web("lightgray"));
+
         //Rectangle de gauche
         Rectangle leftAside = new Rectangle();
         leftAside.setWidth(300);
@@ -53,6 +61,7 @@ public class FenetreConnexion extends BorderPane {
         pseudoLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         pseudoLabel.setTextFill(Color.web("#5D48D7"));
         TextField pseudoEntry = new TextField();
+        pseudoEntry.setEffect(ds);
         pseudoEntry.setPrefHeight(40);
         pseudoEntry.setPrefWidth(350);
         pseudoEntry.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -66,6 +75,7 @@ public class FenetreConnexion extends BorderPane {
         passwordLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel.setTextFill(Color.web("#5D48D7"));
         PasswordField passwordEntry = new PasswordField();
+        passwordEntry.setEffect(ds);
         passwordEntry.setPrefHeight(40);
         passwordEntry.setPrefWidth(350);
         passwordEntry.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -75,6 +85,7 @@ public class FenetreConnexion extends BorderPane {
 
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
+        login.setEffect(ds);
         login.setOnAction((key) -> this.appli.fenetreAccueil());
         login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         login.setPadding(new Insets(10,30,10,30));
