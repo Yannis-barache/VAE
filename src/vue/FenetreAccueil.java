@@ -59,7 +59,7 @@ public class FenetreAccueil extends BorderPane {
 
 
         VBox filters = new VBox();
-        Label filtersLabel = new Label("Filtres");
+        Label filtersLabel = new Label("Catégories");
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
         ComboBox CBfilters = new ComboBox<>();
@@ -103,8 +103,6 @@ public class FenetreAccueil extends BorderPane {
         discoverItemsContainer.getChildren().add(discoverItems);
 
         discoverContent.getChildren().addAll(discoverLabelContainer,discoverItemsContainer);
-
-
 
         this.setTop(searchContent);
         this.setCenter(discoverContent);

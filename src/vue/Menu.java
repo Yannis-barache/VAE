@@ -56,21 +56,25 @@ public class Menu extends BorderPane {
         Button ventesBtn = new Button("Mes Ventes");
         Button encheresBtn = new Button("Mes enchères");
         
+        accueilBtn.setOnAction((key) -> this.appli.fenetreAccueil());
         accueilBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         accueilBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         accueilBtn.setTextFill(Color.web("white"));
         accueilBtn.setUnderline(true);
 
+        createVBtn.setOnAction((key) -> this.appli.fenetreCreationVente());
         createVBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         createVBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         createVBtn.setTextFill(Color.web("white"));
         createVBtn.setUnderline(true);
 
+        ventesBtn.setOnAction((key) -> this.appli.fenetreMesVentes());
         ventesBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         ventesBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         ventesBtn.setTextFill(Color.web("white"));
         ventesBtn.setUnderline(true);
 
+        encheresBtn.setOnAction((key) -> this.appli.fenetreMesEncheres());
         encheresBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         encheresBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         encheresBtn.setTextFill(Color.web("white"));
@@ -88,6 +92,8 @@ public class Menu extends BorderPane {
         //Paramètres / Profil
         HBox settingsContent = new HBox();
         Button profil = new Button("Profil");
+
+        profil.setOnAction((key) -> this.appli.fenetreMonProfil());
         profil.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         profil.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         profil.setTextFill(Color.web("white"));
