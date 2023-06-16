@@ -2,6 +2,8 @@ import javafx.application.Application;
 import javafx.beans.property.SetProperty;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
@@ -26,10 +28,12 @@ import java.util.ArrayList;
 public class Menu extends BorderPane {
     
     private ApplicationVAE appli;
+    private int associatedView;
 
-    public Menu(ApplicationVAE appli) {
+    public Menu(ApplicationVAE appli,int index) {
         super();
         this.appli = appli;
+        this.associatedView = index;
 
         this.content();
     }
@@ -52,6 +56,26 @@ public class Menu extends BorderPane {
         Button ventesBtn = new Button("Mes Ventes");
         Button encheresBtn = new Button("Mes enchères");
         
+        accueilBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
+        accueilBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        accueilBtn.setTextFill(Color.web("white"));
+        accueilBtn.setUnderline(true);
+
+        createVBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
+        createVBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        createVBtn.setTextFill(Color.web("white"));
+        createVBtn.setUnderline(true);
+
+        ventesBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
+        ventesBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        ventesBtn.setTextFill(Color.web("white"));
+        ventesBtn.setUnderline(true);
+
+        encheresBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
+        encheresBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        encheresBtn.setTextFill(Color.web("white"));
+        encheresBtn.setUnderline(true);
+
         //Ajouts des boutons
         menu.add(accueilBtn,0,0);
         menu.add(createVBtn,1,0);
@@ -64,12 +88,25 @@ public class Menu extends BorderPane {
         //Paramètres / Profil
         HBox settingsContent = new HBox();
         Button profil = new Button("Profil");
+        profil.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
+        profil.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        profil.setTextFill(Color.web("white"));
+        profil.setUnderline(true);        
+        
         settingsContent.getChildren().addAll(profil);
 
+        //Indicateur de la vue actuelle
+        if (this.associatedView == 0) accueilBtn.setTextFill(Color.web("#FEE159"));
+        if (this.associatedView == 1) createVBtn.setTextFill(Color.web("#FEE159"));
+        if (this.associatedView == 2) ventesBtn.setTextFill(Color.web("#FEE159"));
+        if (this.associatedView == 3) encheresBtn.setTextFill(Color.web("#FEE159"));
+        if (this.associatedView == 4) profil.setTextFill(Color.web("#FEE159"));
 
+        //Couleur de fond du menu
         this.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.setPadding(new Insets(30));
         
+        //Placement des containers dans le menu
         this.setLeft(logoContent);
         this.setCenter(menu);
         this.setRight(settingsContent);

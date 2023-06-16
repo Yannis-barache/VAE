@@ -38,7 +38,7 @@ public class ApplicationVAE extends Application{
         BorderPane root = new BorderPane();
         this.sc = new ScrollPane(root);
         root.setCenter(new FenetreAccueil(this));
-        root.setTop(new Menu(this));
+        root.setTop(new Menu(this,0));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
         this.scene.setRoot(sc);
