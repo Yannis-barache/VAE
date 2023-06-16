@@ -104,8 +104,9 @@ public class FenetreCreationVente extends GridPane {
         Button cancel = new Button("Annuler");
         Button send = new Button("Mettre en ligne");
 
-        this.setHgap(20);
-        this.setVgap(20);
+        this.setHgap(50);
+        this.setVgap(50);
+        this.setAlignment(Pos.CENTER);
 
         this.add(title,0,0);
         this.add(titleSaleContent,0,1,2,1);
