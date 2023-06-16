@@ -133,7 +133,7 @@ public class FenetreInscription extends BorderPane {
         buttons.setRight(register);
 
         entries.getChildren().addAll(title,pseudoContent,mailContent,passwordContent1,passwordContent2,buttons);
-        entries.setPadding(new Insets(100,0,200,300));
+        entries.setPadding(new Insets(150,0,0,300));
 
 
         //Logo à droite

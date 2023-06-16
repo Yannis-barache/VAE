@@ -6,17 +6,18 @@
     "configurations": [
         {
             "type": "java",
-            "name": "ApplicationVAE",
+            "name": "Current File",
             "request": "launch",
-            "mainClass": "ApplicationVAE",
-            "projectName": "sae_vae_8332e5a7"
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml", 
+            "mainClass": "${file}"
         },
         {
             "type": "java",
-            "name": "Current File",
+            "name": "ApplicationVAE",
             "request": "launch",
-            "vmArgs": "--module-path 'C:/Program Files/Java/javafx-sdk-20/lib/' --add-modules javafx.controls",
-            "mainClass": "${file}"
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml", 
+            "mainClass": "ApplicationVAE",
+            "projectName": "sae_vae_2607f313"
         }
     ]
 }

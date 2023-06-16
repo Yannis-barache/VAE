@@ -109,7 +109,7 @@ public class FenetreConnexion extends BorderPane {
 
 
         entries.getChildren().addAll(title,pseudoContent,passwordContent,loginContent,registerContent);
-        entries.setPadding(new Insets(300,50,0,150));
+        entries.setPadding(new Insets(300,50,0,300));
 
         //Logo à droite
         VBox logoContent = new VBox();
