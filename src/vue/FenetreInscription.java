@@ -16,6 +16,9 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData ;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
+import javafx.scene.paint.CycleMethod;
 
 import java.util.List;
 import java.util.Arrays;
@@ -41,11 +44,18 @@ public class FenetreInscription extends BorderPane {
         ds.setOffsetX(4.0f);
         ds.setColor(Color.web("lightgray"));
 
+         //Linear gradient
+         Stop[] stops = new Stop[] {
+            new Stop(0, Color.web("#5D48B0")),
+            new Stop(1, Color.web("#5D48D7")),
+         };
+        LinearGradient lg = new LinearGradient(1,0,0,1,true,CycleMethod.NO_CYCLE,stops);
+
         //Rectangle de gauche
         Rectangle leftAside = new Rectangle();
         leftAside.setWidth(300);
         leftAside.setHeight(1080);
-        leftAside.setFill(Color.web("#5D48D7"));
+        leftAside.setFill(lg);
 
         //Inscription properties
         VBox entries = new VBox();

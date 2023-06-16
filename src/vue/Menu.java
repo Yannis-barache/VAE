@@ -38,7 +38,10 @@ public class Menu extends BorderPane {
 
         //Logo
         VBox logoContent = new VBox();
-        ImageView logo = new ImageView(new Image("./img/vae2.png"));
+        ImageView logo = new ImageView(new Image("./img/vae.png"));
+        logo.setFitWidth(120);
+        logo.setFitHeight(120);
+        logo.setPreserveRatio(true);
         logoContent.getChildren().addAll(logo); 
 
         //Menu
@@ -67,7 +70,7 @@ public class Menu extends BorderPane {
         this.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.setPadding(new Insets(30));
         
-        // this.setLeft(logoContent);
+        this.setLeft(logoContent);
         this.setCenter(menu);
         this.setRight(settingsContent);
 
