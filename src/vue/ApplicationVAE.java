@@ -11,11 +11,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.scene.control.ScrollBar;
-
+import javafx.scene.control.ScrollPane;
 public class ApplicationVAE extends Application{
 
     private Scene scene;
+    private ScrollPane sc;
     
     @Override
     public void init() {
@@ -36,10 +36,12 @@ public class ApplicationVAE extends Application{
 
     public void fenetreAccueil() {
         BorderPane root = new BorderPane();
+        this.sc = new ScrollPane(root);
         root.setCenter(new FenetreAccueil(this));
         root.setTop(new Menu(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene.setRoot(root);
+        // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
+        this.scene.setRoot(sc);
         
     }
 
@@ -48,7 +50,7 @@ public class ApplicationVAE extends Application{
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene = new Scene(root,1800,1000);
+        this.scene = new Scene(root,1200,600);
         stage.setScene(this.scene);
         stage.setTitle("VAE - Groupe C");
         //Vue de base
