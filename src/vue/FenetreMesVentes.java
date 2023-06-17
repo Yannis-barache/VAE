@@ -30,9 +30,9 @@ import java.util.ArrayList;
 public class FenetreMesVentes extends BorderPane {
     
     private ApplicationVAE appli;
-    private List<List<Map<String,String>>> ventes;
+    private List<Map<String,String>> ventes;
 
-    public FenetreMesVentes(ApplicationVAE appli,List<List<Map<String,String>>> ventes) {
+    public FenetreMesVentes(ApplicationVAE appli,List<Map<String,String>> ventes) {
         super();
         this.appli = appli;
         this.ventes = ventes;
@@ -68,13 +68,14 @@ public class FenetreMesVentes extends BorderPane {
 
         if (this.ventes.size() > 0) {
 
-            for (List<Map<String,String>> vente : this.ventes) {
+            for (Map<String,String> vente : this.ventes) {
                 VBox venteContent = new VBox();
                 HBox splitVente = new HBox();
+
                 VBox leftSide = new VBox();
 
                 //Titre et image (gauche)
-                Label venteTitle = new Label(vente.get(0).get("titre"));
+                Label venteTitle = new Label(vente.get("titre"));
                 venteTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 venteTitle.setTextFill(Color.web("#5D48D7"));     
                 ImageView ventePic = new ImageView(new Image("./img/vae.png"));
@@ -93,7 +94,7 @@ public class FenetreMesVentes extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel : ");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(vente.get(1).get("prixBase"));
+                Label actualPrice = new Label(vente.get("prixBase")+" €");
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));  
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);

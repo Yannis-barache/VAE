@@ -65,23 +65,17 @@ public class ApplicationVAE extends Application{
     public void fenetreMesVentes() {
         
         //TEST DE VENTES
-        List<List<Map<String,String>>> ventes = new ArrayList<List<Map<String,String>>>();
+        List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
 
-        List<Map<String,String>> v1 = new ArrayList<Map<String,String>>();
-        Map<String,String> tv1 = new HashMap<>();
-        tv1.put("titre","Canapé repliable Castorama 180cm");
-        Map<String,String> pbv1 = new HashMap<>();
-        pbv1.put("prixBase","180");
-        v1.add(tv1);
-        v1.add(pbv1);
-
-        List<Map<String,String>> v2 = new ArrayList<Map<String,String>>();
-        Map<String,String> tv2 = new HashMap<>();
-        tv2.put("titre","Set Lego8799 de 2008");
-        Map<String,String> pbv2 = new HashMap<>();
-        pbv2.put("prixBase","50.50");
-        v2.add(tv2);
-        v2.add(pbv2);
+        Map<String,String> v1 = new HashMap<String,String>();
+        v1.put("id","43");
+        v1.put("titre","Canapé repliable Castorama 180cm");
+        v1.put("prixBase","180");      
+        
+        Map<String,String> v2 = new HashMap<String,String>();
+        v2.put("id","10");
+        v2.put("titre","Set Lego 7687");
+        v2.put("prixBase","55,99");      
 
         ventes.add(v1);
         ventes.add(v2);
