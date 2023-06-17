@@ -69,7 +69,7 @@ public class ApplicationVAE extends Application{
 
         List<Map<String,String>> v1 = new ArrayList<Map<String,String>>();
         Map<String,String> tv1 = new HashMap<>();
-        tv1.put("titre","Lego");
+        tv1.put("titre","Canapé repliable Castorama 180cm");
         Map<String,String> pbv1 = new HashMap<>();
         pbv1.put("prixBase","180");
         v1.add(tv1);
@@ -77,7 +77,7 @@ public class ApplicationVAE extends Application{
 
         List<Map<String,String>> v2 = new ArrayList<Map<String,String>>();
         Map<String,String> tv2 = new HashMap<>();
-        tv2.put("titre","Port");
+        tv2.put("titre","Set Lego8799 de 2008");
         Map<String,String> pbv2 = new HashMap<>();
         pbv2.put("prixBase","50.50");
         v2.add(tv2);
