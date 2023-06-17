@@ -1,5 +1,7 @@
 import javafx.application.Application;
 import javafx.beans.property.SetProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -39,13 +41,15 @@ public class FenetreCreationVente extends GridPane {
 
     private void content() {
 
-        //Shadows
-        DropShadow ds = new DropShadow();
-        ds.setOffsetY(6.0f);
-        ds.setOffsetX(4.0f);
-        ds.setColor(Color.web("lightgray"));
+         //Shadows
+         DropShadow ds = new DropShadow();
+         ds.setOffsetY(6.0f);
+         ds.setOffsetX(4.0f);
+         ds.setColor(Color.web("lightgray"));
 
         Label title = new Label("Créer une vente");
+        title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        title.setTextFill(Color.web("black"));
 
         VBox titleSaleContent = new VBox();
         Label titleSaleLabel = new Label("Titre");
@@ -53,6 +57,8 @@ public class FenetreCreationVente extends GridPane {
         titleSaleLabel.setTextFill(Color.web("#5D48D7"));
         TextField titleSale = new TextField();
         titleSale.setEffect(ds);
+        titleSale.setPrefHeight(40);
+        titleSale.setPrefWidth(350);
         titleSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         titleSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
@@ -64,28 +70,40 @@ public class FenetreCreationVente extends GridPane {
         descSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         descSaleLabel.setTextFill(Color.web("#5D48D7"));
         TextArea descSale = new TextArea();
-        descSale.setPrefHeight(120);
         descSale.setEffect(ds);
+        descSale.setPrefHeight(170);
+        descSale.setPrefWidth(350);
         descSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        descSale.setStyle("-fx-control-inner-background: #F8F8F8");
         descSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-
         descSaleContent.getChildren().addAll(descSaleLabel,descSale);
 
 
         VBox filesSaleContent = new VBox();
+        // Label filesSaleLabel = new Label("Ajouter des images ");
+        // filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        // filesSaleLabel.setTextFill(Color.web("#5D48D7"));
+        // Label filesCountLabel = new Label("0/4");
+        // filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        // filesCountLabel.setTextFill(Color.web("#5D48D7"));
+        // FileChooser filesSaleFC = new FileChooser();
+        // Label temp = new Label("AHMET AHMET AHMET AHMET AHMET"); //File chooser pas dans VBox
         HBox filesSaleLabels = new HBox();
-        Label filesSaleLabel = new Label("Ajouter des images");
+        Label filesSaleLabel = new Label("Ajouter des images ");
         filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filesSaleLabel.setTextFill(Color.web("#5D48D7"));
         Label filesCountLabel = new Label("0/4");
         filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filesCountLabel.setTextFill(Color.web("#5D48D7"));
         filesSaleLabels.getChildren().addAll(filesSaleLabel,filesCountLabel);
-        FileChooser filesSaleFC = new FileChooser();
-        Label temp = new Label("AHMET AHMET AHMET AHMET AHMET"); //File chooser pas dans VBox
+        Button openButton = new Button("+");
+        openButton.setEffect(ds);
+        openButton.setOnAction((key) -> System.out.println("controleur filechooser"));
+        openButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        openButton.setPadding(new Insets(10,30,10,30));
+        openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        filesSaleContent.getChildren().addAll(filesSaleLabels,temp);
-
+        filesSaleContent.getChildren().addAll(filesSaleLabels,openButton);
 
         VBox categorySaleContent = new VBox();
         Label categorySaleLabel = new Label("Catégorie");
@@ -94,9 +112,9 @@ public class FenetreCreationVente extends GridPane {
         ComboBox categorySaleCB = new ComboBox<>();
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
-        categorySaleCB.setPrefWidth(100);
+        categorySaleCB.setPrefWidth(300);
+        categorySaleCB.setStyle("-fx-control-inner-background: #F8F8F8");
         categorySaleCB.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-
 
         categorySaleContent.getChildren().addAll(categorySaleLabel,categorySaleCB);
 
@@ -107,6 +125,8 @@ public class FenetreCreationVente extends GridPane {
         basePriceSaleLabel.setTextFill(Color.web("#5D48D7"));
         TextField basePriceSale = new TextField();
         basePriceSale.setEffect(ds);
+        basePriceSale.setPrefHeight(40);
+        basePriceSale.setPrefWidth(350);
         basePriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         basePriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
@@ -114,11 +134,13 @@ public class FenetreCreationVente extends GridPane {
 
 
         VBox minPriceSaleContent = new VBox();
-        Label minPriceSaleLabel = new Label("Prix minimal");
+        Label minPriceSaleLabel = new Label("Prix minimum");
         minPriceSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         minPriceSaleLabel.setTextFill(Color.web("#5D48D7"));
         TextField minPriceSale = new TextField();
         minPriceSale.setEffect(ds);
+        minPriceSale.setPrefHeight(40);
+        minPriceSale.setPrefWidth(350);
         minPriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         minPriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
@@ -131,7 +153,10 @@ public class FenetreCreationVente extends GridPane {
         startSaleLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker startSale = new DatePicker();
         startSale.setEffect(ds);
+        startSale.setPrefHeight(50);
+        startSale.setPrefWidth(350);
         // startSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        startSale.setStyle("-fx-control-inner-background: #F8F8F8");
         startSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
         startSaleContent.getChildren().addAll(startSaleLabel,startSale);
@@ -143,29 +168,39 @@ public class FenetreCreationVente extends GridPane {
         endSaleLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker endSale = new DatePicker();
         endSale.setEffect(ds);
+        endSale.setPrefHeight(50);
+        endSale.setPrefWidth(350);
         // endSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        endSale.setStyle("-fx-control-inner-background: #F8F8F8");
         endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
         endSaleContent.getChildren().addAll(endSaleLabel,endSale);
 
 
         //Buttons
+        VBox cancelContent = new VBox();
         Button cancel = new Button("Annuler");
         cancel.setEffect(ds);
         cancel.setOnAction((key) -> this.appli.fenetreAccueil());
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        cancelContent.getChildren().add(cancel);
+
+        VBox sendContent = new VBox();
         Button send = new Button("Mettre en ligne");
         send.setEffect(ds);
         send.setOnAction((key) -> System.out.println("next"));
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
         send.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sendContent.getChildren().add(send);
+        sendContent.setAlignment(Pos.TOP_RIGHT);
 
-        this.setHgap(30);
+        this.setHgap(60);
         this.setVgap(30);
         this.setAlignment(Pos.CENTER);
+        this.setPadding(new Insets(50));
 
         this.add(title,0,0);
         this.add(titleSaleContent,0,1,2,1);
@@ -178,7 +213,7 @@ public class FenetreCreationVente extends GridPane {
         this.add(startSaleContent,2,3,1,1);
         this.add(endSaleContent,2,4,1,1);
 
-        this.add(cancel,0,5,1,1);
-        this.add(send,2,5,1,1);
+        this.add(cancelContent,0,5,1,1);
+        this.add(sendContent,2,5,1,1);
     }
 }

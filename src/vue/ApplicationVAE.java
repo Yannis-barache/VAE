@@ -89,7 +89,7 @@ public class ApplicationVAE extends Application{
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene = new Scene(root,1600,900);
+        this.scene = new Scene(root,1200,600);
         stage.setScene(this.scene);
         stage.setTitle("VAE - Groupe C");
         //Vue de base
