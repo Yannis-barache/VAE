@@ -82,7 +82,6 @@ public class ApplicationVAE extends Application{
         ventes.add(v1);
         ventes.add(v2);
 
-        // System.out.println(ventes.get(0).get(0).get("titre"));
         //
 
         BorderPane root = new BorderPane();
@@ -114,12 +113,21 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    public void checkLogin(String pseudo,String pw) {
+        System.out.println(pseudo);
+        System.out.println(pw);
+        if (pseudo.length()>0 && pw.length()>0) {fenetreAccueil();}
+    }
+
+
+
+
 
     @Override
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene = new Scene(root,1200,600);
+        this.scene = new Scene(root,1200,600); //1200 600
         stage.setScene(this.scene);
         stage.setTitle("VAE - Groupe C");
         //Vue de base

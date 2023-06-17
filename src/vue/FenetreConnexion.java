@@ -28,11 +28,12 @@ import java.util.ArrayList;
 public class FenetreConnexion extends BorderPane {
     
     private ApplicationVAE appli;
+    private Label alertLogin;
 
     public FenetreConnexion(ApplicationVAE appli) {
         super();
         this.appli = appli;
-
+        this.alertLogin = new Label();
         this.content();
     }
 
@@ -93,10 +94,16 @@ public class FenetreConnexion extends BorderPane {
         passwordContent.getChildren().addAll(passwordLabel,passwordEntry);
         passwordContent.setPadding(new Insets(10,0,50,0));
 
+        //Erreur s'il y en a 
+        this.alertLogin = new Label();
+        alertLogin.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        alertLogin.setTextFill(Color.web("#e66954"));
+
+        //Bouton se connecter
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
         login.setEffect(ds);
-        login.setOnAction((key) -> this.appli.fenetreAccueil());
+        login.setOnAction((key) -> checkLogin(pseudoEntry.getText(),passwordEntry.getText())); //verifier les entries
         login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         login.setPadding(new Insets(10,30,10,30));
         login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -104,7 +111,7 @@ public class FenetreConnexion extends BorderPane {
         loginContent.setAlignment(Pos.TOP_RIGHT);
         loginContent.setPadding(new Insets(20,0,40,0));
 
-
+        //Creer un compte
         HBox registerContent = new HBox();
         Label registerLabel = new Label("Pas de compte ?");
         registerLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
@@ -118,7 +125,7 @@ public class FenetreConnexion extends BorderPane {
         registerContent.setAlignment(Pos.TOP_RIGHT);
 
 
-        entries.getChildren().addAll(title,pseudoContent,passwordContent,loginContent,registerContent);
+        entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent);
         entries.setPadding(new Insets(300,50,0,300));
 
         //Logo à droite
@@ -130,6 +137,14 @@ public class FenetreConnexion extends BorderPane {
         this.setLeft(leftAside);
         this.setCenter(entries);
         this.setRight(logoContent);
+    }
+
+    private void checkLogin(String pseudo, String password) {
+        if (pseudo.length()>0 && password.length()>0) {
+            this.appli.fenetreAccueil();
+        } else {
+            this.alertLogin.setText("Une erreur s'est produite, veuillez réessayer");
+        }
     }
 
 }
