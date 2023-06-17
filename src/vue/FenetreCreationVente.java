@@ -50,7 +50,7 @@ public class FenetreCreationVente extends GridPane {
         VBox descSaleContent = new VBox();
         Label descSaleLabel = new Label("Description");
         TextArea descSale = new TextArea();
-
+        descSale.setPrefHeight(120);
         descSaleContent.getChildren().addAll(descSaleLabel,descSale);
 
 
@@ -104,8 +104,8 @@ public class FenetreCreationVente extends GridPane {
         Button cancel = new Button("Annuler");
         Button send = new Button("Mettre en ligne");
 
-        this.setHgap(50);
-        this.setVgap(50);
+        this.setHgap(30);
+        this.setVgap(30);
         this.setAlignment(Pos.CENTER);
 
         this.add(title,0,0);
