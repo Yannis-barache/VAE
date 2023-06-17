@@ -49,8 +49,8 @@ public class Menu extends BorderPane {
         logoContent.getChildren().addAll(logo); 
 
         //Menu
-
         GridPane menu = new GridPane();
+
         Button accueilBtn = new Button("Accueil");
         Button createVBtn = new Button("Créer une vente");
         Button ventesBtn = new Button("Mes Ventes");
@@ -116,8 +116,5 @@ public class Menu extends BorderPane {
         this.setLeft(logoContent);
         this.setCenter(menu);
         this.setRight(settingsContent);
-
-
-
     }
 }
