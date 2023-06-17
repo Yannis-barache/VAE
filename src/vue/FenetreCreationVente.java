@@ -2,6 +2,7 @@ import javafx.application.Application;
 import javafx.beans.property.SetProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -109,7 +110,8 @@ public class FenetreCreationVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        ComboBox categorySaleCB = new ComboBox<>();
+        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
+        ComboBox categorySaleCB = new ComboBox<>(FXCollections.observableArrayList(categories));
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
         categorySaleCB.setPrefWidth(300);

@@ -37,10 +37,10 @@ public class ApplicationVAE extends Application{
 
     public void fenetreAccueil() {
         BorderPane root = new BorderPane();
+        this.sc = new ScrollPane(root);
         root.setTop(new Menu(this,0));
         root.setCenter(new FenetreAccueil(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.sc = new ScrollPane(root);
          // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
         this.scene.setRoot(sc);   
     }

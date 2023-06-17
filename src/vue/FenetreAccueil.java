@@ -1,5 +1,9 @@
 import javafx.application.Application;
+import javafx.beans.Observable;
 import javafx.beans.property.SetProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableArrayBase;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -62,7 +66,8 @@ public class FenetreAccueil extends BorderPane {
         Label filtersLabel = new Label("Catégories");
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
-        ComboBox CBfilters = new ComboBox<>();
+        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
+        ComboBox CBfilters = new ComboBox<>(FXCollections.observableArrayList(categories));
         CBfilters.setEffect(ds);
         CBfilters.setPrefHeight(50);
         CBfilters.setPrefWidth(300);
@@ -88,13 +93,13 @@ public class FenetreAccueil extends BorderPane {
         discoverItems.setMaxWidth(1600);
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
-        // for (int i=0; i<7;++i) {
-        //     VBox temp = new VBox();
-        //     temp.setPrefWidth(500);
-        //     temp.setPrefHeight(700);
-        //     temp.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-        //     discoverItems.getChildren().add(temp);
-        // }
+        for (int i=0; i<7;++i) {
+            VBox temp = new VBox();
+            temp.setPrefWidth(500);
+            temp.setPrefHeight(700);
+            temp.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+            discoverItems.getChildren().add(temp);
+        }
 
         discoverItemsContainer.setAlignment(Pos.CENTER);
         discoverLabelContainer.setPadding(new Insets(200,0,35,100));
