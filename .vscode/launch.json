@@ -6,16 +6,23 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApplicationVAE",
+            "request": "launch",
+            "mainClass": "ApplicationVAE",
+            "projectName": "sae_vae-1_9ee5ad10"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
-            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml",
             "mainClass": "${file}"
         },
         {
             "type": "java",
             "name": "ExecutableTest",
             "request": "launch",
-            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml",
             "mainClass": "ExecutableTest",
             "projectName": "sae_vae_ccc0926c"
         },
@@ -23,7 +30,7 @@
             "type": "java",
             "name": "ApplicationVAE",
             "request": "launch",
-            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path 'C:\\Users\\sandl\\Downloads\\openjfx-20_windows-x64_bin-sdk\\openjfx-20_windows-x64_bin-sdk\\javafx-sdk-20\\lib' --add-modules javafx.controls,javafx.fxml",
             "mainClass": "vue.ApplicationVAE",
             "projectName": "sae_vae_ccc0926c"
         }

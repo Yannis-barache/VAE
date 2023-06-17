@@ -88,13 +88,13 @@ public class FenetreAccueil extends BorderPane {
         discoverItems.setMaxWidth(1600);
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
-        for (int i=0; i<7;++i) {
-            VBox temp = new VBox();
-            temp.setPrefWidth(500);
-            temp.setPrefHeight(700);
-            temp.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-            discoverItems.getChildren().add(temp);
-        }
+        // for (int i=0; i<7;++i) {
+        //     VBox temp = new VBox();
+        //     temp.setPrefWidth(500);
+        //     temp.setPrefHeight(700);
+        //     temp.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        //     discoverItems.getChildren().add(temp);
+        // }
 
         discoverItemsContainer.setAlignment(Pos.CENTER);
         discoverLabelContainer.setPadding(new Insets(200,0,35,100));

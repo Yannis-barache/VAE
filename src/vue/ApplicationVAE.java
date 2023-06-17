@@ -37,11 +37,11 @@ public class ApplicationVAE extends Application{
 
     public void fenetreAccueil() {
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
-        root.setCenter(new FenetreAccueil(this));
         root.setTop(new Menu(this,0));
+        root.setCenter(new FenetreAccueil(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
+        this.sc = new ScrollPane(root);
+         // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
         this.scene.setRoot(sc);   
     }
 
@@ -89,7 +89,7 @@ public class ApplicationVAE extends Application{
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene = new Scene(root,1200,600);
+        this.scene = new Scene(root,1600,900);
         stage.setScene(this.scene);
         stage.setTitle("VAE - Groupe C");
         //Vue de base
