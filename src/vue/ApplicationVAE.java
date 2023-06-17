@@ -13,11 +13,19 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.HashMap;
+import java.io.File;
+import java.util.ArrayList;
+
 public class ApplicationVAE extends Application{
 
     private Scene scene;
     private ScrollPane sc;
-    
+
     @Override
     public void init() {
 
@@ -55,9 +63,35 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreMesVentes() {
+        
+        //TEST DE VENTES
+        List<List<Map<String,String>>> ventes = new ArrayList<List<Map<String,String>>>();
+
+        List<Map<String,String>> v1 = new ArrayList<Map<String,String>>();
+        Map<String,String> tv1 = new HashMap<>();
+        tv1.put("titre","Lego");
+        Map<String,String> pbv1 = new HashMap<>();
+        pbv1.put("prixBase","180");
+        v1.add(tv1);
+        v1.add(pbv1);
+
+        List<Map<String,String>> v2 = new ArrayList<Map<String,String>>();
+        Map<String,String> tv2 = new HashMap<>();
+        tv2.put("titre","Port");
+        Map<String,String> pbv2 = new HashMap<>();
+        pbv2.put("prixBase","50.50");
+        v2.add(tv2);
+        v2.add(pbv2);
+
+        ventes.add(v1);
+        ventes.add(v2);
+
+        // System.out.println(ventes.get(0).get(0).get("titre"));
+        //
+
         BorderPane root = new BorderPane();
         this.sc = new ScrollPane(root);
-        root.setCenter(new FenetreMesVentes(this));
+        root.setCenter(new FenetreMesVentes(this,ventes));
         root.setTop(new Menu(this,2));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.scene.setRoot(sc);   
