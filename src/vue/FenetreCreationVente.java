@@ -197,11 +197,13 @@ public class FenetreCreationVente extends GridPane {
         sendContent.getChildren().add(send);
         sendContent.setAlignment(Pos.TOP_RIGHT);
 
+        //Configuration de la grille
         this.setHgap(60);
         this.setVgap(30);
         this.setAlignment(Pos.CENTER);
         this.setPadding(new Insets(50));
 
+        //Ajouts des containers dans la grille
         this.add(title,0,0);
         this.add(titleSaleContent,0,1,2,1);
         this.add(descSaleContent,0,2,2,2);
