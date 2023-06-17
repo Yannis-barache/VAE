@@ -71,11 +71,13 @@ public class ApplicationVAE extends Application{
         v1.put("id","43");
         v1.put("titre","Canapé repliable Castorama 180cm");
         v1.put("prixBase","180");      
+        v1.put("nbEnchere","0");
         
         Map<String,String> v2 = new HashMap<String,String>();
         v2.put("id","10");
         v2.put("titre","Set Lego 7687");
-        v2.put("prixBase","55,99");      
+        v2.put("prixBase","55,99");    
+        v2.put("nbEnchere","3");
 
         ventes.add(v1);
         ventes.add(v2);

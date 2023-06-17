@@ -112,13 +112,15 @@ public class FenetreMesVentes extends BorderPane {
                 Label nbEnchereslabel = new Label("Nombre d'enchère : ");
                 nbEnchereslabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEnchereslabel.setTextFill(Color.web("black"));
-                Label nbEncheres = new Label("8");
+                Label nbEncheres = new Label(vente.get("nbEnchere"));
                 nbEncheres.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEncheres.setTextFill(Color.web("#5D48D7"));
                 nbEncheres.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Bouton
+                Tooltip saleToolTip = new Tooltip(vente.get("id"));
                 Button edit = new Button("Modifier");
+                edit.setTooltip(saleToolTip);
                 edit.setEffect(ds);
                 edit.setOnAction((key) -> System.out.println("edit vente"));
                 edit.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
