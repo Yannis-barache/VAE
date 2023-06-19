@@ -13,7 +13,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
-
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
@@ -21,6 +20,7 @@ import java.util.HashMap;
 import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class ApplicationVAE extends Application{
 
@@ -32,17 +32,22 @@ public class ApplicationVAE extends Application{
     @Override
     public void init() {
         try{
-            this.laConnexion=new ConnexionMySQL();
+            ConnexionMySQL laConnexion= new ConnexionMySQL();
             try{
-                this.laConnexion.connecter("servinfo-mariadb", "dbbarache", "barache", "barache");
-                this.script = new ScriptJDBC(this.laConnexion);
+                laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
+                this.script= new ScriptJDBC(laConnexion);
+    
             } catch (SQLException ex){
                 System.out.println("Erreur SQL : " + ex.getMessage());
             }
 
-        } catch(ClassNotFoundException ex){
-            System.out.println("Erreur de classe : " + ex.getMessage());
-        } 
+        
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("Erreur SQL : " + ex.getMessage());
+            
+        }
+
 
     }
 
