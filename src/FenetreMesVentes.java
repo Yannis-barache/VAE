@@ -122,7 +122,7 @@ public class FenetreMesVentes extends BorderPane {
                 Button edit = new Button("Modifier");
                 edit.setTooltip(saleToolTip);
                 edit.setEffect(ds);
-                edit.setOnAction((key) -> System.out.println("edit vente"));
+                edit.setOnAction((key) -> this.appli.fenetreEditionVente(getVente(saleToolTip.getText())));
                 edit.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 edit.setPadding(new Insets(10,30,10,30));
                 edit.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -173,5 +173,14 @@ public class FenetreMesVentes extends BorderPane {
 
             this.setCenter(emptyVentesContent);
         }
+    }
+
+    private Map<String,String> getVente(String id) {
+        for (Map<String,String> vente : this.ventes) {
+            if (vente.get("id").equals(id)) {
+                return vente;
+            }
+        }
+        return null;
     }
 }

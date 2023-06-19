@@ -61,6 +61,7 @@ public class ApplicationVAE extends Application{
         root.setTop(new Menu(this,1));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
         this.scene.setRoot(sc);   
     }
 
@@ -90,6 +91,17 @@ public class ApplicationVAE extends Application{
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMesVentes(this,ventes));
         root.setTop(new Menu(this,2));
+        root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
+        this.scene.setRoot(sc);   
+    }
+
+    public void fenetreEditionVente(Map<String,String> vente) {
+        BorderPane root = new BorderPane();
+        ScrollPane sc = new ScrollPane(root);
+        root.setCenter(new FenetreEditionVente(this,vente));
+        root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
