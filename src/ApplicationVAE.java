@@ -11,6 +11,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
@@ -49,6 +50,7 @@ public class ApplicationVAE extends Application{
         root.setTop(new Menu(this,0));
         root.setCenter(new FenetreAccueil(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
     }
 
@@ -58,7 +60,7 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreCreationVente(this));
         root.setTop(new Menu(this,1));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        // root.prefWidth(1920);
+        sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
     }
 
@@ -89,6 +91,7 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreMesVentes(this,ventes));
         root.setTop(new Menu(this,2));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
     }
 
@@ -98,6 +101,7 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreMesEncheres(this));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
     }
 
@@ -107,6 +111,7 @@ public class ApplicationVAE extends Application{
     public void fenetreMonProfil() {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
+        sc.setPrefWidth(1920);
         root.setCenter(new FenetreMonProfil(this));
         root.setTop(new Menu(this,4));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
