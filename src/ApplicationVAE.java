@@ -127,6 +127,7 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreMonProfil(this));
         root.setTop(new Menu(this,4));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
     }
 
