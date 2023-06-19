@@ -7,6 +7,13 @@ public class ScriptJDBC {
     }
 
 
+    /**
+     * Méthode qui permet de vérifier des identifiants de connexion d'un utilisateur
+     * @param pseudo Le pseudo de l'utilisateur
+     * @param motDePasse Le mot de passe de l'utilisateur
+     * @return true si l'utilisateur existe, false sinon
+     * @throws SQLException Si la requête SQL est incorrecte
+     */
     public boolean connexion(String pseudo, String motDePasse) throws SQLException{
         try{
             Statement s=laConnexion.createStatement();
