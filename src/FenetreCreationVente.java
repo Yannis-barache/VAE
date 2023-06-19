@@ -48,10 +48,12 @@ public class FenetreCreationVente extends GridPane {
          ds.setOffsetX(4.0f);
          ds.setColor(Color.web("lightgray"));
 
+        //Titre page
         Label title = new Label("Créer une vente");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         title.setTextFill(Color.web("black"));
 
+        //Titre vente
         VBox titleSaleContent = new VBox();
         Label titleSaleLabel = new Label("Titre");
         titleSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -65,7 +67,7 @@ public class FenetreCreationVente extends GridPane {
 
         titleSaleContent.getChildren().addAll(titleSaleLabel,titleSale);
 
-
+        //Description
         VBox descSaleContent = new VBox();
         Label descSaleLabel = new Label("Description");
         descSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -79,7 +81,7 @@ public class FenetreCreationVente extends GridPane {
         descSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         descSaleContent.getChildren().addAll(descSaleLabel,descSale);
 
-
+        //Ajout d'images
         VBox filesSaleContent = new VBox();
         // Label filesSaleLabel = new Label("Ajouter des images ");
         // filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -106,6 +108,7 @@ public class FenetreCreationVente extends GridPane {
 
         filesSaleContent.getChildren().addAll(filesSaleLabels,openButton);
 
+        //Catégorie
         VBox categorySaleContent = new VBox();
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -120,7 +123,7 @@ public class FenetreCreationVente extends GridPane {
 
         categorySaleContent.getChildren().addAll(categorySaleLabel,categorySaleCB);
 
-
+        //Prix de base
         VBox basePriceSaleContent = new VBox();
         Label basePriceSaleLabel = new Label("Prix de base");
         basePriceSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -134,7 +137,7 @@ public class FenetreCreationVente extends GridPane {
 
         basePriceSaleContent.getChildren().addAll(basePriceSaleLabel,basePriceSale);
 
-
+        //Prix minimum
         VBox minPriceSaleContent = new VBox();
         Label minPriceSaleLabel = new Label("Prix minimum");
         minPriceSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -148,7 +151,7 @@ public class FenetreCreationVente extends GridPane {
 
         minPriceSaleContent.getChildren().addAll(minPriceSaleLabel,minPriceSale);
 
-
+        //Date de début
         VBox startSaleContent = new VBox();
         Label startSaleLabel = new Label("Date de début");
         startSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -163,7 +166,7 @@ public class FenetreCreationVente extends GridPane {
 
         startSaleContent.getChildren().addAll(startSaleLabel,startSale);
 
-
+        //Date de fin
         VBox endSaleContent = new VBox();
         Label endSaleLabel = new Label("Date de fin");
         endSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
@@ -177,7 +180,6 @@ public class FenetreCreationVente extends GridPane {
         endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
         endSaleContent.getChildren().addAll(endSaleLabel,endSale);
-
 
         //Buttons
         VBox cancelContent = new VBox();
