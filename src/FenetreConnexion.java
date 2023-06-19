@@ -130,8 +130,9 @@ public class FenetreConnexion extends BorderPane {
 
         //Logo à droite
         VBox logoContent = new VBox();
-        // ImageView logo = new ImageView(new Image("./img/vae2.png"));
-        // logoContent.getChildren().addAll(logo);
+        ImageView logo = new ImageView(new Image("file:./img/vae2.png"));
+
+        logoContent.getChildren().addAll(logo);
         logoContent.setPadding(new Insets(400,100,0,100));
 
         this.setLeft(leftAside);
