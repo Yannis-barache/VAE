@@ -91,7 +91,7 @@ public class Menu extends BorderPane {
 
         //Paramètres / Profil
         HBox settingsContent = new HBox();
-        Button profil = new Button("Profil");
+        Button profil = new Button(this.appli.getUtilisateur().getPseudo());
 
         profil.setOnAction((key) -> this.appli.fenetreMonProfil());
         profil.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
