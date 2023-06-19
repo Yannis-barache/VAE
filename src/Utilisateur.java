@@ -156,4 +156,9 @@ public class Utilisateur {
     public void supprimerVente(Vente vente) {
         this.ventes.remove(vente);
     }
+
+    @Override
+    public String toString(){
+        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" "+getVentes()+" "+isActif()+" "+isAdmin();
+    }
 }

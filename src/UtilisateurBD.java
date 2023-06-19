@@ -65,11 +65,11 @@ public class UtilisateurBD {
         else{
             actif="N";
         }
-        ps.setString(2, u.getPseudo());
-        ps.setString(3, u.getMail());
-        ps.setString(4, u.getMdp());
-        ps.setString(5, actif);
-        ps.setInt(6, role);
+        ps.setString(1, u.getPseudo());
+        ps.setString(2, u.getMail());
+        ps.setString(3, u.getMdp());
+        ps.setString(4, actif);
+        ps.setInt(5, role);
         ps.executeUpdate();
     }
 
