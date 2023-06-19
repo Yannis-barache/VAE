@@ -15,20 +15,41 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
-
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.*;
 
 public class ApplicationVAE extends Application{
 
     private Scene scene;
+    private ScrollPane sc;
+    private ConnexionMySQL laConnexion;
+    private ScriptJDBC script;
 
     @Override
     public void init() {
+        try{
+            ConnexionMySQL laConnexion= new ConnexionMySQL();
+            try{
+                laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
+                this.script= new ScriptJDBC(laConnexion);
+    
+            } catch (SQLException ex){
+                System.out.println("Erreur SQL : " + ex.getMessage());
+            }
+
+        
+        }
+        catch(ClassNotFoundException ex){
+            System.out.println("Erreur SQL : " + ex.getMessage());
+            
+        }
+
 
     }
 
@@ -131,14 +152,13 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void checkLogin(String pseudo,String pw) {
-        System.out.println(pseudo);
-        System.out.println(pw);
-        if (pseudo.length()>0 && pw.length()>0) {fenetreAccueil();}
+    public ConnexionMySQL getConnexionMySQL() {
+        return this.laConnexion;
     }
 
-
-
+    public ScriptJDBC getScriptJDBC() {
+        return this.script;
+    }
 
 
     @Override

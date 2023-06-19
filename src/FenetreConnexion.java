@@ -29,12 +29,17 @@ public class FenetreConnexion extends BorderPane {
     
     private ApplicationVAE appli;
     private Label alertLogin;
+    private TextField pseudoEntry;
+    private PasswordField passwordEntry;
 
     public FenetreConnexion(ApplicationVAE appli) {
         super();
         this.appli = appli;
         this.alertLogin = new Label();
+        this.passwordEntry = new PasswordField();
+        this.pseudoEntry = new TextField();
         this.content();
+        
     }
 
     private void content() {
@@ -71,7 +76,6 @@ public class FenetreConnexion extends BorderPane {
         Label pseudoLabel = new Label("Identifiant"); 
         pseudoLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         pseudoLabel.setTextFill(Color.web("#5D48D7"));
-        TextField pseudoEntry = new TextField();
         pseudoEntry.setEffect(ds);
         pseudoEntry.setPrefHeight(40);
         pseudoEntry.setPrefWidth(350);
@@ -85,7 +89,6 @@ public class FenetreConnexion extends BorderPane {
         Label passwordLabel = new Label("Mot de passe");
         passwordLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel.setTextFill(Color.web("#5D48D7"));
-        PasswordField passwordEntry = new PasswordField();
         passwordEntry.setEffect(ds);
         passwordEntry.setPrefHeight(40);
         passwordEntry.setPrefWidth(350);
@@ -103,7 +106,7 @@ public class FenetreConnexion extends BorderPane {
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
         login.setEffect(ds);
-        login.setOnAction((key) -> checkLogin(pseudoEntry.getText(),passwordEntry.getText())); //verifier les entries
+        login.setOnAction(new ControleurConnexion(appli, this)); //verifier les entries
         login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         login.setPadding(new Insets(10,30,10,30));
         login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -140,12 +143,19 @@ public class FenetreConnexion extends BorderPane {
         this.setRight(logoContent);
     }
 
-    private void checkLogin(String pseudo, String password) {
-        if (pseudo.length()>0 && password.length()>0) {
-            this.appli.fenetreAccueil();
-        } else {
-            this.alertLogin.setText("Une erreur s'est produite, veuillez réessayer");
-        }
+    public void setAlertLogin(String message) {
+        this.alertLogin.setText(message);
     }
+
+    public TextField getPseudoEntry() {
+        return this.pseudoEntry;
+    }
+
+    public PasswordField getPasswordEntry() {
+        return this.passwordEntry;
+    }
+
+
+    
 
 }
