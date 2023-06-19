@@ -128,7 +128,7 @@ public class FenetreMesEncheres extends BorderPane {
                 bid.setTooltip(bidToolTip);
                 Tooltip.uninstall(bid,bidToolTip);
                 bid.setEffect(ds);
-                bid.setOnAction((key) -> this.appli.fenetreEnchere(new HashMap<>()));
+                bid.setOnAction((key) -> this.appli.fenetreEnchere(getEnchere(bidToolTip.getText())));
                 bid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 bid.setPadding(new Insets(10,30,10,30));
                 bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -176,14 +176,14 @@ public class FenetreMesEncheres extends BorderPane {
 
             this.setCenter(emptyBidsContent);
         }
+    }
 
-        // private Map<String,String> getEnchere(String id) {
-        //     for (Map<String,String> bid : this.encheres) {
-        //         if (bid.get("id").equals(id)) {
-        //             return bid;
-        //         }
-        //     }
-        //     return null;
-        // }
+    private Map<String,String> getEnchere(String id) {
+        for (Map<String,String> enchere : this.encheres) {
+            if (enchere.get("id").equals(id)) {
+                return enchere;
+            }
+        }
+        return null;
     }
 }
