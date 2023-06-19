@@ -3,6 +3,7 @@ import javafx.beans.property.SetProperty;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.collections.FXCollections;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -97,7 +98,7 @@ public class FenetreEditionVente extends GridPane {
         newFilesContent.getChildren().addAll(newFilesSaleLabels,openButton);
 
         //Catégorie
-        VBox newCategorySaleContent = new VBox();
+        VBox newCategoryContent = new VBox();
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
@@ -109,9 +110,10 @@ public class FenetreEditionVente extends GridPane {
         categorySaleCB.setStyle("-fx-control-inner-background: #F8F8F8");
         categorySaleCB.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        categoryContent.getChildren().addAll(categorySaleLabel,categorySaleCB);
+        newCategoryContent.getChildren().addAll(categorySaleLabel,categorySaleCB);
 
-
+        //
+        
 
         
 
