@@ -103,7 +103,7 @@ public class FenetreConnexion extends BorderPane {
         VBox loginContent = new VBox();
         Button login = new Button("Se connecter");
         login.setEffect(ds);
-        login.setOnAction((key) -> checkLogin(pseudoEntry.getText(),passwordEntry.getText())); //verifier les entries
+        login.setOnAction((key) -> this.appli.checkLogin(pseudoEntry.getText(),passwordEntry.getText())); //verifier les entries
         login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         login.setPadding(new Insets(10,30,10,30));
         login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));

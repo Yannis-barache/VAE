@@ -19,15 +19,30 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ApplicationVAE extends Application{
 
     private Scene scene;
     private ScrollPane sc;
+    private ConnexionMySQL laConnexion;
+    private ScriptJDBC script;
 
     @Override
     public void init() {
+        try{
+            this.laConnexion=new ConnexionMySQL();
+            try{
+                this.laConnexion.connecter("servinfo-mariadb", "dbbarache", "barache", "barache");
+                this.script = new ScriptJDBC(this.laConnexion);
+            } catch (SQLException ex){
+                System.out.println("Erreur SQL : " + ex.getMessage());
+            }
+
+        } catch(ClassNotFoundException ex){
+            System.out.println("Erreur de classe : " + ex.getMessage());
+        } 
 
     }
 
@@ -114,9 +129,16 @@ public class ApplicationVAE extends Application{
     }
 
     public void checkLogin(String pseudo,String pw) {
-        System.out.println(pseudo);
-        System.out.println(pw);
-        if (pseudo.length()>0 && pw.length()>0) {fenetreAccueil();}
+        try{
+            boolean connexion=script.connexion(pseudo, pw);
+            System.out.println(connexion);
+            if (script.connexion(pseudo, pw)){
+                fenetreAccueil();
+            }
+        } catch(SQLException ex){
+
+        }
+
     }
 
 
