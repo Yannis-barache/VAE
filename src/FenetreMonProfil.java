@@ -21,6 +21,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.paint.CycleMethod;
 
 import java.util.List;
+
+import javax.swing.plaf.metal.MetalBorders.TextFieldBorder;
+
 import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
@@ -28,6 +31,13 @@ import java.util.ArrayList;
 public class FenetreMonProfil extends GridPane {
     
     private ApplicationVAE appli;
+
+    private TextField tfContentPseudo,tfContentMail,tfContentMDP;
+
+    private Label tfContentNDV;
+    private boolean modification = false;
+
+    private Button button;
 
     public FenetreMonProfil(ApplicationVAE appli) {
         super();
@@ -39,7 +49,7 @@ public class FenetreMonProfil extends GridPane {
     private void content() {
         
         GridPane gridPaneProfil = new GridPane();
-        gridPaneProfil.setAlignment(Pos.CENTER);    
+        gridPaneProfil.setAlignment(Pos.TOP_CENTER);    
         gridPaneProfil.setHgap(50);
         gridPaneProfil.setVgap(50);
         gridPaneProfil.setStyle("-fx-background-color: white");
@@ -59,26 +69,32 @@ public class FenetreMonProfil extends GridPane {
         Label labelNDV = new Label("Nombre de vente : ");
         labelNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         
-        Label labelContentPseudo = new Label("MartinTermine");
-        labelContentPseudo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-        labelContentPseudo.setTextFill(Color.web("#5D48D7"));
+        this.tfContentPseudo = new TextField(this.appli.getUtilisateur().getPseudo());
+        this.tfContentPseudo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        this.tfContentPseudo.setStyle("-fx-text-fill: #5D48D7;");
+        this.tfContentPseudo.setEditable(false);
  
-        Label labelContentMail = new Label("marin.tremine@gmail.com");
-        labelContentMail.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-        labelContentMail.setTextFill(Color.web("#5D48D7"));
+        this.tfContentMail = new TextField(this.appli.getUtilisateur().getMail());
+        this.tfContentMail.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        this.tfContentMail.setStyle("-fx-text-fill: #5D48D7;");
+        this.tfContentMail.setEditable(false);
 
-        Label labelContentMDP = new Label("marin1234");
-        labelContentMDP.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-        labelContentMDP.setTextFill(Color.web("#5D48D7"));
+        this.tfContentMDP = new TextField(this.appli.getUtilisateur().getMdp());
+        this.tfContentMDP.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        this.tfContentMDP.setStyle("-fx-text-fill: #5D48D7;");
+        this.tfContentMDP.setEditable(false);
+
+        this.tfContentNDV = new Label(""+this.appli.getUtilisateur().getVentes().size());
+        this.tfContentNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        this.tfContentNDV.setStyle("-fx-text-fill: #5D48D7;");
+
         
-        Label labelContentNDV = new Label("46");
-        labelContentNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
-        labelContentNDV.setTextFill(Color.web("#5D48D7"));
+        this.button = new Button("Modifier");
+        this.button.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.button.setPadding(new Insets(10,30,10,30));
+        this.button.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.button.setOnAction(new ControleurBouton(appli, this));
 
-        Button login = new Button("Modifier");
-        login.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        login.setPadding(new Insets(10,30,10,30));
-        login.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
 
 
         gridPaneProfil.add(labelTitre,0,0);
@@ -86,23 +102,43 @@ public class FenetreMonProfil extends GridPane {
         gridPaneProfil.add(labelMail,0,3);
         gridPaneProfil.add(labelMDP,0,4);
         gridPaneProfil.add(labelNDV,0,5);
-        gridPaneProfil.add(labelContentPseudo,1,2);
-        gridPaneProfil.add(labelContentMail,1,3);
-        gridPaneProfil.add(labelContentMDP,1,4);
-        gridPaneProfil.add(labelContentNDV,1,5);
+        gridPaneProfil.add(tfContentPseudo,1,2);
+        gridPaneProfil.add(tfContentMail,1,3);
+        gridPaneProfil.add(tfContentMDP,1,4);
+        gridPaneProfil.add(tfContentNDV,1,5);
 
 
-        VBox container = new VBox(gridPaneProfil, login);
+        VBox container = new VBox(gridPaneProfil, button);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(150); 
 
         Pane centerPane = new Pane(container);
         centerPane.setPrefSize(400, 300);
 
-        this.setAlignment(Pos.CENTER); 
+        this.setAlignment(Pos.TOP_CENTER);
+        this.setPadding(new Insets(50)); 
         this.getChildren().add(centerPane);
         
 
     }
     
+
+    public Button getButton(){
+        return this.button;
+    }
+
+    private void invBool(){
+        this.modification=!this.modification;
+    }
+
+    public void modeTF(){
+        this.invBool();
+        this.tfContentMDP.setEditable(modification);
+        this.tfContentMail.setEditable(modification);
+        this.tfContentPseudo.setEditable(modification);
+    }
+
+    public boolean getModification(){
+        return this.modification;
+    }
 }

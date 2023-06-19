@@ -33,6 +33,8 @@ public class ApplicationVAE extends Application{
     private ScrollPane sc;
     private ConnexionMySQL laConnexion;
     private ScriptJDBC script;
+    private UtilisateurBD utilisateurBD;
+    private ObjetBD objetBD;
 
     @Override
     public void init() {
@@ -41,6 +43,8 @@ public class ApplicationVAE extends Application{
             try{
                 laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
                 this.script= new ScriptJDBC(laConnexion);
+                this.objetBD=new ObjetBD(laConnexion);
+                this.utilisateurBD= new UtilisateurBD(laConnexion);
     
             } catch (SQLException ex){
                 System.out.println("Erreur SQL : " + ex.getMessage());
@@ -52,6 +56,8 @@ public class ApplicationVAE extends Application{
             System.out.println("Erreur SQL : " + ex.getMessage());
             
         }
+        
+
 
 
     }
@@ -200,6 +206,14 @@ public class ApplicationVAE extends Application{
 
     public Utilisateur getUtilisateur() {
         return this.script.getUtilisateur();
+    }
+
+    public UtilisateurBD getUtilisateurBD(){
+        return this.utilisateurBD;
+    }
+
+    public ObjetBD getObjetBD(){
+        return this.objetBD;
     }
 
 

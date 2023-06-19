@@ -4,7 +4,7 @@ public class Vente {
     private int prixMin;
     private String debutVente;
     private String finVente;
-    private String status;
+    private Statut statut;
     private Objet objet;
     /**
      * Constructeur de la classe Vente.
@@ -14,16 +14,16 @@ public class Vente {
      * @param prixMin     Le prix minimum de la vente.
      * @param debutVente  La date de début de la vente.
      * @param finVente    La date de fin de la vente.
-     * @param status      Le statut de la vente.
+     * @param statut      Le statut de la vente.
      * @param objet       L'objet mis en vente.
      */
-    public Vente(int identifiant, int prixBase, int prixMin, String debutVente, String finVente, String status, Objet objet) {
+    public Vente(int identifiant, int prixBase, int prixMin, String debutVente, String finVente, Statut statut, Objet objet) {
         this.identifiant = identifiant;
         this.prixBase = prixBase;
         this.prixMin = prixMin;
         this.debutVente = debutVente;
         this.finVente = finVente;
-        this.status = status;
+        this.statut = statut;
         this.objet = objet;
     }
 
@@ -122,8 +122,8 @@ public class Vente {
      *
      * @return Le statut de la vente.
      */
-    public String getStatus() {
-        return status;
+    public Statut getStatus() {
+        return statut;
     }
 
     /**
@@ -131,8 +131,8 @@ public class Vente {
      *
      * @param status Le nouveau statut de la vente.
      */
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatut(Statut statut) {
+        this.statut = statut;
     }
 
     /**

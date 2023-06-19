@@ -17,8 +17,6 @@ public class ControleurConnexion implements EventHandler<ActionEvent>{
     public void handle(ActionEvent actionEvent) {
         String pseudo=fenetreConnexion.getPseudoEntry().getText();
         String motDePasse=fenetreConnexion.getPasswordEntry().getText();
-        ConnexionMySQL connexionMySQL=appli.getConnexionMySQL();
-
         try {
            
             if(this.appli.getScriptJDBC().connexion(pseudo, motDePasse)){
