@@ -58,8 +58,9 @@ public class FenetreEnchere extends GridPane{
         Label bidTitle = new Label(enchere.get("titre"));
         bidTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         bidTitle.setTextFill(Color.web("#5D48D7"));
-        Text bidDesc = new Text("salut à tous \n c'est \n Yannis \n Baaaaaaaaaaarache \n ça farte ou quoi ?");
+        Text bidDesc = new Text("Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin ");
         bidDesc.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        bidDesc.setWrappingWidth(600);
         // bidDesc.setTextFill(Color.web("black"));
 
         titleDesc.getChildren().addAll(bidTitle,bidDesc);
@@ -131,7 +132,7 @@ public class FenetreEnchere extends GridPane{
         //Placements dans les informations
 
         bidInformations.setHgap(30);
-        bidInformations.setVgap(30);
+        bidInformations.setVgap(60);
         bidInformations.add(actualBidLabel,0,0,1,1);
         bidInformations.add(actualBid,1,0,1,1);
         bidInformations.add(ourBidLabel,0,1,1,1);
