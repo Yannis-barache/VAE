@@ -36,10 +36,9 @@ public class FenetreConnexion extends BorderPane {
         super();
         this.appli = appli;
         this.alertLogin = new Label();
-        this.passwordEntry = new PasswordField();
         this.pseudoEntry = new TextField();
+        this.passwordEntry = new PasswordField();
         this.content();
-        
     }
 
     private void content() {
@@ -127,6 +126,8 @@ public class FenetreConnexion extends BorderPane {
         registerContent.getChildren().addAll(registerLabel,register);
         registerContent.setAlignment(Pos.TOP_RIGHT);
 
+        // Permet de faire espace pour s'autentifier
+        this.passwordEntry.setOnKeyReleased(new ControleurConnecKey(this.appli,this));
 
         entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent);
         entries.setPadding(new Insets(300,50,0,300));
@@ -143,19 +144,18 @@ public class FenetreConnexion extends BorderPane {
         this.setRight(logoContent);
     }
 
-    public void setAlertLogin(String message) {
-        this.alertLogin.setText(message);
+    public void setAlertLogin(String alertLogin) {
+        this.alertLogin.setText(alertLogin);
     }
 
     public TextField getPseudoEntry() {
-        return this.pseudoEntry;
+        return pseudoEntry;
     }
 
     public PasswordField getPasswordEntry() {
-        return this.passwordEntry;
+        return passwordEntry;
     }
 
 
-    
 
 }
