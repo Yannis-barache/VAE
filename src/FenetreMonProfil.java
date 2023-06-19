@@ -39,7 +39,7 @@ public class FenetreMonProfil extends GridPane {
     private void content() {
         
         GridPane gridPaneProfil = new GridPane();
-        gridPaneProfil.setAlignment(Pos.CENTER);    
+        gridPaneProfil.setAlignment(Pos.TOP_CENTER);    
         gridPaneProfil.setHgap(50);
         gridPaneProfil.setVgap(50);
         gridPaneProfil.setStyle("-fx-background-color: white");
@@ -59,19 +59,19 @@ public class FenetreMonProfil extends GridPane {
         Label labelNDV = new Label("Nombre de vente : ");
         labelNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         
-        Label labelContentPseudo = new Label("MartinTermine");
+        Label labelContentPseudo = new Label(this.appli.getUtilisateur().getPseudo());
         labelContentPseudo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         labelContentPseudo.setTextFill(Color.web("#5D48D7"));
  
-        Label labelContentMail = new Label("marin.tremine@gmail.com");
+        Label labelContentMail = new Label(this.appli.getUtilisateur().getMail());
         labelContentMail.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         labelContentMail.setTextFill(Color.web("#5D48D7"));
 
-        Label labelContentMDP = new Label("marin1234");
+        Label labelContentMDP = new Label(this.appli.getUtilisateur().getMdp());
         labelContentMDP.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         labelContentMDP.setTextFill(Color.web("#5D48D7"));
         
-        Label labelContentNDV = new Label("46");
+        Label labelContentNDV = new Label(""+this.appli.getUtilisateur().getVentes().size());
         labelContentNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         labelContentNDV.setTextFill(Color.web("#5D48D7"));
 
@@ -99,7 +99,8 @@ public class FenetreMonProfil extends GridPane {
         Pane centerPane = new Pane(container);
         centerPane.setPrefSize(400, 300);
 
-        this.setAlignment(Pos.CENTER); 
+        this.setAlignment(Pos.TOP_CENTER);
+        this.setPadding(new Insets(50)); 
         this.getChildren().add(centerPane);
         
 
