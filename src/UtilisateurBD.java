@@ -13,7 +13,7 @@ public class UtilisateurBD {
 
     public int numUtilisateurMax()throws SQLException{
         st= this.connexMySQL.createStatement();
-        // execute la requte sql
+        // execute la requete sql
         ResultSet rs = st.executeQuery("select IFNULL(max(idUt),0) leMax from UTILISATEUR");
         rs.next();
         int res  = rs.getInt(1);
