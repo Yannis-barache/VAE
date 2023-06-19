@@ -34,7 +34,6 @@ public class FenetreAccueil extends BorderPane {
         super();
         this.appli = appli;
 
-        System.out.println(this.getWidth());
         this.content();
     }
 
