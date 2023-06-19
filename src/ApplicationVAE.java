@@ -122,9 +122,10 @@ public class ApplicationVAE extends Application{
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreEditionVente(this,vente));
-        root.setTop(new Menu(this,3));
+        root.setTop(new Menu(this,2));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
         this.scene.setRoot(sc);   
     }
 
@@ -135,6 +136,7 @@ public class ApplicationVAE extends Application{
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
         this.scene.setRoot(sc);   
     }
 
@@ -149,6 +151,7 @@ public class ApplicationVAE extends Application{
         root.setTop(new Menu(this,4));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
         this.scene.setRoot(sc);   
     }
 
