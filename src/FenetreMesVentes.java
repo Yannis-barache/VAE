@@ -78,7 +78,7 @@ public class FenetreMesVentes extends BorderPane {
                 Label venteTitle = new Label(vente.get("titre"));
                 venteTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 venteTitle.setTextFill(Color.web("#5D48D7"));     
-                ImageView ventePic = new ImageView(new Image("./img/vae.png"));
+                ImageView ventePic = new ImageView(new Image("file:./img/vae2.png"));
                 ventePic.setFitWidth(400);
                 ventePic.setFitHeight(400);
                 ventePic.setPreserveRatio(true);    

@@ -34,6 +34,7 @@ public class FenetreAccueil extends BorderPane {
         super();
         this.appli = appli;
 
+        System.out.println(this.getWidth());
         this.content();
     }
 
@@ -90,7 +91,6 @@ public class FenetreAccueil extends BorderPane {
         discoverLabel.setAlignment(Pos.TOP_LEFT);
         VBox discoverItemsContainer = new VBox();
         TilePane discoverItems = new TilePane();
-        discoverItems.setMaxWidth(1600);
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
         for (int i=0; i<7;++i) {
@@ -112,5 +112,4 @@ public class FenetreAccueil extends BorderPane {
         this.setTop(searchContent);
         this.setCenter(discoverContent);
     }
-
 }

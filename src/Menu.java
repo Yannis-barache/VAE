@@ -42,7 +42,7 @@ public class Menu extends BorderPane {
 
         //Logo
         VBox logoContent = new VBox();
-        ImageView logo = new ImageView(new Image("./img/vae.png"));
+        ImageView logo = new ImageView(new Image("file:./img/vae.png"));
         logo.setFitWidth(120);
         logo.setFitHeight(120);
         logo.setPreserveRatio(true);

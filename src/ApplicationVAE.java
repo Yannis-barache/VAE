@@ -10,6 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
@@ -49,7 +50,6 @@ public class ApplicationVAE extends Application{
         root.setTop(new Menu(this,0));
         root.setCenter(new FenetreAccueil(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-         // this.scene = new Scene(new BorderPane(sc,null,null,null,null),400,400);
         this.scene.setRoot(sc);   
     }
 
@@ -59,6 +59,7 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreCreationVente(this));
         root.setTop(new Menu(this,1));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        root.prefWidth(1920);
         this.scene.setRoot(sc);   
     }
 
@@ -127,7 +128,8 @@ public class ApplicationVAE extends Application{
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        this.scene = new Scene(root,1200,600); //1200 600
+        this.scene = new Scene(root); //1200 600
+        // stage.setMaximized(true);
         stage.setScene(this.scene);
         stage.setTitle("VAE - Groupe C");
         //Vue de base
