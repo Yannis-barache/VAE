@@ -28,11 +28,18 @@ import java.util.ArrayList;
 public class FenetreInscription extends BorderPane {
     
     private ApplicationVAE appli;
+    private TextField pseudoEntry,mailEntry;
+    private PasswordField passwordEntry1,passwordEntry2;
+    private Label alertLogin;
+
+   
+
+
 
     public FenetreInscription(ApplicationVAE appli) {
         super();
         this.appli = appli;
-
+        this.alertLogin = new Label();
         this.content();
     }
 
@@ -70,7 +77,7 @@ public class FenetreInscription extends BorderPane {
         Label pseudoLabel = new Label("Pseudo");
         pseudoLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         pseudoLabel.setTextFill(Color.web("#5D48D7"));
-        TextField pseudoEntry = new TextField();
+        this.pseudoEntry = new TextField();
         pseudoEntry.setEffect(ds);
         pseudoEntry.setPrefHeight(40);
         pseudoEntry.setPrefWidth(350);
@@ -84,7 +91,7 @@ public class FenetreInscription extends BorderPane {
         Label mailLabel = new Label("Mail");
         mailLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         mailLabel.setTextFill(Color.web("#5D48D7"));
-        TextField mailEntry = new TextField();
+        this.mailEntry=new TextField();
         mailEntry.setEffect(ds);
         mailEntry.setPrefHeight(40);
         mailEntry.setPrefWidth(350);
@@ -98,7 +105,7 @@ public class FenetreInscription extends BorderPane {
         Label passwordLabel1 = new Label("Mot de passe");
         passwordLabel1.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel1.setTextFill(Color.web("#5D48D7"));
-        PasswordField passwordEntry1 = new PasswordField();
+        this.passwordEntry1 = new PasswordField();
         passwordEntry1.setEffect(ds);
         passwordEntry1.setPrefHeight(40);
         passwordEntry1.setPrefWidth(350);
@@ -112,7 +119,7 @@ public class FenetreInscription extends BorderPane {
         Label passwordLabel2 = new Label("Confirmer");
         passwordLabel2.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         passwordLabel2.setTextFill(Color.web("#5D48D7"));
-        PasswordField passwordEntry2 = new PasswordField();
+        this.passwordEntry2 = new PasswordField();
         passwordEntry2.setEffect(ds);
         passwordEntry2.setPrefHeight(40);
         passwordEntry2.setPrefWidth(350);
@@ -120,6 +127,7 @@ public class FenetreInscription extends BorderPane {
         passwordEntry2.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         passwordContent2.setPadding(new Insets(30,0,10,0));
         passwordContent2.getChildren().addAll(passwordLabel2,passwordEntry2);
+ 
 
         //Buttons register cancel
         BorderPane buttons = new BorderPane();
@@ -133,7 +141,7 @@ public class FenetreInscription extends BorderPane {
 
         Button register = new Button("Créer un compte");
         register.setEffect(ds);
-        register.setOnAction((key) -> this.appli.fenetreConnexion()); //ICI AJOUTER LES VALEURS A LA BASE DE DONNEE JE SAIS PAS COMMENT FAIRE
+        register.setOnAction(new ControleurInscription(appli, this)); //ICI AJOUTER LES VALEURS A LA BASE DE DONNEE JE SAIS PAS COMMENT FAIRE
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         register.setPadding(new Insets(10,30,10,30));
         register.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -142,7 +150,7 @@ public class FenetreInscription extends BorderPane {
         buttons.setLeft(cancel);
         buttons.setRight(register);
 
-        entries.getChildren().addAll(title,pseudoContent,mailContent,passwordContent1,passwordContent2,buttons);
+        entries.getChildren().addAll(title,pseudoContent,mailContent,passwordContent1,passwordContent2,this.alertLogin,buttons);
         entries.setPadding(new Insets(150,0,0,300));
 
 
@@ -156,5 +164,27 @@ public class FenetreInscription extends BorderPane {
         this.setLeft(leftAside);
         this.setCenter(entries);
         this.setRight(logoContent);
+
+        
     }
+    public TextField getPseudoField(){
+        return this.pseudoEntry;
+    }
+
+    public TextField getMailField(){
+        return this.mailEntry;
+    }
+
+    public PasswordField getPWField1(){
+        return this.passwordEntry1;
+    }
+
+    public PasswordField getPWField2(){
+        return this.passwordEntry2;
+    }
+
+    public void setAlertLogin(String message){
+        this.alertLogin.setText(message);
+    }
+
 }

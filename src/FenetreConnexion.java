@@ -126,7 +126,7 @@ public class FenetreConnexion extends BorderPane {
         registerContent.getChildren().addAll(registerLabel,register);
         registerContent.setAlignment(Pos.TOP_RIGHT);
 
-        // Permet de faire espace pour s'autentifier
+        // Permet de faire entrée pour s'autentifier
         this.passwordEntry.setOnKeyReleased(new ControleurConnecKey(this.appli,this));
 
         entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent);
