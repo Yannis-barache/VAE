@@ -32,11 +32,13 @@ import java.util.ArrayList;
 public class FenetreCreationVente extends GridPane {
     
     private ApplicationVAE appli;
+    private TextField titleSale,basePriceSale,minPriceSale;
+    private TextArea descSale;
+    private DatePicker startSale,endSale;
 
     public FenetreCreationVente(ApplicationVAE appli) {
         super();
         this.appli = appli;
-
         this.content();
     }
 
@@ -58,10 +60,11 @@ public class FenetreCreationVente extends GridPane {
         Label titleSaleLabel = new Label("Titre");
         titleSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         titleSaleLabel.setTextFill(Color.web("#5D48D7"));
-        TextField titleSale = new TextField();
+        titleSale= new TextField();
         titleSale.setEffect(ds);
         titleSale.setPrefHeight(40);
         titleSale.setPrefWidth(350);
+        titleSale.setPromptText("Insérer le titre");
         titleSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         titleSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
@@ -72,7 +75,8 @@ public class FenetreCreationVente extends GridPane {
         Label descSaleLabel = new Label("Description");
         descSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         descSaleLabel.setTextFill(Color.web("#5D48D7"));
-        TextArea descSale = new TextArea();
+        descSale = new TextArea();
+        descSale.setPromptText("Insérez une description de l'objet");
         descSale.setEffect(ds);
         descSale.setPrefHeight(170);
         descSale.setPrefWidth(350);
@@ -128,7 +132,8 @@ public class FenetreCreationVente extends GridPane {
         Label basePriceSaleLabel = new Label("Prix de base");
         basePriceSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         basePriceSaleLabel.setTextFill(Color.web("#5D48D7"));
-        TextField basePriceSale = new TextField();
+        basePriceSale = new TextField();
+        basePriceSale.setPromptText("Insérez le prix de base");
         basePriceSale.setEffect(ds);
         basePriceSale.setPrefHeight(40);
         basePriceSale.setPrefWidth(350);
@@ -142,7 +147,8 @@ public class FenetreCreationVente extends GridPane {
         Label minPriceSaleLabel = new Label("Prix minimum");
         minPriceSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         minPriceSaleLabel.setTextFill(Color.web("#5D48D7"));
-        TextField minPriceSale = new TextField();
+        minPriceSale = new TextField();
+        minPriceSale.setPromptText("Insérez le prix minimum");
         minPriceSale.setEffect(ds);
         minPriceSale.setPrefHeight(40);
         minPriceSale.setPrefWidth(350);
@@ -156,7 +162,8 @@ public class FenetreCreationVente extends GridPane {
         Label startSaleLabel = new Label("Date de début");
         startSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         startSaleLabel.setTextFill(Color.web("#5D48D7"));
-        DatePicker startSale = new DatePicker();
+        startSale = new DatePicker();
+        startSale.setPromptText("Choisissez la date du début");
         startSale.setEffect(ds);
         startSale.setPrefHeight(50);
         startSale.setPrefWidth(350);
@@ -171,7 +178,8 @@ public class FenetreCreationVente extends GridPane {
         Label endSaleLabel = new Label("Date de fin");
         endSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         endSaleLabel.setTextFill(Color.web("#5D48D7"));
-        DatePicker endSale = new DatePicker();
+        endSale = new DatePicker();
+        endSale.setPromptText("Choisissez la date de fin");
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
