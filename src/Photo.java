@@ -1,7 +1,9 @@
+import java.sql.Blob;
+
 public class Photo {
     private int identifiant;
     private String titre;
-    private String img;
+    private Blob img;
 
     /**
      * Constructeur de la classe Photo.
@@ -10,7 +12,7 @@ public class Photo {
      * @param titre       Le titre de la photo.
      * @param img         Le chemin de l'image de la photo.
      */
-    public Photo(int identifiant, String titre, String img) {
+    public Photo(int identifiant, String titre, Blob img) {
         this.identifiant = identifiant;
         this.titre = titre;
         this.img = img;
@@ -48,7 +50,7 @@ public class Photo {
      *
      * @return Le chemin de l'image de la photo.
      */
-    public String getImg() {
+    public Blob getImg() {
         return img;
     }
 
@@ -57,7 +59,7 @@ public class Photo {
      *
      * @param img Le nouveau chemin de l'image de la photo.
      */
-    public void setImg(String img) {
+    public void setImg(Blob img) {
         this.img = img;
     }
 }
