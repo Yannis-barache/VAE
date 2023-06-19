@@ -32,9 +32,10 @@ public class FenetreMonProfil extends GridPane {
     
     private ApplicationVAE appli;
 
-    private TextField tfContentPseudo,tfContentMail,tfContentMDP,tfContentNDV;
+    private TextField tfContentPseudo,tfContentMail,tfContentMDP;
 
-    private boolean modification = true;
+    private Label tfContentNDV;
+    private boolean modification = false;
 
     private Button button;
 
@@ -71,28 +72,28 @@ public class FenetreMonProfil extends GridPane {
         this.tfContentPseudo = new TextField(this.appli.getUtilisateur().getPseudo());
         this.tfContentPseudo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentPseudo.setStyle("-fx-text-fill: #5D48D7;");
-        this.tfContentPseudo.setEditable(modification);
+        this.tfContentPseudo.setEditable(false);
  
         this.tfContentMail = new TextField(this.appli.getUtilisateur().getMail());
         this.tfContentMail.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentMail.setStyle("-fx-text-fill: #5D48D7;");
-        this.tfContentMail.setEditable(modification);
+        this.tfContentMail.setEditable(false);
 
         this.tfContentMDP = new TextField(this.appli.getUtilisateur().getMdp());
         this.tfContentMDP.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentMDP.setStyle("-fx-text-fill: #5D48D7;");
-        this.tfContentMDP.setEditable(modification);
+        this.tfContentMDP.setEditable(false);
 
-        this.tfContentNDV = new TextField(""+this.appli.getUtilisateur().getVentes().size());
+        this.tfContentNDV = new Label(""+this.appli.getUtilisateur().getVentes().size());
         this.tfContentNDV.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentNDV.setStyle("-fx-text-fill: #5D48D7;");
-        this.tfContentNDV.setEditable(modification);
 
         
         this.button = new Button("Modifier");
         this.button.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         this.button.setPadding(new Insets(10,30,10,30));
         this.button.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.button.setOnAction(new ControleurBouton(appli, this));
 
 
 
@@ -107,7 +108,7 @@ public class FenetreMonProfil extends GridPane {
         gridPaneProfil.add(tfContentNDV,1,5);
 
 
-        VBox container = new VBox(gridPaneProfil, login);
+        VBox container = new VBox(gridPaneProfil, button);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(150); 
 
@@ -121,4 +122,23 @@ public class FenetreMonProfil extends GridPane {
 
     }
     
+
+    public Button getButton(){
+        return this.button;
+    }
+
+    private void invBool(){
+        this.modification=!this.modification;
+    }
+
+    public void modeTF(){
+        this.invBool();
+        this.tfContentMDP.setEditable(modification);
+        this.tfContentMail.setEditable(modification);
+        this.tfContentPseudo.setEditable(modification);
+    }
+
+    public boolean getModification(){
+        return this.modification;
+    }
 }
