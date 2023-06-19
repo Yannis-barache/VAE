@@ -168,10 +168,6 @@ public class FenetreEditionVente extends GridPane {
         sendContent.getChildren().addAll(send,labelNote);
         sendContent.setAlignment(Pos.TOP_RIGHT);
 
-        //Label de sauvegarde
-        
-
-
         //Ajout du titre
         this.setHgap(100);
         this.setVgap(50);
