@@ -14,7 +14,7 @@ public class ExecutableTest{
                 System.out.println("-------------------------------------------- \n" + "\n");
                 res=test.venteUtilisateur(707);
                 System.out.println(res);
-                boolean connecter= test2.connexion("ddzedzed","ezdezfdze");
+                boolean connecter= test2.connexion("adm1","adm1");
                 System.out.println(connecter);
                 laConnexion.close();
     
