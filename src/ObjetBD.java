@@ -41,7 +41,7 @@ public class ObjetBD {
 
     public void modifierObjet( Objet o)throws SQLException{
         // UPDATE table SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3' WHERE condition
-        PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE OBJET SET nomOb = ?,descriptionOb = ?,idCat = ?");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE OBJET SET nomOb = ?,descriptionOb = ?,idCat = ? where "+o.getIdentifiant()+"=idOb");
         ps.setString(1, o.getNom());
         ps.setString(2, o.getDescription());
         ps.setInt(3, o.getCategorie().getIdentifiant());

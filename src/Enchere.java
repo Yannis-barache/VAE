@@ -1,34 +1,22 @@
 public class Enchere {
-    private int identifiant;
     private Vente vente;
     private Utilisateur encherisseur;
-    private double montant;
+    private int montant;
     private String date;
 
     /**
      * Constructeur de la classe Enchere.
      *
-     * @param identifiant   L'identifiant de l'enchère.
      * @param vente         La vente associée à l'enchère.
      * @param encherisseur  L'utilisateur encherisseur.
      * @param montant       Le montant de l'enchère.
      * @param date          La date de l'enchère.
      */
-    public Enchere(int identifiant, Vente vente, Utilisateur encherisseur, double montant, String date) {
-        this.identifiant = identifiant;
+    public Enchere(Vente vente, Utilisateur encherisseur, int montant, String date) {
         this.vente = vente;
         this.encherisseur = encherisseur;
         this.montant = montant;
         this.date = date;
-    }
-
-    /**
-     * Obtient l'identifiant de l'enchère.
-     *
-     * @return L'identifiant de l'enchère.
-     */
-    public int getIdentifiant() {
-        return identifiant;
     }
 
 
@@ -56,7 +44,7 @@ public class Enchere {
      *
      * @return Le montant de l'enchère.
      */
-    public double getMontant() {
+    public int getMontant() {
         return montant;
     }
 
