@@ -68,7 +68,7 @@ public class FenetreEnchere extends GridPane{
         ImageView bidPic = new ImageView(new Image("file:./img/vae2.png"));
 
         //Informations sur l'enchère
-        GridPane bidInformations = new GridPane(50);
+        GridPane bidInformations = new GridPane();
         
         //Enchère actuelle
         Label actualBidLabel = new Label("Enchère actuelle : ");
