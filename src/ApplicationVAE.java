@@ -133,21 +133,13 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void checkLogin(String pseudo,String pw) {
-        try{
-            boolean connexion=script.connexion(pseudo, pw);
-            System.out.println(connexion);
-            if (script.connexion(pseudo, pw)){
-                fenetreAccueil();
-            }
-        } catch(SQLException ex){
-
-        }
-
+    public ConnexionMySQL getConnexionMySQL() {
+        return this.laConnexion;
     }
 
-
-
+    public ScriptJDBC getScriptJDBC() {
+        return this.script;
+    }
 
 
     @Override
