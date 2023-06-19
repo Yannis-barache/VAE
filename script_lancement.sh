@@ -1,3 +1,3 @@
 #!/bin/bash
-javac --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls -d ./bin ./src/*.java
-java --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls -cp bin:img ApplicationVAE
+javac -d bin --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls ./src/*.java
+java --class-path bin:img --module-path /usr/share/openjfx/lib/ --add-modules javafx.controls ./src/ApplicationVAE.java
