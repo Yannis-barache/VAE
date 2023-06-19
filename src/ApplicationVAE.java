@@ -163,6 +163,10 @@ public class ApplicationVAE extends Application{
         return this.script;
     }
 
+    public Utilisateur getUtilisateur(){
+        return this.script.getUtilisateur();
+    }
+
 
     @Override
     public void start(Stage stage) {

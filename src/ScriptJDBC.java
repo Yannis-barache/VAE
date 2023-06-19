@@ -1,7 +1,10 @@
 import java.sql.*;
 
 public class ScriptJDBC {
+
     ConnexionMySQL laConnexion;
+    Utilisateur utilisateur;
+    
     public ScriptJDBC(ConnexionMySQL uneConnexion){
         this.laConnexion=uneConnexion;
     }
@@ -16,9 +19,24 @@ public class ScriptJDBC {
      */
     public boolean connexion(String pseudo, String motDePasse) throws SQLException{
         try{
+            boolean bool=false;
             Statement s=laConnexion.createStatement();
             ResultSet rs=s.executeQuery("SELECT * from UTILISATEUR where mdput='"+motDePasse+"' and pseudout='" +pseudo+"'");
-            return rs.next();
+            if (rs.next()){
+                bool=true;
+                boolean actif= false;
+                boolean admin= false;
+                if (rs.getString("activeut").equals("O")){
+                    actif=true;
+                }
+
+                if (rs.getInt("idrole")== 1){
+                    admin=true;
+                }
+                Utilisateur utilisateur = new Utilisateur(rs.getInt("idut"), rs.getString("pseudout"), rs.getString("emailut"),rs.getString("mdput"), actif,admin);
+                this.utilisateur=utilisateur;
+            }
+            return bool;
         } catch (SQLException ex){
             throw new SQLException();
         }
@@ -86,4 +104,9 @@ public class ScriptJDBC {
         }
         
     }
+
+    public Utilisateur getUtilisateur(){
+        return this.utilisateur;
+    }
+    
 }
