@@ -143,6 +143,7 @@ public class FenetreConnexion extends BorderPane {
         this.setRight(logoContent);
     }
 
+
     public void setAlertLogin(String message) {
         this.alertLogin.setText(message);
     }
