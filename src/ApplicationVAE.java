@@ -25,7 +25,6 @@ import java.util.ArrayList;
 public class ApplicationVAE extends Application{
 
     private Scene scene;
-    private ScrollPane sc;
 
     @Override
     public void init() {
@@ -46,7 +45,7 @@ public class ApplicationVAE extends Application{
 
     public void fenetreAccueil() {
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
+        ScrollPane sc = new ScrollPane(root);
         root.setTop(new Menu(this,0));
         root.setCenter(new FenetreAccueil(this));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -55,11 +54,11 @@ public class ApplicationVAE extends Application{
 
     public void fenetreCreationVente() {
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
+        ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreCreationVente(this));
         root.setTop(new Menu(this,1));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
-        root.prefWidth(1920);
+        // root.prefWidth(1920);
         this.scene.setRoot(sc);   
     }
 
@@ -86,7 +85,7 @@ public class ApplicationVAE extends Application{
         //
 
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
+        ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMesVentes(this,ventes));
         root.setTop(new Menu(this,2));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -95,7 +94,7 @@ public class ApplicationVAE extends Application{
 
     public void fenetreMesEncheres() {
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
+        ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMesEncheres(this));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -107,7 +106,7 @@ public class ApplicationVAE extends Application{
 
     public void fenetreMonProfil() {
         BorderPane root = new BorderPane();
-        this.sc = new ScrollPane(root);
+        ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMonProfil(this));
         root.setTop(new Menu(this,4));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
