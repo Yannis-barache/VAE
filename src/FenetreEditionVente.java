@@ -112,15 +112,45 @@ public class FenetreEditionVente extends GridPane {
 
         newCategoryContent.getChildren().addAll(categorySaleLabel,categorySaleCB);
 
-        //
-        
+        //Date de fin
+        VBox newEndContent = new VBox();
+        Label newEndLabel = new Label("Nouvelle date de fin");
+        newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        newEndLabel.setTextFill(Color.web("#5D48D7"));
+        DatePicker endSale = new DatePicker();
+        endSale.setEffect(ds);
+        endSale.setPrefHeight(50);
+        endSale.setPrefWidth(350);
+        // endSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        endSale.setStyle("-fx-control-inner-background: #F8F8F8");
+        endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+
+        newEndContent.getChildren().addAll(newEndLabel,endSale);
+
+        //Buttons
+        VBox cancelContent = new VBox();
+        Button cancel = new Button("Annuler");
+        cancel.setEffect(ds);
+        cancel.setOnAction((key) -> this.appli.fenetreAccueil());
+        cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        cancel.setPadding(new Insets(10,30,10,30));
+        cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        cancelContent.getChildren().add(cancel);
+
+        VBox sendContent = new VBox();
+        Button send = new Button("Mettre en ligne");
+        send.setEffect(ds);
+        send.setOnAction((key) -> System.out.println("next"));
+        send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        send.setPadding(new Insets(10,30,10,30));
+        send.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sendContent.getChildren().add(send);
+        sendContent.setAlignment(Pos.TOP_RIGHT);
 
         
 
 
         //Ajout du titre
         this.add(titleContent,1,0,1,1);
-    }
-
-    
+    }    
 }
