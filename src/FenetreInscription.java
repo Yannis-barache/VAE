@@ -129,6 +129,7 @@ public class FenetreInscription extends BorderPane {
         passwordEntry2.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         passwordContent2.setPadding(new Insets(30,0,10,0));
         passwordContent2.getChildren().addAll(passwordLabel2,passwordEntry2);
+        passwordContent2.setOnKeyReleased(new ControleurInscriptionKey(appli, this));
  
 
         //Buttons register cancel
