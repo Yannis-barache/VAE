@@ -22,10 +22,13 @@ public class ControleurInscription implements EventHandler<ActionEvent>{
         if (!Valide.memeMDP(mdp1, mdp2)){
             this.fenetreInscription.setAlertLogin("Veuillez rentrez les mêmes mot de passe");
         }
+        if (!Valide.emailValide(mail)){
+            this.fenetreInscription.setAlertLogin("Veuillez rentrez un mail valide");
+        }
         else{
             try{
                 this.fenetreInscription.setAlertLogin("Insertion en cours");
-                this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(2, pseudo, mail, mdp1, true, false));
+                this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(45, pseudo, mail, mdp1, true, false));
                 this.fenetreInscription.setAlertLogin("Insertion réussie");
 
             } catch(SQLException ex){
