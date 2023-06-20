@@ -30,9 +30,9 @@ import java.util.ArrayList;
 public class FenetreMesVentes extends BorderPane {
     
     private ApplicationVAE appli;
-    private List<Map<String,String>> ventes;
+    private List<Vente> ventes;
 
-    public FenetreMesVentes(ApplicationVAE appli,List<Map<String,String>> ventes) {
+    public FenetreMesVentes(ApplicationVAE appli,List<Vente> ventes) {
         super();
         this.appli = appli;
         this.ventes = ventes;
@@ -67,7 +67,7 @@ public class FenetreMesVentes extends BorderPane {
 
         if (this.ventes.size() > 0) {
 
-            for (Map<String,String> vente : this.ventes) {
+            for (Vente vente : this.ventes) {
                 VBox venteContent = new VBox();
                 HBox splitVente = new HBox();
 
@@ -87,7 +87,7 @@ public class FenetreMesVentes extends BorderPane {
                 GridPane rightSide = new GridPane();
 
                 //Titre
-                Label venteTitle = new Label(vente.get("titre"));
+                Label venteTitle = new Label(vente.getObjet().getNom());
                 venteTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 venteTitle.setTextFill(Color.web("#5D48D7"));  
                 venteTitle.setPadding(new Insets(0,0,35,0));
@@ -96,7 +96,7 @@ public class FenetreMesVentes extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel : ");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(vente.get("prixBase")+" €");
+                Label actualPrice = new Label(String.valueOf(vente.getPrixBase()));
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));  
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -114,13 +114,13 @@ public class FenetreMesVentes extends BorderPane {
                 Label nbEnchereslabel = new Label("Nombre d'enchère : ");
                 nbEnchereslabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEnchereslabel.setTextFill(Color.web("black"));
-                Label nbEncheres = new Label(vente.get("nbEnchere"));
+                Label nbEncheres = new Label("0"); //NB ENCHERE
                 nbEncheres.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEncheres.setTextFill(Color.web("#5D48D7"));
                 nbEncheres.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Boutton
-                Tooltip saleToolTip = new Tooltip(vente.get("id"));
+                Tooltip saleToolTip = new Tooltip(String.valueOf(vente.getIdentifiant()));
                 VBox editContent = new VBox();
                 Button edit = new Button("Modifier");
                 edit.setTooltip(saleToolTip);
@@ -181,9 +181,9 @@ public class FenetreMesVentes extends BorderPane {
         }
     }
 
-    private Map<String,String> getVente(String id) {
-        for (Map<String,String> vente : this.ventes) {
-            if (vente.get("id").equals(id)) {
+    private Vente getVente(String id) {
+        for (Vente vente : this.ventes) {
+            if (String.valueOf(vente.getIdentifiant()).equals(id)) {
                 return vente;
             }
         }
