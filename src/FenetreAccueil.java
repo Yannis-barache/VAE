@@ -86,6 +86,7 @@ public class FenetreAccueil extends BorderPane {
         VBox discoverLabelContainer = new VBox();
         Label discoverLabel = new Label("Découvrez");
         discoverLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        discoverLabel.setPadding(new Insets(0,0,50,00));
         discoverLabel.setTextFill(Color.web("#5D48D7"));
         discoverLabel.setAlignment(Pos.TOP_LEFT);
         VBox discoverItemsContainer = new VBox();
@@ -93,19 +94,62 @@ public class FenetreAccueil extends BorderPane {
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
         for (int i=0; i<7;++i) {
-            VBox temp = new VBox();
-            temp.setPrefWidth(500);
-            temp.setPrefHeight(700);
-            temp.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-            discoverItems.getChildren().add(temp);
+
+            //Une vente
+            VBox item = new VBox();
+
+            //Image
+            ImageView pic = new ImageView(new Image("file:./img/vae2.png"));
+
+            //Informations
+            GridPane informations = new GridPane();
+            Label actualPriceLabel = new Label("Prix actuel : ");
+            actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            actualPriceLabel.setTextFill(Color.web("black"));
+            Label actualPrice = new Label(String.valueOf(50)+" €"); //Get le prix de la vente
+            actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            actualPrice.setTextFill(Color.web("#5D48D7"));
+            actualPrice.setAlignment(Pos.BASELINE_RIGHT);
+            Label remainTimeLabel = new Label("Temps restant : ");
+            remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            remainTimeLabel.setTextFill(Color.web("black"));
+            Label remainTime = new Label("--.--:--.--");
+            remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            remainTime.setTextFill(Color.web("#5D48D7"));
+            remainTime.setAlignment(Pos.BASELINE_RIGHT);
+            Label nbEncheresLabel = new Label("Nombre d'enchères : ");
+            nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            nbEncheresLabel.setTextFill(Color.web("black"));
+            Label nbEnchere = new Label(String.valueOf(12)); //Get nombre d'enchère
+            nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            nbEnchere.setTextFill(Color.web("#5D48D7"));
+            nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
+
+            informations.setHgap(30);
+            informations.setVgap(30);
+            informations.setStyle("-fx-border-color: lightgray; -fx-border-width: 3 0 0 0"); 
+            informations.add(actualPriceLabel,0,0,1,1);
+            informations.add(actualPrice,1,0,1,1);
+            informations.add(remainTimeLabel,0,1,1,1);
+            informations.add(remainTime,1,1,1,1);
+            informations.add(nbEncheresLabel,0,2,1,1);
+            informations.add(nbEnchere,1,2,1,1);
+            
+            item.setPadding(new Insets(30));
+            item.setPrefWidth(500);
+            item.setPrefHeight(700);
+            item.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+            item.getChildren().addAll(pic,informations);
+            item.setEffect(ds);
+            discoverItems.getChildren().add(item);
         }
 
-        discoverItemsContainer.setAlignment(Pos.CENTER);
-        discoverLabelContainer.setPadding(new Insets(200,0,35,100));
+        // discoverItemsContainer.setAlignment(Pos.CENTER);
 
         discoverLabelContainer.getChildren().add(discoverLabel);
         discoverItemsContainer.getChildren().add(discoverItems);
 
+        discoverContent.setPadding(new Insets(200,0,35,100));
         discoverContent.getChildren().addAll(discoverLabelContainer,discoverItemsContainer);
 
         this.setTop(searchContent);
