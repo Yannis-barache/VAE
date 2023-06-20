@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -31,13 +32,15 @@ public class FenetreConnexion extends BorderPane {
     private Label alertLogin;
     private TextField pseudoEntry;
     private PasswordField passwordEntry;
+    private Label notifReussie;
 
-    public FenetreConnexion(ApplicationVAE appli) {
+    public FenetreConnexion(ApplicationVAE appli, Label notifReussie) {
         super();
         this.appli = appli;
         this.alertLogin = new Label();
         this.pseudoEntry = new TextField();
         this.passwordEntry = new PasswordField();
+        this.notifReussie = notifReussie;
         this.content();
     }
 
@@ -123,13 +126,13 @@ public class FenetreConnexion extends BorderPane {
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         register.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         register.setTextFill(Color.web("#5D48D7"));
-        registerContent.getChildren().addAll(registerLabel,register);
+        registerContent.getChildren().addAll(registerLabel,register,alertLogin);
         registerContent.setAlignment(Pos.TOP_RIGHT);
 
         // Permet de faire entrée pour s'autentifier
         this.passwordEntry.setOnKeyReleased(new ControleurConnecKey(this.appli,this));
 
-        entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent);
+        entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent,notifReussie);
         entries.setPadding(new Insets(300,50,0,300));
 
         //Logo à droite
@@ -142,6 +145,7 @@ public class FenetreConnexion extends BorderPane {
         this.setLeft(leftAside);
         this.setCenter(entries);
         this.setRight(logoContent);
+     
     }
 
     public void setAlertLogin(String alertLogin) {

@@ -1,30 +1,16 @@
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.control.ScrollPane;
 import java.util.List;
-import java.util.Arrays;
 import java.util.Map;
-
-import javax.print.DocFlavor;
-
 import java.util.HashMap;
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import java.sql.*;
 
 public class ApplicationVAE extends Application{
@@ -35,11 +21,14 @@ public class ApplicationVAE extends Application{
     private ScriptJDBC script;
     private UtilisateurBD utilisateurBD;
     private ObjetBD objetBD;
+    private Label notifReussie;
+
 
     @Override
     public void init() {
         try{
             ConnexionMySQL laConnexion= new ConnexionMySQL();
+            this.notifReussie = new Label();
             try{
                 laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
                 this.script= new ScriptJDBC(laConnexion);
@@ -63,7 +52,7 @@ public class ApplicationVAE extends Application{
     }
 
      public void fenetreConnexion() {
-        BorderPane root = new FenetreConnexion(this);
+        BorderPane root = new FenetreConnexion(this,this.notifReussie);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.scene.setRoot(root);
     }
@@ -216,12 +205,20 @@ public class ApplicationVAE extends Application{
         return this.objetBD;
     }
 
+    public void setNotifReussie(String notif){
+        this.notifReussie.setText(notif);
+    }
+
+    public Label getNotifReussie(){
+        return this.notifReussie;
+    }
+
 
 
 
     @Override
     public void start(Stage stage) {
-        BorderPane root = new FenetreConnexion(this);
+        BorderPane root = new FenetreConnexion(this,this.notifReussie);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.scene = new Scene(root); //1200 600
         // stage.setMaximized(true);
