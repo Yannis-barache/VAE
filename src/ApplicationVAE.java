@@ -20,7 +20,12 @@ public class ApplicationVAE extends Application{
     private ConnexionMySQL laConnexion;
     private ScriptJDBC script;
     private UtilisateurBD utilisateurBD;
+    private StatutBD statutBD;
+    private PhotoBD photoBD;
     private ObjetBD objetBD;
+    private VenteBD venteBD;
+    private EnchereBD enchereBD;
+    private CategorieBD categorieBD;
     private Label notifReussie;
 
 
@@ -31,9 +36,14 @@ public class ApplicationVAE extends Application{
             this.notifReussie = new Label();
             try{
                 laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
-                this.script= new ScriptJDBC(laConnexion);
-                this.objetBD=new ObjetBD(laConnexion);
-                this.utilisateurBD= new UtilisateurBD(laConnexion);
+                this.script = new ScriptJDBC(laConnexion);
+                this.objetBD =new ObjetBD(laConnexion);
+                this.utilisateurBD = new UtilisateurBD(laConnexion);
+                this.statutBD = new StatutBD(laConnexion);
+                this.photoBD = new PhotoBD(laConnexion);
+                this.categorieBD = new CategorieBD(laConnexion);
+                this.enchereBD = new EnchereBD(laConnexion);
+                this.venteBD = new VenteBD(laConnexion);
     
             } catch (SQLException ex){
                 System.out.println("Erreur SQL : " + ex.getMessage());
@@ -86,29 +96,41 @@ public class ApplicationVAE extends Application{
 
     public void fenetreMesVentes() {
 
-        //TEST DE VENTES
-        List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
+        // //TEST DE VENTES
+        // List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
 
-        Map<String,String> v1 = new HashMap<String,String>();
-        v1.put("id","43");
-        v1.put("titre","Canapé repliable Castorama 180cm");
-        v1.put("prixBase","180");      
-        v1.put("nbEnchere","0");
+        // Map<String,String> v1 = new HashMap<String,String>();
+        // v1.put("id","43");
+        // v1.put("titre","Canapé repliable Castorama 180cm");
+        // v1.put("prixBase","180");      
+        // v1.put("nbEnchere","0");
         
-        Map<String,String> v2 = new HashMap<String,String>();
-        v2.put("id","10");
-        v2.put("titre","Set Lego 7687");
-        v2.put("prixBase","55,99");    
-        v2.put("nbEnchere","3");
+        // Map<String,String> v2 = new HashMap<String,String>();
+        // v2.put("id","10");
+        // v2.put("titre","Set Lego 7687");
+        // v2.put("prixBase","55,99");    
+        // v2.put("nbEnchere","3");
 
-        ventes.add(v1);
-        ventes.add(v2);
+        // ventes.add(v1);
+        // ventes.add(v2);
 
-        //...
+        // //...
+
+        Utilisateur utilisateur = getUtilisateur();
+
+        try {
+            Objet table = new Objet("table", "une table là",this.categorieBD.rechercherCategorieParNum(1),utilisateur);
+            this.objetBD.insererObjet(table);
+            Vente vente = new Vente(10,15,"25/05/2023:10:00:00","02/07/2023:10:00:00",this.statutBD.rechercherStatutParNum(1),table);
+            this.venteBD.insererVente(vente);
+
+            System.out.println(utilisateur.getVentes());
+        }
+        catch(SQLException ex) {System.out.println(ex);}
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreMesVentes(this,ventes));
+        root.setCenter(new FenetreMesVentes(this,utilisateur.getVentes()));
         root.setTop(new Menu(this,2));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
@@ -116,7 +138,7 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetreEditionVente(Map<String,String> vente) {
+    public void fenetreEditionVente(Vente vente) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreEditionVente(this,vente));
@@ -148,6 +170,7 @@ public class ApplicationVAE extends Application{
         ventes.add(v2);
 
         //...
+
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -203,6 +226,26 @@ public class ApplicationVAE extends Application{
 
     public ObjetBD getObjetBD(){
         return this.objetBD;
+    }
+
+    public StatutBD getStatutBD() {
+        return this.statutBD;
+    }
+
+    public VenteBD getVenteBD() {
+        return this.venteBD;
+    }
+
+    public EnchereBD getEnchereBD() {
+        return this.enchereBD;
+    }
+
+    public CategorieBD geCategorieBD() {
+        return this.categorieBD;
+    }
+
+    public PhotoBD getPhotoBD() {
+        return this.photoBD;
     }
 
     public void setNotifReussie(String notif){

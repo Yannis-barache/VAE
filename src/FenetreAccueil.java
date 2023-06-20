@@ -20,6 +20,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData ;
 import javafx.scene.effect.DropShadow;
+import javafx.util.Callback;
+import java.time.LocalDate;
 
 import java.util.List;
 import java.util.Arrays;
@@ -59,18 +61,10 @@ public class FenetreAccueil extends BorderPane {
         search.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         search.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        // Ajout du bouton rechercher
-        Button searchButton = new Button("Rechercher");
-        searchButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        searchButton.setPadding(new Insets(10,30,10,30));
-        searchButton.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-        searchButton.setOnAction((key) -> System.out.println("next"));
-
-        
-        searchBar.getChildren().addAll(searchLabel,search);
-
-
-        VBox filters = new VBox();
+        searchBar.getChildren().addAll(searchLabel,search);      
+    
+        //Catégories
+        VBox categories = new VBox();
         Label filtersLabel = new Label("Catégories");
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
@@ -82,14 +76,86 @@ public class FenetreAccueil extends BorderPane {
         CBfilters.setPrefWidth(300);
         CBfilters.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        filters.getChildren().addAll(filtersLabel,CBfilters);
+        categories.getChildren().addAll(filtersLabel,CBfilters);
 
+
+        //Filtre prix
+        VBox priceFilter = new VBox();
+        Label priceFilterLabel = new Label("Prix maximal");
+        priceFilterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        priceFilterLabel.setTextFill(Color.web("#5D48D7"));
+        TextField price = new TextField();
+        price.setEffect(ds);
+        price.setPrefHeight(50);
+        price.setPrefWidth(300);
+        price.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        price.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        price.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
+
+        priceFilter.getChildren().addAll(priceFilterLabel,price);
+
+        //Filtre date
+        VBox dateFilter = new VBox();
+        Label dateFilterLabel = new Label("Dernière minute");
+        dateFilterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        dateFilterLabel.setTextFill(Color.web("#5D48D7"));
+        DatePicker date = new DatePicker();
+        date.getEditor().setDisable(true);
+        date.setPromptText("Choisissez une date de fin");
+            
+        // Définition de la cellule de date pour la date de début
+        Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                };
+            }
+        };
+        date.setDayCellFactory(startSaleCellFactory);
+        date.setEffect(ds);
+        date.setPrefHeight(50);
+        date.setPrefWidth(350);
+        date.setStyle("-fx-control-inner-background: #F8F8F8");
+        date.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+
+        dateFilter.getChildren().addAll(dateFilterLabel,date);
+
+        // Ajout du bouton rechercher
+        VBox searchButtonBox = new VBox();
+        Button searchButton = new Button("Rechercher");
+        searchButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        searchButton.setPadding(new Insets(10,30,10,30));
+        searchButton.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        searchButton.setOnAction((key) -> System.out.println("next"));
+        searchButton.setEffect(ds);
+        searchButtonBox.setPadding(new Insets(30,0,0,0));
+
+        searchButtonBox.getChildren().add(searchButton);
+
+        //Placement
         searchContent.setHgap(50);
+        searchContent.setVgap(30);
         searchContent.setPadding(new Insets(200,0,0,0));
         searchContent.setAlignment(Pos.CENTER);
-        searchContent.add(searchBar,0,0); //span
-        searchContent.add(filters,1,0); //span
-        searchContent.add(searchButton,2,0); //span
+        searchContent.add(searchBar,0,0,3,1);
+        searchContent.add(categories,0,1,1,1);
+        searchContent.add(priceFilter,1,1,1,1);
+        searchContent.add(dateFilter,2,1,1,1);
+        searchContent.add(searchButtonBox,3,0,1,1);
 
         //Decouvrez
         VBox discoverContent = new VBox();
