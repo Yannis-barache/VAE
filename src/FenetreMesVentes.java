@@ -56,11 +56,10 @@ public class FenetreMesVentes extends BorderPane {
         Label title = new Label("Mes ventes : ");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         title.setTextFill(Color.web("black"));
-        Label countVente = new Label(String.valueOf(ventes.size()));
+        Label countVente = new Label(String.valueOf(this.ventes.size()));
         countVente.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         countVente.setTextFill(Color.web("black"));
         titleContent.getChildren().addAll(title,countVente);
-
         //Ajout du titre
         ventesContent.getChildren().add(titleContent);
 
@@ -138,7 +137,7 @@ public class FenetreMesVentes extends BorderPane {
                 rightSide.add(nbEnchereslabel,0,2,1,1);
                 rightSide.add(nbEncheres,1,2,1,1);
                 rightSide.add(edit,0,3,2,1);
-                rightSide.setMaxWidth(500);
+                rightSide.setMaxWidth(700);
                 rightSide.setPadding(new Insets(30));
                 rightSide.setHgap(30);
                 rightSide.setVgap(30);

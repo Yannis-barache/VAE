@@ -18,6 +18,9 @@ import javafx.scene.control.ScrollPane;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
+
+import javax.print.DocFlavor;
+
 import java.util.HashMap;
 import java.io.File;
 import java.sql.SQLException;
@@ -30,6 +33,8 @@ public class ApplicationVAE extends Application{
     private ScrollPane sc;
     private ConnexionMySQL laConnexion;
     private ScriptJDBC script;
+    private UtilisateurBD utilisateurBD;
+    private ObjetBD objetBD;
 
     @Override
     public void init() {
@@ -38,6 +43,8 @@ public class ApplicationVAE extends Application{
             try{
                 laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
                 this.script= new ScriptJDBC(laConnexion);
+                this.objetBD=new ObjetBD(laConnexion);
+                this.utilisateurBD= new UtilisateurBD(laConnexion);
     
             } catch (SQLException ex){
                 System.out.println("Erreur SQL : " + ex.getMessage());
@@ -49,6 +56,8 @@ public class ApplicationVAE extends Application{
             System.out.println("Erreur SQL : " + ex.getMessage());
             
         }
+        
+
 
 
     }
@@ -87,7 +96,7 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreMesVentes() {
-        
+
         //TEST DE VENTES
         List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
 
@@ -106,7 +115,7 @@ public class ApplicationVAE extends Application{
         ventes.add(v1);
         ventes.add(v2);
 
-        //
+        //...
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -130,9 +139,41 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreMesEncheres() {
+
+        //TEST D'ENCHERE
+        List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
+
+        Map<String,String> v1 = new HashMap<String,String>();
+        v1.put("id","43");
+        v1.put("titre","Canapé repliable Castorama 180cm");
+        v1.put("prixBase","180");      
+        v1.put("nbEnchere","0");
+        
+        Map<String,String> v2 = new HashMap<String,String>();
+        v2.put("id","10");
+        v2.put("titre","Set Lego 7687");
+        v2.put("prixBase","55,99");    
+        v2.put("nbEnchere","3");
+
+        ventes.add(v1);
+        ventes.add(v2);
+
+        //...
+
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreMesEncheres(this));
+        root.setCenter(new FenetreMesEncheres(this,ventes));
+        root.setTop(new Menu(this,3));
+        root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
+        this.scene.setRoot(sc);   
+    }
+
+    public void fenetreEnchere(Map<String,String> enchere) {
+        BorderPane root = new BorderPane();
+        ScrollPane sc = new ScrollPane(root);
+        root.setCenter(new FenetreEnchere(this,enchere));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
@@ -163,9 +204,19 @@ public class ApplicationVAE extends Application{
         return this.script;
     }
 
-    public Utilisateur getUtilisateur(){
+    public Utilisateur getUtilisateur() {
         return this.script.getUtilisateur();
     }
+
+    public UtilisateurBD getUtilisateurBD(){
+        return this.utilisateurBD;
+    }
+
+    public ObjetBD getObjetBD(){
+        return this.objetBD;
+    }
+
+
 
 
     @Override
