@@ -118,10 +118,12 @@ public class Menu extends BorderPane {
 
         ContextMenu contextMenu = new ContextMenu();
         MenuItem monProfilItem = new MenuItem("Mon profil");
+        monProfilItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");        
         MenuItem deconnexionItem = new MenuItem("Déconnexion");
+        deconnexionItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
         monProfilItem.setOnAction(new ControleurMenu(this.appli));
         deconnexionItem.setOnAction(new ControleurRetourPageConnec(this.appli));
-    
+        
 
 
 
