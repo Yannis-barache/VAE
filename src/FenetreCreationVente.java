@@ -185,45 +185,32 @@ public class FenetreCreationVente extends GridPane {
         startSale = new DatePicker();
         startSale.getEditor().setDisable(true);
         startSale.setPromptText("Choisissez la date du début");
-        startSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
-                @Override
-                public DateCell call(DatePicker datePicker) {
-                    return new DateCell() {
-                        @Override
-                        public void updateItem(LocalDate item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item.isBefore(LocalDate.now())) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
-                            }
-                        }
-                    };
-                }
-            });
-        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate selectedDate = newValue;
-                endSale.setDayCellFactory(datePicker -> new DateCell() {
+            
+        // Définition de la cellule de date pour la date de début
+        Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item.isBefore(selectedDate)) {
+                        if (item.isBefore(LocalDate.now())) {
                             setDisable(true);
                             setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
                         }
                     }
-                });
+                };
             }
-        });
+        };
+        startSale.setDayCellFactory(startSaleCellFactory);
         startSale.setEffect(ds);
         startSale.setPrefHeight(50);
         startSale.setPrefWidth(350);
-        // startSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         startSale.setStyle("-fx-control-inner-background: #F8F8F8");
-        startSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-
-        startSaleContent.getChildren().addAll(startSaleLabel,startSale);
-
+        startSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"), CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        startSaleContent.getChildren().addAll(startSaleLabel, startSale);
+        
         //Date de fin
         VBox endSaleContent = new VBox();
         Label endSaleLabel = new Label("Date de fin");
@@ -232,45 +219,44 @@ public class FenetreCreationVente extends GridPane {
         endSale = new DatePicker();
         endSale.getEditor().setDisable(true);
         endSale.setPromptText("Choisissez la date de fin");
-        endSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
-                @Override
-                public DateCell call(DatePicker datePicker) {
-                    return new DateCell() {
-                        @Override
-                        public void updateItem(LocalDate item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item.isBefore(LocalDate.now())) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
-                            }
-                        }
-                    };
-                }
-            });
-        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate selectedDate = newValue;
-                startSale.setDayCellFactory(datePicker -> new DateCell() {
+        // Définition de la cellule de date pour la date de fin
+        Callback<DatePicker, DateCell> endSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item.isAfter(selectedDate)) {
+                        LocalDate selectedStartDate = startSale.getValue();
+                        if (selectedStartDate != null && item.isBefore(selectedStartDate)) {
                             setDisable(true);
                             setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
                         }
                     }
-                });
+                };
             }
-        });
+        };                     
+        endSale.setDayCellFactory(endSaleCellFactory);
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
-        // endSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         endSale.setStyle("-fx-control-inner-background: #F8F8F8");
-        endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-
-        endSaleContent.getChildren().addAll(endSaleLabel,endSale);
-
+        endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"), CornerRadii.EMPTY, Insets.EMPTY)));
+        
+        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && startSale.getValue() != null && newValue.isBefore(startSale.getValue())) {
+                endSale.setValue(startSale.getValue());
+            }
+        });
+        
+        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && endSale.getValue() != null && newValue.isAfter(endSale.getValue())) {
+                endSale.setValue(newValue);
+            }
+        });
+        
+        endSaleContent.getChildren().addAll(endSaleLabel, endSale);
+        
         //Buttons
         VBox cancelContent = new VBox();
         Button cancel = new Button("Annuler");
