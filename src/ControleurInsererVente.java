@@ -38,6 +38,8 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
         String moisDeb = String.valueOf(dateDebut.getMonthValue());
         String anneeDeb = String.valueOf(dateDebut.getYear());
 
+        
+
         if (moisDeb.length()==1){
             moisDeb="0"+moisDeb;
         }
@@ -86,14 +88,14 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                     }
                 }
 
-                if (dateDebut.isBefore(LocalDate.now())){
+                if (dateDebut.isAfter(LocalDate.now())){
                     statut=1;
                 }
 
                 Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
                 this.appli.getObjetBD().insererObjet(objet);
 
-                Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixBase),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
+                Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
                 this.appli.getVenteBD().insererVente(vente);
                 this.fenetreCreate.setAlertErreur("Vente créée avec succès");
 

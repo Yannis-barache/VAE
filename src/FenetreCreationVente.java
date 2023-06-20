@@ -35,6 +35,9 @@ import java.time.LocalDate;
 import javafx.util.Callback;
 import javafx.scene.control.TextFormatter.Change;
 
+import java.util.function.UnaryOperator;
+import javafx.util.StringConverter;
+
 public class FenetreCreationVente extends GridPane {
     
     private ApplicationVAE appli;
@@ -218,113 +221,6 @@ public class FenetreCreationVente extends GridPane {
 
         startSaleContent.getChildren().addAll(startSaleLabel,startSale);
 
-        //Valeur entre 0 et 59
-        TextFormatter<Integer> textFormatterH = new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[0-9]{0,2}")) {
-                try {
-                    int value = Integer.parseInt(change.getControlNewText());
-                    if (value >= 0 && value <= 23) {
-                        return change;
-                    }
-                } catch (NumberFormatException ignored) {
-                }
-            }
-            return null;
-        });
-
-        //Valeur entre 0 et 59
-        TextFormatter<Integer> textFormatterM = new TextFormatter<>(change -> {
-            if (change.getControlNewText().matches("[0-9]{0,2}")) {
-                try {
-                    int value = Integer.parseInt(change.getControlNewText());
-                    if (value >= 0 && value <= 59) {
-                        return change;
-                    }
-                } catch (NumberFormatException ignored) {
-                }
-            }
-            return null;
-        });
-
-        //Heure de début
-        VBox startHourSaleContent = new VBox();
-        Label startTimeLabel = new Label("Heure de début");
-        startTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        startTimeLabel.setTextFill(Color.web("#5D48D7"));
-        //Grille pour l'heure
-        GridPane startTimeValues = new GridPane();
-
-        //L'heure
-        startHourValue = new TextField();
-        //Pas plus de 2 caractères
-        startHourValue.textProperty().addListener((observable,oldValue,newValue) -> {
-            if (newValue.length() > 2) {
-                startHourValue.setText(oldValue);
-            }
-        });
-        startHourValue.setTextFormatter(textFormatterH);
-        startHourValue.setEffect(ds);
-        startHourValue.setPrefHeight(40);
-        startHourValue.setPrefWidth(70);
-        startHourValue.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        startHourValue.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-        startHourValue.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d*")) {
-                return change;
-            }
-            return null;
-        }));
-        //Indicatif heure
-        VBox startHourLabelContent = new VBox();
-        Label sHourLabel = new Label("h");
-        sHourLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        sHourLabel.setTextFill(Color.web("black"));
-        startHourLabelContent.setAlignment(Pos.CENTER);
-        startHourLabelContent.getChildren().add(sHourLabel);
-        //Minutes
-        startMinuteValue = new TextField();
-
-        //Pas plus de 2 caractères
-        startMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
-            if (newValue.length() > 2) {
-                startMinuteValue.setText(oldValue);
-            }
-        });
-        
-        startMinuteValue.setTextFormatter(textFormatterM);
-        //Style
-        startMinuteValue.setEffect(ds);
-        startMinuteValue.setPrefHeight(40);
-        startMinuteValue.setPrefWidth(70);
-        startMinuteValue.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        startMinuteValue.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-        startMinuteValue.setTextFormatter(new TextFormatter<>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d*")) {
-                return change;
-            }
-            return null;
-        }));
-        //Indicatif minute
-        VBox startMinuteLabelContent = new VBox();
-        Label startMinuteLabel = new Label("m");
-        startMinuteLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        startMinuteLabel.setTextFill(Color.web("black"));
-        startMinuteLabelContent.setAlignment(Pos.CENTER);
-        startMinuteLabelContent.getChildren().add(startMinuteLabel);
-
-        //Ajout dans la grille
-        startTimeValues.setHgap(10);
-        startTimeValues.add(startHourValue,0,0,1,1);
-        startTimeValues.add(startHourLabelContent,1,0,1,1);
-        startTimeValues.add(startMinuteValue,2,0,1,1);
-        startTimeValues.add(startMinuteLabelContent,3,0,1,1);  
-        
-        //Ajout overall
-        startHourSaleContent.getChildren().addAll(startTimeLabel,startTimeValues);
-
-
         //Date de fin
         VBox endSaleContent = new VBox();
         Label endSaleLabel = new Label("Date de fin");
@@ -359,6 +255,119 @@ public class FenetreCreationVente extends GridPane {
 
         endSaleContent.getChildren().addAll(endSaleLabel,endSale);
 
+        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && startSale.getValue() != null && newValue.isBefore(startSale.getValue())) {
+                endSale.setValue(startSale.getValue());
+            }
+        });
+
+        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && endSale.getValue() != null && newValue.isAfter(endSale.getValue())) {
+                endSale.setValue(newValue);
+            }
+        });
+
+        //Heure de début
+        VBox startHourSaleContent = new VBox();
+        Label startTimeLabel = new Label("Heure de début");
+        startTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        startTimeLabel.setTextFill(Color.web("#5D48D7"));
+        //Grille pour l'heure
+        GridPane startTimeValues = new GridPane();
+
+        //L'heure
+        startHourValue = new TextField();
+
+        //Pas plus de 2 caractères
+        startHourValue.textProperty().addListener((observable,oldValue,newValue) -> {
+            if (newValue.length() > 2) {
+                startHourValue.setText(oldValue);
+            }
+        });
+        startHourValue.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                String text = startHourValue.getText();
+                if (text.isEmpty()) {
+                    startHourValue.setText("00");
+                } else {
+                    int value = Integer.parseInt(text);
+                    if (value > 23) {
+                        startHourValue.setText("23");
+                    }
+                }
+            }
+        });
+        startHourValue.setEffect(ds);
+        startHourValue.setPrefHeight(40);
+        startHourValue.setPrefWidth(70);
+        startHourValue.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        startHourValue.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        startHourValue.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
+        //Indicatif heure
+        VBox startHourLabelContent = new VBox();
+        Label sHourLabel = new Label("h");
+        sHourLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        sHourLabel.setTextFill(Color.web("black"));
+        startHourLabelContent.setAlignment(Pos.CENTER);
+        startHourLabelContent.getChildren().add(sHourLabel);
+        //Minutes
+        startMinuteValue = new TextField();
+
+        //Pas plus de 2 caractères
+        startMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
+            if (newValue.length() > 2) {
+                startMinuteValue.setText(oldValue);
+            }
+        });
+        startMinuteValue.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                String text = startMinuteValue.getText();
+                if (text.isEmpty()) {
+                    startMinuteValue.setText("00");
+                } else {
+                    int value = Integer.parseInt(text);
+                    if (value > 59) {
+                        startMinuteValue.setText("59");
+                    }
+                }
+            }
+        });
+        //Style
+        startMinuteValue.setEffect(ds);
+        startMinuteValue.setPrefHeight(40);
+        startMinuteValue.setPrefWidth(70);
+        startMinuteValue.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        startMinuteValue.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        startMinuteValue.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
+        //Indicatif minute
+        VBox startMinuteLabelContent = new VBox();
+        Label startMinuteLabel = new Label("m");
+        startMinuteLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        startMinuteLabel.setTextFill(Color.web("black"));
+        startMinuteLabelContent.setAlignment(Pos.CENTER);
+        startMinuteLabelContent.getChildren().add(startMinuteLabel);
+
+        //Ajout dans la grille
+        startTimeValues.setHgap(10);
+        startTimeValues.add(startHourValue,0,0,1,1);
+        startTimeValues.add(startHourLabelContent,1,0,1,1);
+        startTimeValues.add(startMinuteValue,2,0,1,1);
+        startTimeValues.add(startMinuteLabelContent,3,0,1,1);  
+        
+        //Ajout overall
+        startHourSaleContent.getChildren().addAll(startTimeLabel,startTimeValues);
 
 
         //Heure de fin
@@ -378,7 +387,19 @@ public class FenetreCreationVente extends GridPane {
                 endHourValue.setText(oldValue);
             }
         });
-        endHourValue.setTextFormatter(textFormatterH);
+        endHourValue.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                String text = endHourValue.getText();
+                if (text.isEmpty()) {
+                    endHourValue.setText("00");
+                } else {
+                    int value = Integer.parseInt(text);
+                    if (value > 23) {
+                        endHourValue.setText("23");
+                    }
+                }
+            }
+        });
         endHourValue.setEffect(ds);
         endHourValue.setPrefHeight(40);
         endHourValue.setPrefWidth(70);
@@ -403,13 +424,24 @@ public class FenetreCreationVente extends GridPane {
         this.endMinuteValue = new TextField();
 
         //Pas plus de 2 caractères
-        startMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
+        endMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
             if (newValue.length() > 2) {
                 endMinuteValue.setText(oldValue);
             }
         });
-        
-        endMinuteValue.setTextFormatter(textFormatterM);
+        endMinuteValue.focusedProperty().addListener((obs, oldFocus, newFocus) -> {
+            if (!newFocus) {
+                String text = endMinuteValue.getText();
+                if (text.isEmpty()) {
+                    endMinuteValue.setText("00");
+                } else {
+                    int value = Integer.parseInt(text);
+                    if (value > 59) {
+                        endMinuteValue.setText("59");
+                    }
+                }
+            }
+        });
         //Style
         endMinuteValue.setEffect(ds);
         endMinuteValue.setPrefHeight(40);
@@ -511,11 +543,13 @@ public class FenetreCreationVente extends GridPane {
     }
 
     public String getHeureDebut(){
-        return this.startHourValue.getText() +":"+this.endMinuteValue.getText();
+        int hour = Integer.parseInt(this.startHourValue.getText())%12;
+        return  hour+":"+this.endMinuteValue.getText();
     }
 
     public String getHeureFin(){
-        return this.endHourValue.getText()+":"+this.endMinuteValue.getText();
+        int hour = Integer.parseInt(this.endHourValue.getText())%12;
+        return hour+":"+this.endMinuteValue.getText();
     }
 
     public String getCategorySale() {
