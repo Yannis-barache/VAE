@@ -200,6 +200,21 @@ public class FenetreCreationVente extends GridPane {
                     };
                 }
             });
+        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LocalDate selectedDate = newValue;
+                endSale.setDayCellFactory(datePicker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(selectedDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                });
+            }
+        });
         startSale.setEffect(ds);
         startSale.setPrefHeight(50);
         startSale.setPrefWidth(350);
@@ -232,6 +247,21 @@ public class FenetreCreationVente extends GridPane {
                     };
                 }
             });
+        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LocalDate selectedDate = newValue;
+                startSale.setDayCellFactory(datePicker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isAfter(selectedDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                });
+            }
+        });
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
