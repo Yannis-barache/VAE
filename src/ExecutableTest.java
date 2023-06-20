@@ -8,12 +8,17 @@ public class ExecutableTest{
             try{
                 laConnexion.connecter("servinfo-mariadb", "DBsimon", "simon", "Rugby28*@");
                 Statut s = new Statut(7, "testS");
+                System.out.println(s);
                 Categorie c1 = new Categorie(5, "testCat");
+                System.out.println(c1);
                 Utilisateur u1 = new Utilisateur(1, "martin", "martin.martin@gmail.com", "martinou", true, false);
+                System.out.println(u1);
                 Objet o = new Objet(1, "test", "test", c1, u1);
                 System.out.println(o);
-                Vente v = new Vente(1, 1, 2, "12/12/2023:10:10:10", "12/12/2023:10:10:10", s, o);
+                Vente v = new Vente(1, 1, 2, "12/12/2023:10:10:10", "16/12/2023:10:10:10", s, o);
                 System.out.println(v);
+                Enchere e = new Enchere(v, u1, 123, "12/12/2023:10:10:10");
+                System.out.println(e);
                 
                 laConnexion.close();
             } catch (SQLException ex){

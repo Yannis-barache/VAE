@@ -19,6 +19,18 @@ public class Photo {
     }
 
     /**
+     * Constructeur de la classe Photo.
+     *
+     * @param titre       Le titre de la photo.
+     * @param img         Le chemin de l'image de la photo.
+     */
+    public Photo(String titre, Blob img) {
+        this.identifiant = 0;
+        this.titre = titre;
+        this.img = img;
+    }
+
+    /**
      * Obtient l'identifiant de la photo.
      *
      * @return L'identifiant de la photo.

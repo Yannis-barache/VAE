@@ -34,6 +34,27 @@ public class Utilisateur {
     }
 
     /**
+     * Constructeur de la classe Utilisateur.
+     *
+     * @param pseudo      Le pseudo de l'utilisateur.
+     * @param mail        L'adresse e-mail de l'utilisateur.
+     * @param mdp         Le mot de passe de l'utilisateur.
+     * @param actif       Indique si l'utilisateur est actif ou non.
+     * @param admin       Indique si l'utilisateur est administrateur ou non.
+     */
+    
+     public Utilisateur(String pseudo, String mail, String mdp, boolean actif, boolean admin) {
+        this.identifiant = 0;
+        this.pseudo = pseudo;
+        this.mail = mail;
+        this.mdp = mdp;
+        this.actif = actif;
+        this.admin = admin;
+        this.ventes = new ArrayList<>();
+        this.encheres = new ArrayList<>();
+    }
+
+    /**
      * Obtient l'identifiant de l'utilisateur.
      *
      * @return L'identifiant de l'utilisateur.

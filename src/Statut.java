@@ -14,6 +14,16 @@ public class Statut{
     }
 
     /**
+     * Constructeur de la classe statut.
+     *
+     * @param nom         Le nom du statut
+     */
+    public Statut(String nom) {
+        this.identifiant = 0;
+        this.nom = nom;
+    }
+
+    /**
      * Obtient l'identifiant du statut.
      *
      * @return L'identifiant du statut.
