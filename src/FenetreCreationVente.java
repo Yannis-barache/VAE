@@ -123,8 +123,10 @@ public class FenetreCreationVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox categorySaleCB = new ComboBox<>(FXCollections.observableArrayList(categories));
+        //String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
         categorySaleCB.setPrefWidth(300);
