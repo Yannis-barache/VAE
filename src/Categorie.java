@@ -14,12 +14,26 @@ public class Categorie {
     }
 
     /**
+     * Constructeur de la classe Categorie.
+     *
+     * @param nom         Le nom de la catégorie.
+     */
+    public Categorie(String nom) {
+        this.identifiant = 0;
+        this.nom = nom;
+    }
+
+    /**
      * Obtient l'identifiant de la catégorie.
      *
      * @return L'identifiant de la catégorie.
      */
     public int getIdentifiant() {
         return identifiant;
+    }
+
+    public void setIdentifiant(int identifiant) {
+        this.identifiant = identifiant;
     }
 
     /**
@@ -38,5 +52,10 @@ public class Categorie {
      */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    @Override
+    public String toString(){
+        return ""+this.getIdentifiant()+" "+this.getNom();
     }
 }
