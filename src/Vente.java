@@ -153,5 +153,10 @@ public class Vente {
         this.objet = objet;
     }
 
+    @Override 
+    public String toString(){
+        return ""+this.getIdentifiant()+" "+this.getPrixBase()+" "+this.getPrixMin()+" "+this.getdebutVente()+" "+this.getFinVente()+" "+this.getStatus();
+    }
+
 
 }

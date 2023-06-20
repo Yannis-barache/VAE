@@ -62,4 +62,9 @@ public class Photo {
     public void setImg(Blob img) {
         this.img = img;
     }
+
+    @Override
+    public String toString(){
+        return ""+this.getIdentifiant()+" "+this.getTitre();
+    }
 }

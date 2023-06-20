@@ -137,4 +137,9 @@ public class Objet {
     public Utilisateur getVendeur(){
         return this.vendeur;
     }
+
+    @Override
+    public String toString(){
+        return ""+this.getIdentifiant()+" "+this.getNom()+" "+this.getDescription()+" "+this.getCategorie()+" "+this.getVendeur()+" "+this.getLesPhotos();
+    }
 }

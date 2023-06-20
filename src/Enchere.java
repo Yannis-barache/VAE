@@ -57,4 +57,8 @@ public class Enchere {
         return date;
     }
 
+    @Override
+    public String toString(){
+        return ""+this.getVente()+" "+this.getEncherisseur()+" "+this.getMontant()+" "+this.getDate();
+    }
 }
