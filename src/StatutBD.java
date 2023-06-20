@@ -26,6 +26,7 @@ public class StatutBD {
         ps.setInt(1, num);
         ps.setString(2, s.getNom());
         ps.executeUpdate();
+        s.setIdentifiant(num);
     }
 
     public void supprimerStatut(Statut s)throws SQLException{

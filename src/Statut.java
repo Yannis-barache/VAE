@@ -14,12 +14,26 @@ public class Statut{
     }
 
     /**
+     * Constructeur de la classe statut.
+     *
+     * @param nom         Le nom du statut
+     */
+    public Statut(String nom) {
+        this.identifiant = 0;
+        this.nom = nom;
+    }
+
+    /**
      * Obtient l'identifiant du statut.
      *
      * @return L'identifiant du statut.
      */
     public int getIdentifiant() {
         return identifiant;
+    }
+
+    public void setIdentifiant(int identifiant) {
+        this.identifiant = identifiant;
     }
 
     /**
@@ -38,5 +52,10 @@ public class Statut{
      */
     public void setNom(String nom) {
         this.nom = nom;
+    }
+
+    @Override
+    public String toString(){
+        return ""+this.getIdentifiant()+" "+this.getNom();
     }
 }

@@ -26,6 +26,7 @@ public class CategorieBD {
         ps.setInt(1, num);
         ps.setString(2, c.getNom());
         ps.executeUpdate();
+        c.setIdentifiant(num);
     }
 
     public void supprimerCategorie(Categorie c)throws SQLException{
