@@ -38,13 +38,18 @@ import javafx.scene.control.TextFormatter.Change;
 public class FenetreCreationVente extends GridPane {
     
     private ApplicationVAE appli;
-    private TextField titleSale,basePriceSale,minPriceSale;
+    private TextField titleSale,basePriceSale,minPriceSale,startHourValue,endHourValue, startMinuteValue, endMinuteValue;
     private TextArea descSale;
     private DatePicker startSale,endSale;
+    private ComboBox<String> categorySaleCB;
+    private Label alertErreur;
+
+
 
     public FenetreCreationVente(ApplicationVAE appli) {
         super();
         this.appli = appli;
+        this.alertErreur = new Label();
         this.content();
     }
 
@@ -125,7 +130,7 @@ public class FenetreCreationVente extends GridPane {
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
         //String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
-        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB = new ComboBox<String>();
         categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
@@ -250,7 +255,7 @@ public class FenetreCreationVente extends GridPane {
         GridPane startTimeValues = new GridPane();
 
         //L'heure
-        TextField startHourValue = new TextField();
+        startHourValue = new TextField();
         //Pas plus de 2 caractères
         startHourValue.textProperty().addListener((observable,oldValue,newValue) -> {
             if (newValue.length() > 2) {
@@ -278,7 +283,8 @@ public class FenetreCreationVente extends GridPane {
         startHourLabelContent.setAlignment(Pos.CENTER);
         startHourLabelContent.getChildren().add(sHourLabel);
         //Minutes
-        TextField startMinuteValue = new TextField();
+        startMinuteValue = new TextField();
+
         //Pas plus de 2 caractères
         startMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
             if (newValue.length() > 2) {
@@ -364,7 +370,8 @@ public class FenetreCreationVente extends GridPane {
         GridPane endTimeValues = new GridPane();
 
         //L'heure
-        TextField endHourValue = new TextField();
+        endHourValue = new TextField();
+
         //Pas plus de 2 caractères
         endHourValue.textProperty().addListener((observable,oldValue,newValue) -> {
             if (newValue.length() > 2) {
@@ -384,6 +391,7 @@ public class FenetreCreationVente extends GridPane {
             }
             return null;
         }));
+
         //Indicatif heure
         VBox endHourLabelContent = new VBox();
         Label eHourLabel = new Label("h");
@@ -392,7 +400,8 @@ public class FenetreCreationVente extends GridPane {
         endHourLabelContent.setAlignment(Pos.CENTER);
         endHourLabelContent.getChildren().add(eHourLabel);
         //Minutes
-        TextField endMinuteValue = new TextField();
+        this.endMinuteValue = new TextField();
+
         //Pas plus de 2 caractères
         startMinuteValue.textProperty().addListener((observable,oldValue,newValue) -> {
             if (newValue.length() > 2) {
@@ -444,12 +453,13 @@ public class FenetreCreationVente extends GridPane {
 
         VBox sendContent = new VBox();
         Button send = new Button("Mettre en ligne");
+        send.setOnAction(new ControleurInsererVente(appli, this));
         send.setEffect(ds);
-        send.setOnAction((key) -> System.out.println("next"));
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
         send.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
         sendContent.getChildren().add(send);
+        sendContent.getChildren().add(this.alertErreur);
         sendContent.setAlignment(Pos.TOP_RIGHT);
 
         //Configuration de la grille
@@ -475,4 +485,47 @@ public class FenetreCreationVente extends GridPane {
         this.add(cancelContent,0,5,1,1);
         this.add(sendContent,3,5,1,1);
     }
+
+    public TextArea getDescSale() {
+        return this.descSale;
+    }
+
+    public TextField getTitleSale() {
+        return this.titleSale;
+    }
+
+    public TextField getBasePriceSale() {
+        return this.basePriceSale;
+    }
+
+    public TextField getMinPriceSale() {
+        return this.minPriceSale;
+    }
+
+    public LocalDate getStartSale() {
+        return this.startSale.getValue();
+    }
+
+    public LocalDate getEndSale() {
+        return this.endSale.getValue();
+    }
+
+    public String getHeureDebut(){
+        return this.startHourValue.getText() +":"+this.endMinuteValue.getText();
+    }
+
+    public String getHeureFin(){
+        return this.endHourValue.getText()+":"+this.endMinuteValue.getText();
+    }
+
+    public String getCategorySale() {
+        return this.categorySaleCB.getValue();
+    }
+
+    public void setAlertErreur(String alert) {
+        this.alertErreur.setText(alert);
+    }
+
+
+    
 }

@@ -32,9 +32,9 @@ import java.util.ArrayList;
 public class FenetreEditionVente extends GridPane {
     
     private ApplicationVAE appli;
-    private Map<String,String> vente;
+    private Vente vente;
 
-    public FenetreEditionVente(ApplicationVAE appli,Map<String,String> vente) {
+    public FenetreEditionVente(ApplicationVAE appli,Vente vente) {
         super();
         this.appli = appli;
         this.vente = vente;
@@ -52,7 +52,7 @@ public class FenetreEditionVente extends GridPane {
 
         //Titre
         VBox titleContent = new VBox();
-        System.out.println(this.vente.get("id"));
+        System.out.println(this.vente.getIdentifiant());
         Label title = new Label("Modifier une vente");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         title.setTextFill(Color.web("black"));

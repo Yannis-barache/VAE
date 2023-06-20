@@ -138,6 +138,7 @@ public class FenetreConnexion extends BorderPane {
         notifReussie.setTextAlignment(TextAlignment.RIGHT);
         notifReussie.setTextFill(Color.GREEN);
 
+
         entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent,notifReussie);
         entries.setPadding(new Insets(300,50,0,300));
 
