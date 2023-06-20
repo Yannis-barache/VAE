@@ -19,7 +19,6 @@ public class Enchere {
         this.date = date;
     }
 
-
     /**
      * Obtient la vente associée à l'enchère.
      *
@@ -28,7 +27,6 @@ public class Enchere {
     public Vente getVente() {
         return vente;
     }
-
 
     /**
      * Obtient l'utilisateur encherisseur.

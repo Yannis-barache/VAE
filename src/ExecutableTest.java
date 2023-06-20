@@ -34,19 +34,8 @@ public class ExecutableTest{
                 Objet o = new Objet(1, "Moto", "super rapide", c1, u1);
                 oBd.insererObjet(o);
                 System.out.println(o);
-
-                Vente v = new Vente(1, 1, 2, "12/12/2023:10:10:10", "19/12/2023:10:10:10", s, o);
+                Vente v = new Vente(1, 1, 2, "12/12/2023:10:10:10", "12/12/2023:10:10:10", s, o);
                 System.out.println(v);
-                vBd.insererVente(v);
-
-                Enchere e = new Enchere(v, u2, 20, "13/12/2023:10:10:10");
-                eBd.insererEnchere(e);
-                System.out.println(e);
-
-                System.out.println(u2);
-
-
-
                 
                 laConnexion.close();
             } catch (SQLException ex){

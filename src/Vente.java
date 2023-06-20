@@ -28,6 +28,26 @@ public class Vente {
     }
 
     /**
+     * Constructeur de la classe Vente.
+     *
+     * @param prixBase    Le prix de base de la vente.
+     * @param prixMin     Le prix minimum de la vente.
+     * @param debutVente  La date de début de la vente.
+     * @param finVente    La date de fin de la vente.
+     * @param statut      Le statut de la vente.
+     * @param objet       L'objet mis en vente.
+     */
+    public Vente(int prixBase, int prixMin, String debutVente, String finVente, Statut statut, Objet objet) {
+        this.identifiant = 0;
+        this.prixBase = prixBase;
+        this.prixMin = prixMin;
+        this.debutVente = debutVente;
+        this.finVente = finVente;
+        this.statut = statut;
+        this.objet = objet;
+    }
+
+    /**
      * Obtient l'identifiant de la vente.
      *
      * @return L'identifiant de la vente.

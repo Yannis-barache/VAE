@@ -29,6 +29,24 @@ public class Objet {
     }
 
     /**
+     * Constructeur de la classe Objet.
+     *
+     * @param nom          Le nom de l'objet.
+     * @param description  La description de l'objet.
+     * @param categorie    La catégorie de l'objet.
+     * @param lesPhotos    La liste des photos de l'objet.
+     * @param vendeur      Le vendeur de l'objet.
+     */
+    public Objet(String nom, String description, Categorie categorie, Utilisateur vendeur) {
+        this.identifiant = 0;
+        this.nom = nom;
+        this.description = description;
+        this.categorie = categorie;
+        this.lesPhotos = new ArrayList<>(4);
+        this.vendeur = vendeur;
+    }
+
+    /**
      * Obtient l'identifiant de l'objet.
      *
      * @return L'identifiant de l'objet.

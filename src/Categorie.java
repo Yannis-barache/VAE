@@ -14,6 +14,16 @@ public class Categorie {
     }
 
     /**
+     * Constructeur de la classe Categorie.
+     *
+     * @param nom         Le nom de la catégorie.
+     */
+    public Categorie(String nom) {
+        this.identifiant = 0;
+        this.nom = nom;
+    }
+
+    /**
      * Obtient l'identifiant de la catégorie.
      *
      * @return L'identifiant de la catégorie.
