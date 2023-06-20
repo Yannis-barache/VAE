@@ -145,7 +145,7 @@ public class ApplicationVAE extends Application{
 
         Map<String,String> v1 = new HashMap<String,String>();
         v1.put("id","43");
-        v1.put("titre","Canapé repliable Castorama 180cm");
+        v1.put("titre","Canapé repliable Castorama 180cm LES GAEL LES GAEL LES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELS");
         v1.put("prixBase","180");      
         v1.put("nbEnchere","0");
         
