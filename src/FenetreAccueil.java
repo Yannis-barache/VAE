@@ -107,7 +107,7 @@ public class FenetreAccueil extends BorderPane {
 
             //Une vente
             VBox item = new VBox();
-
+ 
             //Image
             VBox picContainer = new VBox();
             ImageView pic = new ImageView(new Image("file:./img/blank.png"));
