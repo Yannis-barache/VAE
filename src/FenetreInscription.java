@@ -40,6 +40,8 @@ public class FenetreInscription extends BorderPane {
         super();
         this.appli = appli;
         this.alertLogin = new Label();
+        alertLogin.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        alertLogin.setTextFill(Color.web("#e66954"));
         this.content();
     }
 
@@ -159,6 +161,8 @@ public class FenetreInscription extends BorderPane {
         ImageView logo = new ImageView(new Image("file:./img/vae2.png"));
         logoContent.getChildren().addAll(logo);
         logoContent.setPadding(new Insets(400,100,0,100));
+
+    
 
 
         this.setLeft(leftAside);
