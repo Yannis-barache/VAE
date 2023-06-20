@@ -26,6 +26,7 @@ public class PhotoBD {
         ps.setBlob(3, ph.getImg());
         ps.setInt(4, idOb);
         ps.executeUpdate();
+        ph.setIdentifiant(num);
     }
 
     public void supprimerPhoto(Photo ph)throws SQLException{

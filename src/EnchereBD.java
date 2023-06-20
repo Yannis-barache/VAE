@@ -13,7 +13,7 @@ public class EnchereBD {
     }
 
     public void insererEnchere(Enchere e)throws SQLException{
-        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into ENCHERIR(idUT,idVe,dateheure,montant) values (?,?,?,?)");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into ENCHERIR(idUT,idVe,dateheure,montant) values (?,?,STR_TO_DATE('?','%d/%m/%Y:%h:%i:%s'),?)");
         ps.setInt(1, e.getEncherisseur().getIdentifiant());
         ps.setInt(2, e.getVente().getIdentifiant());
         ps.setString(3, e.getDate());
