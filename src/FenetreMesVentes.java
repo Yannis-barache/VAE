@@ -110,6 +110,9 @@ public class FenetreMesVentes extends BorderPane {
                 remainTime.setTextFill(Color.web("#5D48D7"));  
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
 
+                //Calcul du temps restant
+
+
                 //Nombre enchères
                 Label nbEnchereslabel = new Label("Nombre d'enchère : ");
                 nbEnchereslabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));

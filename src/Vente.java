@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Vente {
     private int identifiant;
     private int prixBase;
@@ -171,6 +174,27 @@ public class Vente {
      */
     public void setObjet(Objet objet) {
         this.objet = objet;
+    }
+
+
+    /**
+     * Obtient le temps restant avant la fin de la vente en jours.
+     *
+     * @return Le temps restant avant la fin de la vente en jours.
+     */
+
+    public String tempsRestant(){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        try {
+            Date dateDebut = sdf.parse(this.debutVente);
+            Date dateApres = sdf.parse(this.finVente);
+            long diff = dateApres.getTime() - dateDebut.getTime();
+            float res = (diff / (1000*60*60*24));
+            System.out.println("Nombre de jours entre les deux dates est: "+res);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Il n'y a pas de date de fin de vente";
     }
 
     @Override 
