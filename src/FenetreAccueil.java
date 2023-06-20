@@ -66,8 +66,9 @@ public class FenetreAccueil extends BorderPane {
         Label filtersLabel = new Label("Catégories");
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox CBfilters = new ComboBox<>(FXCollections.observableArrayList(categories));
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> CBfilters = new ComboBox<String>();
+        CBfilters.getItems().addAll(filtersList);
         CBfilters.setEffect(ds);
         CBfilters.setPrefHeight(50);
         CBfilters.setPrefWidth(300);
