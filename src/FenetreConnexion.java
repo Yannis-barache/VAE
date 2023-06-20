@@ -132,6 +132,12 @@ public class FenetreConnexion extends BorderPane {
         // Permet de faire entrée pour s'autentifier
         this.passwordEntry.setOnKeyReleased(new ControleurConnecKey(this.appli,this));
 
+        //Notif reussie
+        notifReussie.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+        notifReussie.setPadding(new Insets(10,0,0,45));
+        notifReussie.setTextAlignment(TextAlignment.RIGHT);
+        notifReussie.setTextFill(Color.GREEN);
+
         entries.getChildren().addAll(title,pseudoContent,passwordContent,this.alertLogin,loginContent,registerContent,notifReussie);
         entries.setPadding(new Insets(300,50,0,300));
 

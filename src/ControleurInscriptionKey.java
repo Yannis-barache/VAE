@@ -32,7 +32,7 @@ public class ControleurInscriptionKey implements EventHandler<KeyEvent>{
                     this.fenetreInscription.setAlertLogin("Insertion en cours");
                     this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(45, pseudo, mail, mdp1, true, false));
                     this.appli.fenetreConnexion();
-                    // this.appli.setNotifReussie("Inscription réussie, veuillez vous connecter");
+                    this.appli.setNotifReussie("Inscription réussie, veuillez vous connecter");
 
                 } catch(SQLException ex){
                     if(ex.getErrorCode()==1062){
