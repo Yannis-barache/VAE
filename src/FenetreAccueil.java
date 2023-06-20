@@ -93,7 +93,7 @@ public class FenetreAccueil extends BorderPane {
         TilePane discoverItems = new TilePane();
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
-        for (int i=0; i<7;++i) {
+        for (int i=0; i<30;++i) {
 
             //Une vente
             VBox item = new VBox();
@@ -163,7 +163,7 @@ public class FenetreAccueil extends BorderPane {
             //Properties
             item.setPadding(new Insets(30));
             item.setPrefWidth(500);
-            item.setPrefHeight(600);
+            // item.setPrefHeight(520);
             item.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
             item.getChildren().addAll(picContainer,informations);
             item.setEffect(ds);
