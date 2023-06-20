@@ -7,10 +7,12 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -56,7 +58,7 @@ public class Menu extends BorderPane {
         Button ventesBtn = new Button("Mes Ventes");
         Button encheresBtn = new Button("Mes enchères");
         
-        accueilBtn.setOnAction((key) -> this.appli.fenetreAccueil());
+        accueilBtn.setOnAction(new ControleurMenu(this.appli));
         accueilBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         accueilBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         accueilBtn.setTextFill(Color.web("white"));
@@ -65,7 +67,7 @@ public class Menu extends BorderPane {
         accueilBtn.setStyle("-fx-translate-y: 0;");
         accueilBtn.setFocusTraversable(false);
 
-        createVBtn.setOnAction((key) -> this.appli.fenetreCreationVente());
+        createVBtn.setOnAction(new ControleurMenu(this.appli));
         createVBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         createVBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         createVBtn.setTextFill(Color.web("white"));
@@ -74,7 +76,7 @@ public class Menu extends BorderPane {
         createVBtn.setStyle("-fx-translate-y: 0;");
         createVBtn.setFocusTraversable(false);
 
-        ventesBtn.setOnAction((key) -> this.appli.fenetreMesVentes());
+        ventesBtn.setOnAction(new ControleurMenu(this.appli));
         ventesBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         ventesBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         ventesBtn.setTextFill(Color.web("white"));
@@ -83,7 +85,7 @@ public class Menu extends BorderPane {
         ventesBtn.setStyle("-fx-translate-y: 0;");
         ventesBtn.setFocusTraversable(false);
 
-        encheresBtn.setOnAction((key) -> this.appli.fenetreMesEncheres());
+        encheresBtn.setOnAction(new ControleurMenu(this.appli));
         encheresBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         encheresBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         encheresBtn.setTextFill(Color.web("white"));
@@ -102,10 +104,10 @@ public class Menu extends BorderPane {
         menu.setAlignment(Pos.CENTER);
 
         //Paramètres / Profil
-        HBox settingsContent = new HBox();
+        HBox profilContent = new HBox();
         Button profil = new Button(this.appli.getUtilisateur().getPseudo());
 
-        profil.setOnAction((key) -> this.appli.fenetreMonProfil());
+        profil.setOnAction(new ControleurMenu(this.appli));
         profil.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         profil.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         profil.setTextFill(Color.web("white"));
@@ -114,7 +116,23 @@ public class Menu extends BorderPane {
         profil.setStyle("-fx-translate-y: 0;");
         profil.setFocusTraversable(false);
 
-        settingsContent.getChildren().addAll(profil);
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem monProfilItem = new MenuItem("Mon profil");
+        MenuItem deconnexionItem = new MenuItem("Déconnexion");
+        monProfilItem.setOnAction(new ControleurMenu(this.appli));
+        deconnexionItem.setOnAction(new ControleurRetourPageConnec(this.appli));
+    
+
+
+
+        contextMenu.getItems().addAll(monProfilItem, deconnexionItem);
+        profil.setContextMenu(contextMenu);
+
+        profil.setOnAction(event -> {
+            contextMenu.show(profil, Side.BOTTOM, 0, 0);
+        });
+        
+        profilContent.getChildren().addAll(profil);
 
         //Indicateur de la vue actuelle
         if (this.associatedView == 0) accueilBtn.setTextFill(Color.web("#FEE159"));
@@ -130,6 +148,6 @@ public class Menu extends BorderPane {
         //Placement des containers dans le menu
         this.setLeft(logoContent);
         this.setCenter(menu);
-        this.setRight(settingsContent);
+        this.setRight(profilContent);
     }
 }

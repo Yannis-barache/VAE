@@ -12,25 +12,70 @@ public class VenteBD {
         this.connexMySQL=connexMySQL;
     }
 
-    // public int numVenteMax()throws SQLException{
-    //     st= this.connexMySQL.createStatement();
-    //     // execute la requte sql
-    //     ResultSet rs = st.executeQuery("select IFNULL(max(idOb),0) leMax from VENTE");
-    //     rs.next();
-    //     int res  = rs.getInt(1);
-    //     rs.close();
-    //     return res;
-    // }
+    public int numVenteMax()throws SQLException{
+        st= this.connexMySQL.createStatement();
+        // execute la requte sql
+        ResultSet rs = st.executeQuery("select IFNULL(max(idOb),0) leMax from VENTE");
+        rs.next();
+        int res  = rs.getInt(1);
+        rs.close();
+        return res;
+    }
 
-    // public void insererVente(Vente v)throws SQLException{
-    //     int num = this.numObjetMax()+1;
-    //     PreparedStatement ps = this.connexMySQL.prepareStatement("insert into Objet(idOb,nomOb,descriptionOb,idCat,idUt) values (?,?,?,?,?)");
-    //     ps.setInt(1, num);
-    //     ps.setString(2, o.getNom());
-    //     ps.setString(3, o.getDescription());
-    //     ps.setInt(4, o.getCategorie().getIdentifiant());
-    //     ps.setInt(5, o.getVendeur().getIdentifiant());
-    //     ps.executeUpdate();
-    // }
+    public void insererVente(Vente v)throws SQLException{
+        int num = this.numVenteMax()+1;
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into VENTE(idVe,prixBase,prixMin,debutVe,finVe,idSt,idOb) values (?,?,?,STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),?,?)");
+        ps.setInt(1, num);
+        ps.setInt(2, v.getPrixBase());
+        ps.setInt(3, v.getPrixMin());
+        ps.setString(4, v.getdebutVente());
+        ps.setString(5, v.getFinVente());
+        ps.setInt(6, v.getStatus().getIdentifiant());
+        ps.setInt(7, v.getObjet().getIdentifiant());
+        ps.executeUpdate();
+        v.setIdentifiant(num);
+        v.getObjet().getVendeur().ajouterVente(v);
+    }
 
+    public void supprimerVente(Vente v)throws SQLException{
+        int idVe = v.getIdentifiant();
+        st= this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("DELETE from VENTE where "+idVe+"=idVe");
+        rs.next();
+        rs.close();
+        v.getObjet().getVendeur().supprimerVente(v);
+    }
+
+    public void modifierVente( Vente v)throws SQLException{
+        // UPDATE table SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3' WHERE condition
+        PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE VENTE SET finVe = ? where "+v.getIdentifiant()+"=idVe");
+        ps.setString(1, v.getFinVente());
+        ps.executeUpdate();
+    }
+
+    public Vente rechercherVenteParNum(int idVe)throws SQLException{
+        st= this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from VENTE where "+idVe+"=idVe");
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        rs.next();
+        Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(6)), objetBD.rechercherObjetParNum(rs.getInt(7)));
+        rs.close();
+        return v;
+    }
+
+    public List<Vente> listeVentes() throws SQLException{
+        st= this.connexMySQL.createStatement();
+        List<Vente> liste = new ArrayList<>();
+        ResultSet rs = st.executeQuery("select * from VENTE");
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(6)), objetBD.rechercherObjetParNum(rs.getInt(7)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
 }
+

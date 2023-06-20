@@ -30,8 +30,16 @@ public class ControleurInscription implements EventHandler<ActionEvent>{
                 this.fenetreInscription.setAlertLogin("Insertion en cours");
                 this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(45, pseudo, mail, mdp1, true, false));
                 this.fenetreInscription.setAlertLogin("Insertion réussie");
+                this.appli.setNotifReussie("Inscription réussie, veuillez vous connecter");
+                this.appli.fenetreConnexion();
 
             } catch(SQLException ex){
+                if(ex.getErrorCode()==1062){
+                    this.fenetreInscription.setAlertLogin("Pseudo déjà utilisé. Veuillez en choisir un autre");
+                }
+                else{
+                    this.fenetreInscription.setAlertLogin("Erreur lors de l'insertion, veuillez réessayer");
+                }
 
             }
             

@@ -59,6 +59,14 @@ public class FenetreAccueil extends BorderPane {
         search.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         search.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
+        // Ajout du bouton rechercher
+        Button searchButton = new Button("Rechercher");
+        searchButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        searchButton.setPadding(new Insets(10,30,10,30));
+        searchButton.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        searchButton.setOnAction((key) -> System.out.println("next"));
+
+        
         searchBar.getChildren().addAll(searchLabel,search);
 
 
@@ -66,8 +74,9 @@ public class FenetreAccueil extends BorderPane {
         Label filtersLabel = new Label("Catégories");
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox CBfilters = new ComboBox<>(FXCollections.observableArrayList(categories));
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> CBfilters = new ComboBox<String>();
+        CBfilters.getItems().addAll(filtersList);
         CBfilters.setEffect(ds);
         CBfilters.setPrefHeight(50);
         CBfilters.setPrefWidth(300);
@@ -80,6 +89,7 @@ public class FenetreAccueil extends BorderPane {
         searchContent.setAlignment(Pos.CENTER);
         searchContent.add(searchBar,0,0); //span
         searchContent.add(filters,1,0); //span
+        searchContent.add(searchButton,2,0); //span
 
         //Decouvrez
         VBox discoverContent = new VBox();
@@ -174,6 +184,8 @@ public class FenetreAccueil extends BorderPane {
 
         discoverLabelContainer.getChildren().add(discoverLabel);
         discoverItemsContainer.getChildren().add(discoverItems);
+
+        
 
         discoverContent.setPadding(new Insets(200,0,35,100));
         discoverContent.getChildren().addAll(discoverLabelContainer,discoverItemsContainer);

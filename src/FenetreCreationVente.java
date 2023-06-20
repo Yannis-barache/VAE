@@ -123,8 +123,10 @@ public class FenetreCreationVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox categorySaleCB = new ComboBox<>(FXCollections.observableArrayList(categories));
+        //String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
         categorySaleCB.setPrefWidth(300);
@@ -185,40 +187,27 @@ public class FenetreCreationVente extends GridPane {
         startSale = new DatePicker();
         startSale.getEditor().setDisable(true);
         startSale.setPromptText("Choisissez la date du début");
-        startSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
-                @Override
-                public DateCell call(DatePicker datePicker) {
-                    return new DateCell() {
-                        @Override
-                        public void updateItem(LocalDate item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item.isBefore(LocalDate.now())) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
-                            }
-                        }
-                    };
-                }
-            });
-        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate selectedDate = newValue;
-                endSale.setDayCellFactory(datePicker -> new DateCell() {
+            
+        // Définition de la cellule de date pour la date de début
+        Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item.isBefore(selectedDate)) {
+                        if (item.isBefore(LocalDate.now())) {
                             setDisable(true);
                             setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
                         }
                     }
-                });
+                };
             }
-        });
+        };
+        startSale.setDayCellFactory(startSaleCellFactory);
         startSale.setEffect(ds);
         startSale.setPrefHeight(50);
         startSale.setPrefWidth(350);
-        // startSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         startSale.setStyle("-fx-control-inner-background: #F8F8F8");
         startSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
@@ -338,40 +327,27 @@ public class FenetreCreationVente extends GridPane {
         endSale = new DatePicker();
         endSale.getEditor().setDisable(true);
         endSale.setPromptText("Choisissez la date de fin");
-        endSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
-                @Override
-                public DateCell call(DatePicker datePicker) {
-                    return new DateCell() {
-                        @Override
-                        public void updateItem(LocalDate item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (item.isBefore(LocalDate.now())) {
-                                setDisable(true);
-                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
-                            }
-                        }
-                    };
-                }
-            });
-        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                LocalDate selectedDate = newValue;
-                startSale.setDayCellFactory(datePicker -> new DateCell() {
+        // Définition de la cellule de date pour la date de fin
+        Callback<DatePicker, DateCell> endSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        if (item.isAfter(selectedDate)) {
+                        LocalDate selectedStartDate = startSale.getValue();
+                        if (selectedStartDate != null && item.isBefore(selectedStartDate)) {
                             setDisable(true);
                             setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
                         }
                     }
-                });
+                };
             }
-        });
+        };                     
+        endSale.setDayCellFactory(endSaleCellFactory);
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
-        // endSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         endSale.setStyle("-fx-control-inner-background: #F8F8F8");
         endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 

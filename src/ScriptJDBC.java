@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScriptJDBC {
 
@@ -103,6 +105,20 @@ public class ScriptJDBC {
             throw new SQLException("L'utilisateur n'a pas de vente à son actif");
         }
         
+    }
+
+    public List<String> getCategories(){
+        List<String> categories = new ArrayList<String>();
+        try{
+            Statement s=laConnexion.createStatement();
+            ResultSet rs=s.executeQuery("SELECT * from CATEGORIE");
+            while (rs.next()){
+                categories.add(rs.getString("nomcat"));
+            }
+            return categories;
+        } catch (SQLException ex){
+            return null;
+        }
     }
 
     public Utilisateur getUtilisateur(){

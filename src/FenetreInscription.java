@@ -40,6 +40,8 @@ public class FenetreInscription extends BorderPane {
         super();
         this.appli = appli;
         this.alertLogin = new Label();
+        alertLogin.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        alertLogin.setTextFill(Color.web("#e66954"));
         this.content();
     }
 
@@ -127,6 +129,7 @@ public class FenetreInscription extends BorderPane {
         passwordEntry2.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         passwordContent2.setPadding(new Insets(30,0,10,0));
         passwordContent2.getChildren().addAll(passwordLabel2,passwordEntry2);
+        passwordContent2.setOnKeyReleased(new ControleurInscriptionKey(appli, this));
  
 
         //Buttons register cancel
@@ -159,6 +162,8 @@ public class FenetreInscription extends BorderPane {
         ImageView logo = new ImageView(new Image("file:./img/vae2.png"));
         logoContent.getChildren().addAll(logo);
         logoContent.setPadding(new Insets(400,100,0,100));
+
+    
 
 
         this.setLeft(leftAside);

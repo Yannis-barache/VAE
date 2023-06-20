@@ -9,6 +9,7 @@ public class Utilisateur {
     private boolean actif;
     private boolean admin;
     private List<Vente> ventes;
+    private List<Enchere> encheres;
 
     /**
      * Constructeur de la classe Utilisateur.
@@ -29,6 +30,28 @@ public class Utilisateur {
         this.actif = actif;
         this.admin = admin;
         this.ventes = new ArrayList<>();
+        this.encheres = new ArrayList<>();
+    }
+
+    /**
+     * Constructeur de la classe Utilisateur.
+     *
+     * @param pseudo      Le pseudo de l'utilisateur.
+     * @param mail        L'adresse e-mail de l'utilisateur.
+     * @param mdp         Le mot de passe de l'utilisateur.
+     * @param actif       Indique si l'utilisateur est actif ou non.
+     * @param admin       Indique si l'utilisateur est administrateur ou non.
+     */
+    
+     public Utilisateur(String pseudo, String mail, String mdp, boolean actif, boolean admin) {
+        this.identifiant = 0;
+        this.pseudo = pseudo;
+        this.mail = mail;
+        this.mdp = mdp;
+        this.actif = actif;
+        this.admin = admin;
+        this.ventes = new ArrayList<>();
+        this.encheres = new ArrayList<>();
     }
 
     /**
@@ -38,6 +61,10 @@ public class Utilisateur {
      */
     public int getIdentifiant() {
         return this.identifiant;
+    }
+
+    public void setIdentifiant(int identifiant) {
+        this.identifiant = identifiant;
     }
 
     /**
@@ -155,5 +182,37 @@ public class Utilisateur {
      */
     public void supprimerVente(Vente vente) {
         this.ventes.remove(vente);
+    }
+
+        /**
+     * Obtient la liste des encheres de l'utilisateur.
+     *
+     * @return La liste des encheres de l'utilisateur.
+     */
+    public List<Enchere> getEncheres() {
+        return this.encheres;
+    }
+
+    /**
+     * Ajoute une encheres à la liste des encheres de l'utilisateur.
+     *
+     * @param encheres L'enchere à ajouter.
+     */
+    public void ajouterEnchere(Enchere enchere) {
+        this.encheres.add(enchere);
+    }
+
+    /**
+     * Supprime une enchere de la liste des encheres de l'utilisateur.
+     *
+     * @param enchere L'enchere à supprimer.
+     */
+    public void supprimerEnchere(Enchere enchere) {
+        this.encheres.remove(enchere);
+    }
+
+    @Override
+    public String toString(){
+        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" "+getVentes()+" "+isActif()+" "+isAdmin()+" "+getEncheres();
     }
 }
