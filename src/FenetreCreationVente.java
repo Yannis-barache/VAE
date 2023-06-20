@@ -29,6 +29,12 @@ import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
 
+import javafx.scene.control.DatePicker;
+import java.time.LocalDate;
+import javafx.util.Callback;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
+
 public class FenetreCreationVente extends GridPane {
     
     private ApplicationVAE appli;
@@ -139,6 +145,13 @@ public class FenetreCreationVente extends GridPane {
         basePriceSale.setPrefWidth(350);
         basePriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         basePriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        basePriceSale.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
 
         basePriceSaleContent.getChildren().addAll(basePriceSaleLabel,basePriceSale);
 
@@ -154,6 +167,13 @@ public class FenetreCreationVente extends GridPane {
         minPriceSale.setPrefWidth(350);
         minPriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         minPriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        minPriceSale.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
 
         minPriceSaleContent.getChildren().addAll(minPriceSaleLabel,minPriceSale);
 
@@ -163,7 +183,38 @@ public class FenetreCreationVente extends GridPane {
         startSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         startSaleLabel.setTextFill(Color.web("#5D48D7"));
         startSale = new DatePicker();
+        startSale.getEditor().setDisable(true);
         startSale.setPromptText("Choisissez la date du début");
+        startSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.isBefore(LocalDate.now())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                            }
+                        }
+                    };
+                }
+            });
+        startSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LocalDate selectedDate = newValue;
+                endSale.setDayCellFactory(datePicker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(selectedDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                });
+            }
+        });
         startSale.setEffect(ds);
         startSale.setPrefHeight(50);
         startSale.setPrefWidth(350);
@@ -179,7 +230,38 @@ public class FenetreCreationVente extends GridPane {
         endSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         endSaleLabel.setTextFill(Color.web("#5D48D7"));
         endSale = new DatePicker();
+        endSale.getEditor().setDisable(true);
         endSale.setPromptText("Choisissez la date de fin");
+        endSale.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+                @Override
+                public DateCell call(DatePicker datePicker) {
+                    return new DateCell() {
+                        @Override
+                        public void updateItem(LocalDate item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (item.isBefore(LocalDate.now())) {
+                                setDisable(true);
+                                setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                            }
+                        }
+                    };
+                }
+            });
+        endSale.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                LocalDate selectedDate = newValue;
+                startSale.setDayCellFactory(datePicker -> new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isAfter(selectedDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                });
+            }
+        });
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
