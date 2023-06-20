@@ -192,6 +192,6 @@ public class Utilisateur {
 
     @Override
     public String toString(){
-        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" "+getVentes()+" "+isActif()+" "+isAdmin();
+        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" "+getVentes()+" "+isActif()+" "+isAdmin()+" "+getEncheres();
     }
 }

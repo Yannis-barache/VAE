@@ -24,7 +24,7 @@ public class VenteBD {
 
     public void insererVente(Vente v)throws SQLException{
         int num = this.numVenteMax()+1;
-        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into VENTE(idVe,prixBase,prixMin,debutVe,finVe,idSt,idOb) values (?,?,?,?,STR_TO_DATE('?','%d/%m/%Y:%h:%i:%s'),STR_TO_DATE('?','%d/%m/%Y:%h:%i:%s'),?)");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into VENTE(idVe,prixBase,prixMin,debutVe,finVe,idSt,idOb) values (?,?,?,STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),?,?)");
         ps.setInt(1, num);
         ps.setInt(2, v.getPrixBase());
         ps.setInt(3, v.getPrixMin());
@@ -34,6 +34,7 @@ public class VenteBD {
         ps.setInt(7, v.getObjet().getIdentifiant());
         ps.executeUpdate();
         v.setIdentifiant(num);
+        v.getObjet().getVendeur().ajouterVente(v);
     }
 
     public void supprimerVente(Vente v)throws SQLException{
@@ -42,6 +43,7 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("DELETE from VENTE where "+idVe+"=idVe");
         rs.next();
         rs.close();
+        v.getObjet().getVendeur().supprimerVente(v);
     }
 
     public void modifierVente( Vente v)throws SQLException{

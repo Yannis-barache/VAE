@@ -22,7 +22,7 @@ public class ObjetBD {
 
     public void insererObjet(Objet o)throws SQLException{
         int num = this.numObjetMax()+1;
-        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into Objet(idOb,nomOb,descriptionOb,idCat,idUt) values (?,?,?,?,?)");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into OBJET(idOb,nomOb,descriptionOb,idCat,idUt) values (?,?,?,?,?)");
         ps.setInt(1, num);
         ps.setString(2, o.getNom());
         ps.setString(3, o.getDescription());
@@ -35,7 +35,7 @@ public class ObjetBD {
     public void supprimerObjet(Objet o)throws SQLException{
         int idOb = o.getIdentifiant();
         st= this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("DELETE from Objet where "+idOb+"=idOb");
+        ResultSet rs = st.executeQuery("DELETE from OBJET where "+idOb+"=idOb");
         rs.next();
         rs.close();
     }
@@ -51,7 +51,7 @@ public class ObjetBD {
 
     public Objet rechercherObjetParNum(int idOb)throws SQLException{
         st= this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("select * from Objet where "+idOb+"=idOb");
+        ResultSet rs = st.executeQuery("select * from OBJET where "+idOb+"=idOb");
         rs.next();
         CategorieBD categorieBD = new CategorieBD(connexMySQL);
         UtilisateurBD utilisateurBD = new UtilisateurBD(connexMySQL);
