@@ -29,6 +29,7 @@ public class ObjetBD {
         ps.setInt(4, o.getCategorie().getIdentifiant());
         ps.setInt(5, o.getVendeur().getIdentifiant());
         ps.executeUpdate();
+        o.setIdentifiant(num);
     }
 
     public void supprimerObjet(Objet o)throws SQLException{

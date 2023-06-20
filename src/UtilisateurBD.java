@@ -39,6 +39,7 @@ public class UtilisateurBD {
         ps.setString(5, "O");
         ps.setInt(6, role);
         ps.executeUpdate();
+        u.setIdentifiant(num);
     }
 
     public void supprimerUtilisateur(Utilisateur u)throws SQLException{

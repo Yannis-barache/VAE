@@ -27,6 +27,10 @@ public class Photo {
         return identifiant;
     }
 
+    public void setIdentifiant(int identifiant) {
+        this.identifiant = identifiant;
+    }
+
     /**
      * Obtient le titre de la photo.
      *

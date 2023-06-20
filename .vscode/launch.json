@@ -6,16 +6,23 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ExecutableTest",
+            "request": "launch",
+            "mainClass": "ExecutableTest",
+            "projectName": "sae_vae_5cbbde40"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
-            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "${file}"
         },
         {
             "type": "java",
             "name": "ApplicationVAE",
             "request": "launch",
-            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml", 
+            "vmArgs": "--module-path /usr/share/openjfx/lib/ --add-modules javafx.controls,javafx.fxml",
             "mainClass": "ApplicationVAE",
             "projectName": "sae_vae_65770a6"
         }

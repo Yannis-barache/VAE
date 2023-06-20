@@ -37,6 +37,10 @@ public class Objet {
         return identifiant;
     }
 
+    public void setIdentifiant(int identifiant) {
+        this.identifiant = identifiant;
+    }
+
     /**
      * Obtient le nom de l'objet.
      *

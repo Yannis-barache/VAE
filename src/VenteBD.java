@@ -33,6 +33,7 @@ public class VenteBD {
         ps.setInt(6, v.getStatus().getIdentifiant());
         ps.setInt(7, v.getObjet().getIdentifiant());
         ps.executeUpdate();
+        v.setIdentifiant(num);
     }
 
     public void supprimerVente(Vente v)throws SQLException{
