@@ -47,6 +47,12 @@ public class FenetreMonProfil extends GridPane {
     }
 
     private void content() {
+
+        //Shadows
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(6.0f);
+        ds.setOffsetX(4.0f);
+        ds.setColor(Color.web("lightgray"));
         
         GridPane gridPaneProfil = new GridPane();
         gridPaneProfil.setAlignment(Pos.TOP_CENTER);    
@@ -94,6 +100,7 @@ public class FenetreMonProfil extends GridPane {
         this.button.setPadding(new Insets(10,30,10,30));
         this.button.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.button.setOnAction(new ControleurBouton(appli, this));
+        this.button.setEffect(ds);
 
 
 

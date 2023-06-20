@@ -73,21 +73,24 @@ public class FenetreMesVentes extends BorderPane {
 
                 VBox leftSide = new VBox();
 
-                //Titre et image (gauche)
-                Label venteTitle = new Label(vente.get("titre"));
-                venteTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-                venteTitle.setTextFill(Color.web("#5D48D7"));     
-                ImageView ventePic = new ImageView(new Image("file:./img/vae2.png"));
-                ventePic.setFitWidth(400);
-                ventePic.setFitHeight(400);
+                //et image (gauche) 
+                ImageView ventePic = new ImageView(new Image("file:./img/blank.png"));
+                ventePic.setFitHeight(350);
                 ventePic.setPreserveRatio(true);    
 
                 leftSide.setStyle("-fx-border-color: lightgray; -fx-border-width: 0 3 0 0");
-                leftSide.setPadding(new Insets(30));
-                leftSide.getChildren().addAll(venteTitle,ventePic);
+                leftSide.setPadding(new Insets(0,30,0,0));
+                leftSide.maxWidth(300);
+                leftSide.getChildren().addAll(ventePic);
 
                 //Informations (droite)
                 GridPane rightSide = new GridPane();
+
+                //Titre
+                Label venteTitle = new Label(vente.get("titre"));
+                venteTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                venteTitle.setTextFill(Color.web("#5D48D7"));  
+                venteTitle.setPadding(new Insets(0,0,35,0));
 
                 //Prix actuel
                 Label actualPriceLabel = new Label("Prix actuel : ");
@@ -116,8 +119,9 @@ public class FenetreMesVentes extends BorderPane {
                 nbEncheres.setTextFill(Color.web("#5D48D7"));
                 nbEncheres.setAlignment(Pos.BASELINE_RIGHT);
 
-                //Bouton
+                //Boutton
                 Tooltip saleToolTip = new Tooltip(vente.get("id"));
+                VBox editContent = new VBox();
                 Button edit = new Button("Modifier");
                 edit.setTooltip(saleToolTip);
                 Tooltip.uninstall(edit, saleToolTip);
@@ -126,25 +130,27 @@ public class FenetreMesVentes extends BorderPane {
                 edit.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 edit.setPadding(new Insets(10,30,10,30));
                 edit.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-                edit.setPadding(new Insets(10,30,10,30));
                 edit.setAlignment(Pos.BASELINE_RIGHT);
+                editContent.setPadding(new Insets(28,0,0,0));
+                editContent.getChildren().add(edit);
 
                 //Placement dans les informations (partie de droite)
-                rightSide.add(actualPriceLabel,0,0,1,1);
-                rightSide.add(actualPrice,1,0,1,1);
-                rightSide.add(remainTimeLabel,0,1,1,1);
-                rightSide.add(remainTime,1,1,1,1);
-                rightSide.add(nbEnchereslabel,0,2,1,1);
-                rightSide.add(nbEncheres,1,2,1,1);
-                rightSide.add(edit,0,3,2,1);
+                rightSide.add(venteTitle,0,0,3,1);
+                rightSide.add(actualPriceLabel,0,1,1,1);
+                rightSide.add(actualPrice,2,1,1,1);
+                rightSide.add(remainTimeLabel,0,2,1,1);
+                rightSide.add(remainTime,2,2,1,1);
+                rightSide.add(nbEnchereslabel,0,3,1,1);
+                rightSide.add(nbEncheres,2,3,1,1);
+                rightSide.add(editContent,0,4,2,1);
                 rightSide.setMaxWidth(700);
-                rightSide.setPadding(new Insets(30));
+                rightSide.setPadding(new Insets(0,0,0,30));
                 rightSide.setHgap(30);
                 rightSide.setVgap(30);
 
 
                 //Placement dans le container de vente
-                splitVente.setPadding(new Insets(10));
+                splitVente.setPadding(new Insets(30));
                 splitVente.getChildren().addAll(leftSide,rightSide);
                 
                 venteContent.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));

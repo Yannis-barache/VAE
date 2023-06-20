@@ -70,21 +70,24 @@ public class FenetreMesEncheres extends BorderPane {
 
                 VBox leftSide = new VBox();
 
-                //Titre et image (gauche)
-                Label enchereTitle = new Label(enchere.get("titre"));
-                enchereTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-                enchereTitle.setTextFill(Color.web("#5D48D7"));     
-                ImageView encherePic = new ImageView(new Image("file:./img/vae2.png"));
-                encherePic.setFitWidth(400);
-                encherePic.setFitHeight(400);
+                //image (gauche)
+                ImageView encherePic = new ImageView(new Image("file:./img/blank.png"));
+                encherePic.setFitHeight(350);
                 encherePic.setPreserveRatio(true);    
 
                 leftSide.setStyle("-fx-border-color: lightgray; -fx-border-width: 0 3 0 0");
-                leftSide.setPadding(new Insets(30));
-                leftSide.getChildren().addAll(enchereTitle,encherePic);
+                leftSide.setPadding(new Insets(0,30,0,0));
+                leftSide.maxWidth(300);
+                leftSide.getChildren().addAll(encherePic);
 
                 //Informations (droite)
                 GridPane rightSide = new GridPane();
+
+                //Titre
+                Label enchereTitle = new Label(enchere.get("titre"));
+                enchereTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                enchereTitle.setTextFill(Color.web("#5D48D7"));     
+                enchereTitle.setPadding(new Insets(0,0,0,0));
 
                 //Prix actuel
                 Label actualPriceLabel = new Label("Enchère actuel : ");
@@ -124,6 +127,7 @@ public class FenetreMesEncheres extends BorderPane {
 
                 //Bouton
                 Tooltip bidToolTip = new Tooltip(enchere.get("id"));
+                VBox bidButtonContent = new VBox();
                 Button bid = new Button("Enchérir");
                 bid.setTooltip(bidToolTip);
                 Tooltip.uninstall(bid,bidToolTip);
@@ -134,25 +138,28 @@ public class FenetreMesEncheres extends BorderPane {
                 bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
                 bid.setPadding(new Insets(10,30,10,30));
                 bid.setAlignment(Pos.BASELINE_RIGHT);
+                // bidContent.setPadding(new Insets(28,0,0,0));
+                bidButtonContent.getChildren().add(bid);
 
                 //Placement dans les informations (partie de droite)
-                rightSide.add(actualPriceLabel,0,0,1,1);
-                rightSide.add(actualPrice,1,0,1,1);
-                rightSide.add(actualEnchereLabel,0,1,1,1);
-                rightSide.add(actualEnchere,1,1,1,1);
-                rightSide.add(basePriceLabel,0,2,1,1);
-                rightSide.add(basePrice,1,2,1,1);
-                rightSide.add(remainTimeLabel,0,3,1,1);
-                rightSide.add(remainTime,1,3,1,1);
-                rightSide.add(bid,1,4,1,1);
+                rightSide.add(enchereTitle,0,0,3,1);
+                rightSide.add(actualPriceLabel,0,1,1,1);
+                rightSide.add(actualPrice,1,1,1,1);
+                rightSide.add(actualEnchereLabel,0,2,1,1);
+                rightSide.add(actualEnchere,1,2,1,1);
+                rightSide.add(basePriceLabel,0,3,1,1);
+                rightSide.add(basePrice,1,3,1,1);
+                rightSide.add(remainTimeLabel,0,4,1,1);
+                rightSide.add(remainTime,1,4,1,1);
+                rightSide.add(bid,0,5,1,1);
                 rightSide.setMaxWidth(700);
-                rightSide.setPadding(new Insets(30));
+                rightSide.setPadding(new Insets(0,0,0,30));
                 rightSide.setHgap(30);
                 rightSide.setVgap(30);
 
 
                 //Placement dans le container d'enchère
-                splitBid.setPadding(new Insets(10));
+                splitBid.setPadding(new Insets(30));
                 splitBid.getChildren().addAll(leftSide,rightSide);
                 
                 bidContent.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));

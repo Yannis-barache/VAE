@@ -61,24 +61,36 @@ public class Menu extends BorderPane {
         accueilBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         accueilBtn.setTextFill(Color.web("white"));
         accueilBtn.setUnderline(true);
+        accueilBtn.setStyle("-fx-translate-x: 0;");
+        accueilBtn.setStyle("-fx-translate-y: 0;");
+        accueilBtn.setFocusTraversable(false);
 
         createVBtn.setOnAction((key) -> this.appli.fenetreCreationVente());
         createVBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         createVBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         createVBtn.setTextFill(Color.web("white"));
         createVBtn.setUnderline(true);
+        createVBtn.setStyle("-fx-translate-x: 0;");
+        createVBtn.setStyle("-fx-translate-y: 0;");
+        createVBtn.setFocusTraversable(false);
 
         ventesBtn.setOnAction((key) -> this.appli.fenetreMesVentes());
         ventesBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         ventesBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         ventesBtn.setTextFill(Color.web("white"));
         ventesBtn.setUnderline(true);
+        ventesBtn.setStyle("-fx-translate-x: 0;");
+        ventesBtn.setStyle("-fx-translate-y: 0;");
+        ventesBtn.setFocusTraversable(false);
 
         encheresBtn.setOnAction((key) -> this.appli.fenetreMesEncheres());
         encheresBtn.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         encheresBtn.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         encheresBtn.setTextFill(Color.web("white"));
         encheresBtn.setUnderline(true);
+        encheresBtn.setStyle("-fx-translate-x: 0;");
+        encheresBtn.setStyle("-fx-translate-y: 0;");
+        encheresBtn.setFocusTraversable(false);
 
         //Ajouts des boutons
         menu.add(accueilBtn,0,0);
@@ -97,8 +109,11 @@ public class Menu extends BorderPane {
         profil.setBackground(new Background(new BackgroundFill(Color.web("#5D48D7"),CornerRadii.EMPTY,Insets.EMPTY)));
         profil.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         profil.setTextFill(Color.web("white"));
-        profil.setUnderline(true);        
-        
+        profil.setUnderline(true); 
+        profil.setStyle("-fx-translate-x: 0;");
+        profil.setStyle("-fx-translate-y: 0;");
+        profil.setFocusTraversable(false);
+
         settingsContent.getChildren().addAll(profil);
 
         //Indicateur de la vue actuelle
