@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.control.ButtonBar.ButtonData ;
+import javafx.scene.control.cell.TextFieldTreeCell;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
@@ -33,6 +34,9 @@ public class FenetreEnchere extends GridPane{
     private ApplicationVAE appli;
     private Vente vente;
     private String precFenetre;
+    private TextField newBid;
+    private int actualPriceValue;
+    private Label alertVerifNewBid;
 
     public FenetreEnchere(ApplicationVAE appli,Vente vente,String precFenetre) {
         super();
@@ -81,12 +85,12 @@ public class FenetreEnchere extends GridPane{
         Label actualBidLabel = new Label("Enchère actuelle : ");
         actualBidLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         actualBidLabel.setTextFill(Color.web("black"));
-        int actualPriceValue = this.vente.getPrixBase();
+        this.actualPriceValue = this.vente.getPrixBase();
         try {
-            actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.vente).getMontant();
+            this.actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.vente).getMontant();
         }
         catch(SQLException ex) {}
-        Label actualBid = new Label(String.valueOf(actualPriceValue)+" €"); //PRIX ACTUEL
+        Label actualBid = new Label(String.valueOf(this.actualPriceValue)+" €"); //PRIX ACTUEL
         actualBid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         actualBid.setTextFill(Color.web("#5D48D7"));
         
@@ -119,15 +123,26 @@ public class FenetreEnchere extends GridPane{
         Label newBidLabel = new Label("Nouvelle enchère");
         newBidLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newBidLabel.setTextFill(Color.web("#5D48D7"));
-        TextField newBid = new TextField();
+        newBid = new TextField();
         newBid.setPromptText("Nouvelle enchère");
         newBid.setEffect(ds);
         newBid.setPrefHeight(40);
         newBid.setPrefWidth(350);
         newBid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newBid.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        newBid.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) {
+                return change;
+            }
+            return null;
+        }));
+        this.alertVerifNewBid = new Label("");
+        this.alertVerifNewBid.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+        this.alertVerifNewBid.setTextFill(Color.web("#e66954"));
+        this.alertVerifNewBid.setPadding(new Insets(20,0,0,0));
 
-        newBidContainer.getChildren().addAll(newBidLabel,newBid);
+        newBidContainer.getChildren().addAll(newBidLabel,newBid,this.alertVerifNewBid);
 
         //Buttons
         VBox cancelContent = new VBox();
@@ -149,7 +164,7 @@ public class FenetreEnchere extends GridPane{
         send.setEffect(ds);
 
 
-        send.setOnAction(new ControleurEncherir(this.appli,newBid.getText())); //SAUVEGARDER L'ENCHERE
+        send.setOnAction(new ControleurEncherir(this.appli,this)); //SAUVEGARDER L'ENCHERE
 
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
@@ -183,6 +198,21 @@ public class FenetreEnchere extends GridPane{
         this.add(bidInformations,2,1,1,3);
         this.add(cancel,0,4,1,1);
         this.add(send,2,4,1,1);
+    }
 
+    public Vente getVente() {
+        return this.vente;
+    }
+
+    public String getNewBid() {
+        return this.newBid.getText();
+    }
+
+    public int getActualBid() {
+        return this.actualPriceValue;
+    }
+
+    public Label getAlertEnchere() {
+        return this.alertVerifNewBid;
     }
 }
