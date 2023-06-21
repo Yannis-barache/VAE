@@ -117,17 +117,24 @@ public class Menu extends BorderPane {
         profil.setFocusTraversable(false);
 
         ContextMenu contextMenu = new ContextMenu();
+        
         MenuItem monProfilItem = new MenuItem("Mon profil");
         monProfilItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");        
+        monProfilItem.setOnAction(new ControleurMenu(this.appli));
+
+        MenuItem pannelAdministrationItem = new MenuItem("Pannel Administration");
+        pannelAdministrationItem.setVisible(false);
+        pannelAdministrationItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
+        pannelAdministrationItem.setOnAction(new ControleurPannelAdministration(this.appli));
+        if(this.appli.getUtilisateur().isAdmin()){
+            pannelAdministrationItem.setVisible(true);
+        }
+        
         MenuItem deconnexionItem = new MenuItem("Déconnexion");
         deconnexionItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
-        monProfilItem.setOnAction(new ControleurMenu(this.appli));
         deconnexionItem.setOnAction(new ControleurRetourPageConnec(this.appli));
         
-
-
-
-        contextMenu.getItems().addAll(monProfilItem, deconnexionItem);
+        contextMenu.getItems().addAll(monProfilItem, pannelAdministrationItem, deconnexionItem);
         profil.setContextMenu(contextMenu);
 
         profil.setOnAction(event -> {

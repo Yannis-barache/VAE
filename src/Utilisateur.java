@@ -213,6 +213,10 @@ public class Utilisateur {
         this.encheres.remove(enchere);
     }
 
+    public void clear(){
+        this.encheres= new ArrayList<>();
+    }
+
     @Override
     public String toString(){
         return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" Ventes : "+getVentes()+" "+isActif()+" "+isAdmin()+" Encheres :"+getEncheres();

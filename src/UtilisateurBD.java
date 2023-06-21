@@ -6,9 +6,44 @@ import java.sql.*;
 public class UtilisateurBD {
     private ConnexionMySQL connexMySQL;
     private Statement st;
+    private Utilisateur utilisateur;
 
     public UtilisateurBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
+    }
+
+
+    /**
+     * Méthode qui permet de vérifier des identifiants de connexion d'un utilisateur
+     * @param pseudo Le pseudo de l'utilisateur
+     * @param motDePasse Le mot de passe de l'utilisateur
+     * @return true si l'utilisateur existe, false sinon
+     * @throws SQLException Si la requête SQL est incorrecte
+     */
+    public boolean connexion(String pseudo, String motDePasse) throws SQLException{
+        try{
+            boolean bool=false;
+            Statement s=connexMySQL.createStatement();
+            ResultSet rs=s.executeQuery("SELECT * from UTILISATEUR where mdput='"+motDePasse+"' and pseudout='" +pseudo+"'");
+            if (rs.next()){
+                bool=true;
+                boolean actif= false;
+                boolean admin= false;
+                if (rs.getString("activeut").equals("O")){
+                    actif=true;
+                }
+
+                if (rs.getInt("idrole")== 1){
+                    admin=true;
+                }
+                Utilisateur utilisateur = new Utilisateur(rs.getInt("idut"), rs.getString("pseudout"), rs.getString("emailut"),rs.getString("mdput"), actif,admin);
+                this.utilisateur = utilisateur;
+            }
+            return bool;
+        } catch (SQLException ex){
+            throw new SQLException();
+        }
+
     }
 
     public int numUtilisateurMax()throws SQLException{

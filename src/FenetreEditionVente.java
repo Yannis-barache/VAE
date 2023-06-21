@@ -35,6 +35,10 @@ public class FenetreEditionVente extends GridPane {
     
     private ApplicationVAE appli;
     private Vente vente;
+    private TextField newTitle;
+    private DatePicker endSale;
+    private TextArea newDesc;
+    private ComboBox<String> categorySaleCB;
 
     public FenetreEditionVente(ApplicationVAE appli,Vente vente) {
         super();
@@ -65,7 +69,7 @@ public class FenetreEditionVente extends GridPane {
         Label newTitleLabel = new Label("Nouveau titre");
         newTitleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newTitleLabel.setTextFill(Color.web("#5D48D7"));
-        TextField newTitle = new TextField(this.vente.getObjet().getNom());
+        this.newTitle = new TextField(this.vente.getObjet().getNom());
         newTitle.setEffect(ds);
         newTitle.setPrefHeight(40);
         newTitle.setPrefWidth(350);
@@ -79,7 +83,7 @@ public class FenetreEditionVente extends GridPane {
         Label newDescLabel = new Label("Nouvelle description");
         newDescLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newDescLabel.setTextFill(Color.web("#5D48D7"));
-        TextArea newDesc = new TextArea(this.vente.getObjet().getDescription());
+        this.newDesc = new TextArea(this.vente.getObjet().getDescription());
         newDesc.setEffect(ds);
         newDesc.setPrefHeight(170);
         newDesc.setPrefWidth(350);
@@ -123,7 +127,7 @@ public class FenetreEditionVente extends GridPane {
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
-        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB = new ComboBox<String>();
         categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setValue(this.vente.getObjet().getCategorie().toString());
         // System.out.println(this.vente.getObjet().getCategorie()); //TEMP
@@ -142,7 +146,7 @@ public class FenetreEditionVente extends GridPane {
         newEndLabel.setTextFill(Color.web("#5D48D7"));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");        
         LocalDate localDate = LocalDate.parse(this.vente.getFinVente(),formatter);
-        DatePicker endSale = new DatePicker(localDate);
+        endSale = new DatePicker(localDate);
         endSale.getEditor().setDisable(true);       
 
         // Définition de la cellule de date pour la date de fin
@@ -182,9 +186,9 @@ public class FenetreEditionVente extends GridPane {
         cancelContent.getChildren().add(cancel);
 
         VBox sendContent = new VBox(5);
-        Button send = new Button("Sauvegarder");
+        Button send = new Button("Sauvegarder les modifications");
         send.setEffect(ds);
-        send.setOnAction((key) -> this.appli.fenetreMesVentes()); //SAUVEGARDER LES MODIFS
+        send.setOnAction(new ControleurModifierVente(appli, this)); //SAUVEGARDER LES MODIFS
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
         send.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -210,4 +214,28 @@ public class FenetreEditionVente extends GridPane {
         this.add(cancelContent,0,4,1,1);
         this.add(sendContent,2,4,1,1);
     }    
+
+    public String getNewTitle() {
+        return this.newTitle.getText();
+    }
+
+    public String getNewDesc() {
+        return this.newDesc.getText();
+    }
+
+    public String getNewCategory() {
+        return this.categorySaleCB.getValue();
+    }
+
+    public String getNewEnd() {
+        return this.endSale.getValue().toString();
+    }
+
+    public Vente getVente() {
+        return this.vente;
+    }
+
+
+
+
 }
