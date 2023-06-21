@@ -56,6 +56,6 @@ public class Categorie {
 
     @Override
     public String toString(){
-        return ""+this.getIdentifiant()+" "+this.getNom();
+        return this.getNom();
     }
 }

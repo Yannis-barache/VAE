@@ -95,7 +95,8 @@ public class UtilisateurBD {
         return u;
     }
 
-    public void ventesUtilisateur(Utilisateur u){
+    public void ventesUtilisateur(Utilisateur u) throws SQLException {
+        st= this.connexMySQL.createStatement();
         StatutBD sBD = new StatutBD(connexMySQL);
         ObjetBD oBD = new ObjetBD(connexMySQL);
         try {
@@ -113,7 +114,8 @@ public class UtilisateurBD {
         }
     }
 
-    public void encheresUtilisateur(Utilisateur u){
+    public void encheresUtilisateur(Utilisateur u) throws SQLException {
+        st= this.connexMySQL.createStatement();
         VenteBD vBd = new VenteBD(connexMySQL);
         try {
             ResultSet rs3 = st.executeQuery("select * from ENCHERIR where " + u.getIdentifiant() + " = idUt");

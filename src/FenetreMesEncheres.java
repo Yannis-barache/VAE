@@ -30,9 +30,9 @@ import java.util.HashMap;
 public class FenetreMesEncheres extends BorderPane {
 
     private ApplicationVAE appli;
-    private List<Map<String,String>> encheres;
+    private List<Enchere> encheres;
 
-    public FenetreMesEncheres(ApplicationVAE appli,List<Map<String,String>> encheres) {
+    public FenetreMesEncheres(ApplicationVAE appli,List<Enchere> encheres) {
         super();
         this.appli = appli;
         this.encheres = encheres;
@@ -64,7 +64,7 @@ public class FenetreMesEncheres extends BorderPane {
         bidsContent.getChildren().add(titleContent);
 
         if (this.encheres.size() > 0) {
-            for (Map<String,String> enchere : this.encheres) {
+            for (Enchere enchere : this.encheres) {
                 VBox bidContent = new VBox();
                 HBox splitBid = new HBox();
 
@@ -84,7 +84,7 @@ public class FenetreMesEncheres extends BorderPane {
                 GridPane rightSide = new GridPane();
 
                 //Titre
-                Label enchereTitle = new Label(enchere.get("titre"));
+                Label enchereTitle = new Label(enchere.getVente().getObjet().getNom());
                 enchereTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 enchereTitle.setTextFill(Color.web("#5D48D7"));     
                 enchereTitle.setPadding(new Insets(0,0,0,0));
@@ -93,7 +93,7 @@ public class FenetreMesEncheres extends BorderPane {
                 Label actualPriceLabel = new Label("Enchère actuel : ");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(enchere.get("actualPrice")+" €");
+                Label actualPrice = new Label(enchere.getMontant()+" €"); //FAIRE LA REQUETE POUR AVOIR LA DERNIERE ENCHERE DUNE VENTE
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));  
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -102,7 +102,7 @@ public class FenetreMesEncheres extends BorderPane {
                 Label actualEnchereLabel = new Label("Votre enchère : ");
                 actualEnchereLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchereLabel.setTextFill(Color.web("black"));
-                Label actualEnchere = new Label(enchere.get("actualPrice")+" €");
+                Label actualEnchere = new Label(enchere.getMontant()+" €");
                 actualEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchere.setTextFill(Color.web("#5D48D7"));  
                 actualEnchere.setAlignment(Pos.BASELINE_RIGHT);
@@ -111,7 +111,7 @@ public class FenetreMesEncheres extends BorderPane {
                 Label basePriceLabel = new Label("Prix de base : ");
                 basePriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 basePriceLabel.setTextFill(Color.web("black"));
-                Label basePrice = new Label(enchere.get("basePrice")+" €");
+                Label basePrice = new Label(enchere.getVente().getPrixBase()+" €");
                 basePrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 basePrice.setTextFill(Color.web("#5D48D7"));  
                 basePrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -120,13 +120,13 @@ public class FenetreMesEncheres extends BorderPane {
                 Label remainTimeLabel = new Label("Temps restant : ");
                 remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTimeLabel.setTextFill(Color.web("black"));
-                Label remainTime = new Label("** **** *");
+                Label remainTime = new Label("** **** *"); //YANNIS QUI SEN OCCUPE
                 remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTime.setTextFill(Color.web("#5D48D7"));  
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Bouton
-                Tooltip bidToolTip = new Tooltip(enchere.get("id"));
+                Tooltip bidToolTip = new Tooltip("test");
                 VBox bidButtonContent = new VBox();
                 Button bid = new Button("Enchérir");
                 bid.setTooltip(bidToolTip);
@@ -185,9 +185,9 @@ public class FenetreMesEncheres extends BorderPane {
         }
     }
 
-    private Map<String,String> getEnchere(String id) {
-        for (Map<String,String> enchere : this.encheres) {
-            if (enchere.get("id").equals(id)) {
+    private Enchere getEnchere(String id) {
+        for (Enchere enchere : this.encheres) {
+            if ("test".equals(id)) {
                 return enchere;
             }
         }
