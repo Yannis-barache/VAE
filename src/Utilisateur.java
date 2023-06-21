@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Utilisateur {
     private int identifiant;
@@ -8,8 +10,8 @@ public class Utilisateur {
     private String mdp;
     private boolean actif;
     private boolean admin;
-    private List<Vente> ventes;
-    private List<Enchere> encheres;
+    private Set<Vente> ventes;
+    private Set<Enchere> encheres;
 
     /**
      * Constructeur de la classe Utilisateur.
@@ -29,8 +31,8 @@ public class Utilisateur {
         this.mdp = mdp;
         this.actif = actif;
         this.admin = admin;
-        this.ventes = new ArrayList<>();
-        this.encheres = new ArrayList<>();
+        this.ventes = new HashSet<>();
+        this.encheres = new HashSet<>();
     }
 
     /**
@@ -50,8 +52,8 @@ public class Utilisateur {
         this.mdp = mdp;
         this.actif = actif;
         this.admin = admin;
-        this.ventes = new ArrayList<>();
-        this.encheres = new ArrayList<>();
+        this.ventes = new HashSet<>();
+        this.encheres = new HashSet<>();
     }
 
     /**
@@ -162,7 +164,7 @@ public class Utilisateur {
      *
      * @return La liste des ventes de l'utilisateur.
      */
-    public List<Vente> getVentes() {
+    public Set<Vente> getVentes() {
         return this.ventes;
     }
 
@@ -189,7 +191,7 @@ public class Utilisateur {
      *
      * @return La liste des encheres de l'utilisateur.
      */
-    public List<Enchere> getEncheres() {
+    public Set<Enchere> getEncheres() {
         return this.encheres;
     }
 
