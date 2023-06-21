@@ -5,7 +5,7 @@ public class ExecutableTest{
             ConnexionMySQL laConnexion= new ConnexionMySQL();
             try{
 
-                laConnexion.connecter("servinfo-mariadb", "DBsimon", "simon", "Rugby28*@");
+                laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
                 CategorieBD cBd = new CategorieBD(laConnexion);
                 EnchereBD eBd = new EnchereBD(laConnexion);
                 ObjetBD oBd = new ObjetBD(laConnexion);
@@ -15,28 +15,18 @@ public class ExecutableTest{
                 VenteBD vBd = new VenteBD(laConnexion);
 
 
-                Statut s = new Statut(1, "Statut de test");
-                sBd.insererStatut(s);
-                System.out.println(s);
+                Utilisateur u = uBd.rechercherUtilisateurParNum(10);
+                uBd.ventesUtilisateur(u);
+                uBd.encheresUtilisateur(u);
+                System.out.println(u);
 
-                Categorie c1 = new Categorie(1, "Categorie de test");
-                cBd.insererCategorie(c1);
-                System.out.println(c1);
+                System.out.println("------------------------");
 
-                Utilisateur u1 = new Utilisateur(1, "thibalt", "martin.martin@gmail.com", "martinou", true, false);
-                uBd.insererUtilisateur(u1);
-                System.out.println(u1);
-
-                Utilisateur u2 = new Utilisateur(2, "gabriel", "martin.martin@gmail.com", "martinou", true, false);
-                uBd.insererUtilisateur(u2);
+                Utilisateur u2 = uBd.rechercherUtilisateurParNum(45);
+                uBd.encheresUtilisateur(u2);
+                uBd.encheresUtilisateur(u);
                 System.out.println(u2);
 
-                Objet o = new Objet(1, "Moto", "super rapide", c1, u1);
-                oBd.insererObjet(o);
-                System.out.println(o);
-                Vente v = new Vente(1, 1, 2, "12/12/2023:10:10:10", "12/12/2023:10:10:10", s, o);
-                System.out.println(v);
-                
                 laConnexion.close();
             } catch (SQLException ex){
                 System.out.println("Erreur SQL : " + ex.getMessage());
