@@ -175,6 +175,14 @@ public class FenetreAccueil extends BorderPane {
         if (ventesEnCours.size() > 0) {
 
             for (int i=0;i<15;++i) {
+                int j = (int) (Math.random()*ventesEnCours.size());
+                List<Integer> indexs = new ArrayList<>();
+                indexs.add(j);
+                while (indexs.contains(j)) {
+                    System.out.println(j);
+                    j = (int) (Math.random()*ventesEnCours.size());
+                }
+                indexs.add(j);
 
                 //Une vente
                 VBox item = new VBox();
@@ -191,7 +199,7 @@ public class FenetreAccueil extends BorderPane {
                 GridPane informations = new GridPane();
 
                 //Titre
-                Label actualTitle = new Label(String.valueOf(this.ventesEnCours.get(i).getObjet().getNom())); //Get le prix de la vente
+                Label actualTitle = new Label(String.valueOf(this.ventesEnCours.get(j).getObjet().getNom())); //Get le prix de la vente
                 actualTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualTitle.setTextFill(Color.web("#5D48D7"));
                 actualTitle.setAlignment(Pos.BASELINE_RIGHT);
@@ -200,7 +208,7 @@ public class FenetreAccueil extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel :");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(String.valueOf(this.ventesEnCours.get(i).getPrixBase())+" €"); //Get le prix de la vente
+                Label actualPrice = new Label(String.valueOf(this.ventesEnCours.get(j).getPrixBase())+" €"); //Get le prix de la vente
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -209,7 +217,7 @@ public class FenetreAccueil extends BorderPane {
                 Label remainTimeLabel = new Label("Temps restant :");
                 remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTimeLabel.setTextFill(Color.web("black"));
-                Label remainTime = new Label("--.--:--.--");
+                Label remainTime = new Label(this.ventesEnCours.get(j).tempsRestant()); //temps restants
                 remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTime.setTextFill(Color.web("#5D48D7"));
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
@@ -218,7 +226,7 @@ public class FenetreAccueil extends BorderPane {
                 Label nbEncheresLabel = new Label("Nombre d'enchères :");
                 nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEncheresLabel.setTextFill(Color.web("black"));
-                Label nbEnchere = new Label(String.valueOf(12)); //Get nombre d'enchère
+                Label nbEnchere = new Label(String.valueOf(12)); //Get nombre d'enchère (j)
                 nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEnchere.setTextFill(Color.web("#5D48D7"));
                 nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
