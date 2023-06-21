@@ -69,10 +69,16 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreAccueil() {
+        List<Vente> ventesEnCours = new ArrayList<Vente>();
+        try {
+            ventesEnCours = this.venteBD.listeVentesEnCours(); //Get les ventes en cours à affiché dans l'accueil
+        }
+        catch(SQLException ex) {}
+
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setTop(new Menu(this,0));
-        root.setCenter(new FenetreAccueil(this));
+        root.setCenter(new FenetreAccueil(this,ventesEnCours));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         this.scene.setRoot(sc);   
