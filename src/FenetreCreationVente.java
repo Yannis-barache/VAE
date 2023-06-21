@@ -119,9 +119,24 @@ public class FenetreCreationVente extends GridPane {
         filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filesCountLabel.setTextFill(Color.web("#5D48D7"));
         filesSaleLabels.getChildren().addAll(filesSaleLabel,filesCountLabel);
+
+        // Création du file chooser
+        FileChooser filesSaleFC = new FileChooser();
+
+        // Ajout des filtres
+        filesSaleFC.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+            new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+        // Définition du titre    
+        filesSaleFC.setTitle("Choisir une image");
+
+        // Définition du répertoire initial
+        filesSaleFC.setInitialDirectory(new File(System.getProperty("user.home")));
+        
         Button openButton = new Button("+");
         openButton.setEffect(ds);
-        openButton.setOnAction((key) -> System.out.println("controleur filechooser"));
+        openButton.setOnAction(new ControleurChoixPhoto(appli, filesSaleFC));
         openButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         openButton.setPadding(new Insets(10,30,10,30));
         openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));

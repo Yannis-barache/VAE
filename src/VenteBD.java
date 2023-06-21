@@ -46,10 +46,10 @@ public class VenteBD {
         v.getObjet().getVendeur().supprimerVente(v);
     }
 
-    public void modifierVente( Vente v)throws SQLException{
+    public void modifierVente(int id ,String nvFin)throws SQLException{
         // UPDATE table SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3' WHERE condition
-        PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE VENTE SET finVe = ? where "+v.getIdentifiant()+"=idVe");
-        ps.setString(1, v.getFinVente());
+        PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE VENTE SET finVe = ? where "+id+"=idVe");
+        ps.setString(1, nvFin);
         ps.executeUpdate();
     }
 
