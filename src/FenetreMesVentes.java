@@ -25,6 +25,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.sql.SQLDataException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -37,7 +39,7 @@ public class FenetreMesVentes extends BorderPane {
         super();
         this.appli = appli;
         this.ventes = ventes;
-        
+
         this.content();
     }
 
@@ -97,7 +99,15 @@ public class FenetreMesVentes extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel : ");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(String.valueOf(vente.getPrixBase()));
+                int actualPriceValue = vente.getPrixBase();
+                try {
+                    Enchere dernierEnchere = this.appli.getVenteBD().derniereEnchere(vente);
+                    if (dernierEnchere != null){
+                        actualPriceValue = dernierEnchere.getMontant();
+                    }
+                }
+                catch(SQLException ex) {}
+                Label actualPrice = new Label(String.valueOf(actualPriceValue));
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));  
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -115,12 +125,18 @@ public class FenetreMesVentes extends BorderPane {
                 Label nbEnchereslabel = new Label("Nombre d'enchère : ");
                 nbEnchereslabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEnchereslabel.setTextFill(Color.web("black"));
-                Label nbEncheres = new Label("0"); //NB ENCHERE
+                int encheresCount = 0;
+                try {
+                    encheresCount = this.appli.getVenteBD().nbTotalEnchereSurUneVente(vente);
+                }
+                catch(SQLException ex) {
+                }
+                Label nbEncheres = new Label(String.valueOf(encheresCount));
                 nbEncheres.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 nbEncheres.setTextFill(Color.web("#5D48D7"));
                 nbEncheres.setAlignment(Pos.BASELINE_RIGHT);
 
-                //Boutton
+                //Bouton
                 Tooltip saleToolTip = new Tooltip(String.valueOf(vente.getIdentifiant()));
                 VBox editContent = new VBox();
                 Button edit = new Button("Modifier");

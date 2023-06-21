@@ -23,6 +23,7 @@ import javafx.scene.paint.CycleMethod;
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -30,12 +31,12 @@ import java.util.HashMap;
 public class FenetreEnchere extends GridPane{
     
     private ApplicationVAE appli;
-    private Enchere enchere;
+    private Vente vente;
 
-    public FenetreEnchere(ApplicationVAE appli,Enchere enchere) {
+    public FenetreEnchere(ApplicationVAE appli,Vente vente) {
         super();
         this.appli = appli;
-        this.enchere = enchere;
+        this.vente = vente;
 
         this.content();
     }
@@ -55,11 +56,11 @@ public class FenetreEnchere extends GridPane{
 
         //Titre et description de l'enchère
         VBox titleDesc = new VBox();
-        Label bidTitle = new Label(enchere.getVente().getObjet().getNom()); //Titre
+        Label bidTitle = new Label(this.vente.getObjet().getNom()); //Titre
         bidTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         bidTitle.setTextFill(Color.web("#5D48D7"));
         bidTitle.setPadding(new Insets(30,0,0,0));
-        Text bidDesc = new Text("Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin "); //Desc
+        Text bidDesc = new Text(this.vente.getObjet().getDescription()); //Desc
         bidDesc.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         bidDesc.setWrappingWidth(600);
         // bidDesc.setTextFill(Color.web("black"));
@@ -78,7 +79,12 @@ public class FenetreEnchere extends GridPane{
         Label actualBidLabel = new Label("Enchère actuelle : ");
         actualBidLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         actualBidLabel.setTextFill(Color.web("black"));
-        Label actualBid = new Label("180"); //PRIX ACTUEL
+        int actualPriceValue = this.vente.getPrixBase();
+        try {
+            actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.vente).getMontant();
+        }
+        catch(SQLException ex) {}
+        Label actualBid = new Label(String.valueOf(actualPriceValue)+" €"); //PRIX ACTUEL
         actualBid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         actualBid.setTextFill(Color.web("#5D48D7"));
         
@@ -86,7 +92,15 @@ public class FenetreEnchere extends GridPane{
         Label ourBidLabel = new Label("Votre enchère : ");
         ourBidLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         ourBidLabel.setTextFill(Color.web("black"));
-        Label ourBid = new Label("175"); //NOTRE ENCHERE
+        int ourPriceValue = 0;
+        try {
+            Enchere enchere = this.appli.getVenteBD().derniereEnchereUtilisateur(this.vente,this.appli.getUtilisateur());
+            if (enchere != null) {
+                ourPriceValue = enchere.getMontant();
+            }
+        }
+        catch(SQLException ex) {}
+        Label ourBid = new Label(String.valueOf(ourPriceValue)+" €"); //NOTRE ENCHERE
         ourBid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         ourBid.setTextFill(Color.web("#5D48D7"));  
 
@@ -94,7 +108,7 @@ public class FenetreEnchere extends GridPane{
         Label remainTimeLabel = new Label("Temps restant : ");
         remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         remainTimeLabel.setTextFill(Color.web("black"));
-        Label remainTime = new Label("*** ** ** ** "); //TEMPS RESTANTS
+        Label remainTime = new Label(this.vente.tempsRestant()); //TEMPS RESTANTS
         remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         remainTime.setTextFill(Color.web("#5D48D7"));  
 
@@ -122,6 +136,7 @@ public class FenetreEnchere extends GridPane{
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
         cancelContent.getChildren().add(cancel);
+
 
         VBox sendContent = new VBox(5);
         Button send = new Button("Enchérir");
