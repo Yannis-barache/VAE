@@ -178,5 +178,21 @@ public class Vente {
         return "Vente( Id : "+this.getIdentifiant()+", Prix de base : "+this.getPrixBase()+", Prix minimum : "+this.getPrixMin()+", Debut Vente : "+this.getdebutVente()+", Fin Vente"+this.getFinVente()+", Statut : "+this.getStatus()+")";
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+        if (obj == null){
+            return false;       
+        }
+        if (obj instanceof Vente){
+            Vente v = (Vente) obj;
+            if (v.getIdentifiant() == this.getIdentifiant()){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
