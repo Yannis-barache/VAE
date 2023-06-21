@@ -28,7 +28,6 @@ public class ApplicationVAE extends Application{
     private CategorieBD categorieBD;
     private Label notifReussie;
 
-
     @Override
     public void init() {
         try{
@@ -127,6 +126,7 @@ public class ApplicationVAE extends Application{
         }
         catch(SQLException ex) {System.out.println(ex);}
 
+
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMesEncheres(this,utilisateur.getEncheres()));
@@ -195,7 +195,7 @@ public class ApplicationVAE extends Application{
         return this.enchereBD;
     }
 
-    public CategorieBD geCategorieBD() {
+    public CategorieBD getCategorieBD() {
         return this.categorieBD;
     }
 
