@@ -14,20 +14,12 @@ public class ExecutableTest{
                 UtilisateurBD uBd = new UtilisateurBD(laConnexion);
                 VenteBD vBd = new VenteBD(laConnexion);
 
-                System.out.println(vBd.listeVentesEnCours());
+                Vente v = vBd.listeVentesEnCours().get(0);
+                Enchere e = vBd.derniereEnchere(v);
+                System.out.println(e);
                 
+                System.out.println(vBd.nbTotalEnchereSurUneVente(v));
 
-                // Utilisateur u = uBd.rechercherUtilisateurParNum(10);
-                // uBd.ventesUtilisateur(u);
-                // uBd.encheresUtilisateur(u);
-                // System.out.println(u);
-
-                // System.out.println("------------------------");
-
-                // Utilisateur u2 = uBd.rechercherUtilisateurParNum(45);
-                // uBd.encheresUtilisateur(u2);
-                // uBd.encheresUtilisateur(u);
-                // System.out.println(u2);
 
                 laConnexion.close();
             } catch (SQLException ex){
