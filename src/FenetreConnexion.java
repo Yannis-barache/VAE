@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -122,6 +123,9 @@ public class FenetreConnexion extends BorderPane {
         registerLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         registerLabel.setPadding(new Insets(5,0,0,0));
         Button register = new Button("Créer un compte");
+        register.setOnMouseEntered(event -> {
+            register.setCursor(Cursor.HAND);
+        });
         register.setOnAction((key) -> this.appli.fenetreRegiser());
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         register.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
