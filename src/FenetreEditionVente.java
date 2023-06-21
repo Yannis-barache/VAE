@@ -141,7 +141,7 @@ public class FenetreEditionVente extends GridPane {
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker endSale = new DatePicker();
-
+        endSale.getEditor().setDisable(true);
 
 
         System.out.println(this.vente.getFinVente());

@@ -64,14 +64,12 @@ public class FenetreMesVentes extends BorderPane {
         countVente.setTextFill(Color.web("black"));
         titleContent.getChildren().addAll(title,countVente);
         //Ajout du titre
+        ventesContent.getChildren().add(titleContent);
 
-        // this.ventes = new ArrayList<List<Map<String,String>>>();
+
 
         if (this.ventes.size() > 0) {
-
             for (Vente vente : this.ventes) {
-                ventesContent.getChildren().clear();
-                ventesContent.getChildren().add(titleContent);
 
                 VBox venteContent = new VBox();
                 HBox splitVente = new HBox();
