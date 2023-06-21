@@ -38,6 +38,7 @@ public class FenetreMonProfil extends GridPane {
     private boolean modification = false;
 
     private Button button;
+    private Button buttonSupprimer;
 
     public FenetreMonProfil(ApplicationVAE appli) {
         super();
@@ -102,7 +103,12 @@ public class FenetreMonProfil extends GridPane {
         this.button.setOnAction(new ControleurBouton(appli, this));
         this.button.setEffect(ds);
 
-
+        this.buttonSupprimer = new Button("Supprimer mon profil");
+        this.buttonSupprimer.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.buttonSupprimer.setPadding(new Insets(10,30,10,30));
+        this.buttonSupprimer.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.buttonSupprimer.setOnAction(new ControleurSupprimerUtilisateur(appli, this));
+        this.buttonSupprimer.setEffect(ds);
 
         gridPaneProfil.add(labelTitre,0,0);
         gridPaneProfil.add(labelPseudo,0,2);
@@ -113,9 +119,11 @@ public class FenetreMonProfil extends GridPane {
         gridPaneProfil.add(tfContentMail,1,3);
         gridPaneProfil.add(tfContentMDP,1,4);
         gridPaneProfil.add(tfContentNDV,1,5);
+        gridPaneProfil.add(button,0,6);
+        gridPaneProfil.add(buttonSupprimer,1,6);
 
 
-        VBox container = new VBox(gridPaneProfil, button);
+        HBox container = new HBox(gridPaneProfil);
         container.setAlignment(Pos.CENTER);
         container.setSpacing(150); 
 
@@ -132,6 +140,11 @@ public class FenetreMonProfil extends GridPane {
 
     public Button getButton(){
         return this.button;
+    }
+
+
+    public Button getButtonSupprimer(){
+        return this.buttonSupprimer;
     }
 
     private void invBool(){
