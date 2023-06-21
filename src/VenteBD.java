@@ -24,7 +24,7 @@ public class VenteBD {
 
     public void insererVente(Vente v)throws SQLException{
         int num = this.numVenteMax()+1;
-        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into VENTE(idVe,prixBase,prixMin,debutVe,finVe,idSt,idOb) values (?,?,?,STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),?,?)");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into VENTE(idVe,prixBase,prixMin,debutVe,finVe,idSt,idOb) values (?,?,?,STR_TO_DATE(?,'%d/%m/%Y:%H:%i:%s'),STR_TO_DATE(?,'%d/%m/%Y:%H:%i:%s'),?,?)");
         ps.setInt(1, num);
         ps.setInt(2, v.getPrixBase());
         ps.setInt(3, v.getPrixMin());
@@ -72,7 +72,7 @@ public class VenteBD {
         StatutBD statutBD = new StatutBD(connexMySQL);
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         while(rs.next()){
-            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(6)), objetBD.rechercherObjetParNum(rs.getInt(7)));
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
             liste.add(v);
         }
         rs.close();
@@ -91,6 +91,30 @@ public class VenteBD {
         }
         rs.close();
         return liste;
+    }
+
+    public Enchere derniereEnchere(Vente v) throws SQLException{
+        st = this.connexMySQL.createStatement();
+        UtilisateurBD uBd = new UtilisateurBD(connexMySQL);
+        try {
+            ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" order by montant desc limit 1;");
+            rs.next();
+                Enchere e = new Enchere(v, uBd.rechercherUtilisateurParNum(rs.getInt(1)) , rs.getInt(4), rs.getString(3));
+            rs.close();
+            return e;
+        } catch (Exception e) {
+            System.out.println("Pas d'enchere sur la vente");
+        }
+        return null;
+    }
+
+    public int nbTotalEnchereSurUneVente(Vente v)throws SQLException{
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select Count(*) nb from ENCHERIR where idve="+v.getIdentifiant());
+        rs.next();
+        int nb = rs.getInt(1);
+        rs.close();
+        return nb;
     }
 }
 
