@@ -154,9 +154,6 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-
-    //...............;
-
     public void fenetreMonProfil() {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);

@@ -147,7 +147,10 @@ public class FenetreEnchere extends GridPane{
         VBox sendContent = new VBox(5);
         Button send = new Button("Enchérir");
         send.setEffect(ds);
-        send.setOnAction((key) -> this.appli.fenetreMesEncheres()); //SAUVEGARDER L'ENCHERE
+
+
+        send.setOnAction(new ControleurEncherir(this.appli,newBid.getText())); //SAUVEGARDER L'ENCHERE
+
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
         send.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
