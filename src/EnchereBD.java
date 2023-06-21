@@ -13,7 +13,7 @@ public class EnchereBD {
     }
 
     public void insererEnchere(Enchere e)throws SQLException{
-        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into ENCHERIR(idUT,idVe,dateheure,montant) values (?,?,STR_TO_DATE(?,'%d/%m/%Y:%h:%i:%s'),?)");
+        PreparedStatement ps = this.connexMySQL.prepareStatement("insert into ENCHERIR(idUT,idVe,dateheure,montant) values (?,?,STR_TO_DATE(?,'%d/%m/%Y:%H:%i:%s'),?)");
         ps.setInt(1, e.getEncherisseur().getIdentifiant());
         ps.setInt(2, e.getVente().getIdentifiant());
         ps.setString(3, e.getDate());
@@ -31,7 +31,7 @@ public class EnchereBD {
         int idVe = e.getVente().getIdentifiant();
         String dateheure = e.getDate();
         st= this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("DELETE from ENCHERIR where "+idUT+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%h:%i:%s')=dateheure");
+        ResultSet rs = st.executeQuery("DELETE from ENCHERIR where "+idUT+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%H:%i:%s')=dateheure");
         rs.next();
         rs.close();
         e.getEncherisseur().supprimerEnchere(e);

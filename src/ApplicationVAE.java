@@ -107,7 +107,7 @@ public class ApplicationVAE extends Application{
     public void fenetreMesVentes() {
 
         Utilisateur utilisateur = getUtilisateur();
-        utilisateur.getVentes().clear();
+        // utilisateur.getVentes().clear();
         try {
             utilisateurBD.ventesUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
         }
@@ -137,6 +137,7 @@ public class ApplicationVAE extends Application{
     public void fenetreMesEncheres() {
 
        Utilisateur utilisateur = getUtilisateur();
+       utilisateur.getEncheres().clear();
         try {
             utilisateurBD.encheresUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
         }
@@ -153,19 +154,16 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetreEnchere(Vente vente) {
+    public void fenetreEnchere(Vente vente,String precFenetre) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreEnchere(this,vente));
+        root.setCenter(new FenetreEnchere(this,vente,precFenetre));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         sc.setFitToHeight(true);
         this.scene.setRoot(sc);   
     }
-
-
-    //...............;
 
     public void fenetreMonProfil() {
         BorderPane root = new BorderPane();
