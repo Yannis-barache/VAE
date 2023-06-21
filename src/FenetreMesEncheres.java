@@ -120,7 +120,7 @@ public class FenetreMesEncheres extends BorderPane {
                 Label remainTimeLabel = new Label("Temps restant : ");
                 remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTimeLabel.setTextFill(Color.web("black"));
-                Label remainTime = new Label("** **** *"); //YANNIS QUI SEN OCCUPE
+                Label remainTime = new Label(enchere.getVente().tempsRestant());
                 remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 remainTime.setTextFill(Color.web("#5D48D7"));  
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);

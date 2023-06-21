@@ -37,9 +37,7 @@ public class FenetreMesVentes extends BorderPane {
         super();
         this.appli = appli;
         this.ventes = ventes;
-
-        System.out.println(this.ventes);
-
+        
         this.content();
     }
 
