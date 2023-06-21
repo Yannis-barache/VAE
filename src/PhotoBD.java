@@ -32,7 +32,8 @@ public class PhotoBD {
         return res;
     }
 
-    public void insererPhoto(int idOb, Photo ph)throws SQLException{
+    public void insererPhoto(Objet o, Photo ph)throws SQLException{
+        o.ajoutePhoto(ph);
         int num = this.numPhotoMax()+1;
         File imgfile;
         String res="";
@@ -57,7 +58,7 @@ public class PhotoBD {
         ps.setInt(1, num);
         ps.setString(2, ph.getTitre());
         ps.setBinaryStream(3, fin , imgfile.length());
-        ps.setInt(4, idOb);
+        ps.setInt(4, o.getIdentifiant());
         ps.executeUpdate();
         ph.setIdentifiant(num);
         }

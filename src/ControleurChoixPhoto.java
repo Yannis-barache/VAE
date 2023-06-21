@@ -7,15 +7,20 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 
 public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
     ApplicationVAE appli;
     FileChooser fileChooser;
+    List<Map<String, String>> listePhoto;
 
-    public ControleurChoixPhoto(ApplicationVAE appli, FileChooser fileChooser) {
+
+    public ControleurChoixPhoto(ApplicationVAE appli, FileChooser fileChooser,List<Map<String, String>> listePhoto) {
         this.appli=appli;
         this.fileChooser=fileChooser;
+        this.listePhoto=listePhoto;
 
     }
 
@@ -28,8 +33,9 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
         File fichierChoisi = fileChooser.showOpenDialog(stageFichier);
         if (fichierChoisi != null) {
             System.out.println(fichierChoisi.getName());
-            System.out.println(fichierChoisi.getAbsolutePath());
-            // this.appli.getPhotoBD().insererPhoto(new Photo(fichierChoisi.getName(), fichierChoisi.getAbsolutePath()), 0);
+            String chemin = "file:"+fichierChoisi.getAbsolutePath();
+            this.listePhoto.add(Map.of(fichierChoisi.getName(), chemin));
+            System.out.println(this.listePhoto);
         }
 
     }

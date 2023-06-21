@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 
 public class ControleurInsererVente implements EventHandler<ActionEvent>{
@@ -141,12 +142,26 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                         if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
                             statut=1;
                         }
+
         
                         Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
                         this.appli.getObjetBD().insererObjet(objet);
+                        for (Map<String,String> photo: this.fenetreCreate.getListePhotos()){
+                            for (String nom : photo.keySet()){
+                                this.appli.getPhotoBD().insererPhoto(objet, new Photo(nom, photo.get(nom)));
+                            }
+                        }
+                        for(Photo p : objet.getLesPhotos()){
+                            System.out.println(p.getChemin());
+                        }
+                        System.out.println(objet.getLesPhotos());
+
+
         
                         Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
                         this.appli.getVenteBD().insererVente(vente);
+
+
                         vente.setDebut(this.fenetreCreate.getStartDateTime());
                         vente.setFin(this.fenetreCreate.getEndDateTime());
                         this.fenetreCreate.setAlertErreur("Vente créée avec succès");
