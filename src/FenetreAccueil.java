@@ -109,7 +109,7 @@ public class FenetreAccueil extends BorderPane {
         date.getEditor().setDisable(true);
         date.setPromptText("Choisissez une date de fin");
             
-        // Définition de la cellule de date pour la date de début
+        // Définition de la cellule de date pour la date de fin
         Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
             @Override
             public DateCell call(DatePicker datePicker) {

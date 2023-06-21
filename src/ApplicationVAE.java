@@ -91,39 +91,13 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreMesVentes() {
-
-        // //TEST DE VENTES
-        // List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
-
-        // Map<String,String> v1 = new HashMap<String,String>();
-        // v1.put("id","43");
-        // v1.put("titre","Canapé repliable Castorama 180cm");
-        // v1.put("prixBase","180");      
-        // v1.put("nbEnchere","0");
         
-        // Map<String,String> v2 = new HashMap<String,String>();
-        // v2.put("id","10");
-        // v2.put("titre","Set Lego 7687");
-        // v2.put("prixBase","55,99");    
-        // v2.put("nbEnchere","3");
-
-        // ventes.add(v1);
-        // ventes.add(v2);
-
-        // //...
-
         Utilisateur utilisateur = getUtilisateur();
-
         try {
-            Objet table = new Objet("table", "une table là",this.categorieBD.rechercherCategorieParNum(1),utilisateur);
-            this.objetBD.insererObjet(table);
-            Vente vente = new Vente(10,15,"25/05/2023:10:00:00","02/07/2023:10:00:00",this.statutBD.rechercherStatutParNum(1),table);
-            this.venteBD.insererVente(vente);
-
-            System.out.println(utilisateur.getVentes());
+            utilisateurBD.ventesUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
         }
         catch(SQLException ex) {System.out.println(ex);}
-
+        
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreMesVentes(this,utilisateur.getVentes()));
