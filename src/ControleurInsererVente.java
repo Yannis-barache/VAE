@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -85,7 +86,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                     }
                 }
 
-                if (dateDebut.isAfter(LocalDate.now())){
+                if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
                     statut=1;
                 }
 

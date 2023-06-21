@@ -215,8 +215,17 @@ public class Vente {
 
             if (this.statut.getIdentifiant()==1){
                 res=ChronoUnit.DAYS.between(LocalDateTime.now(), this.debut);
-                if (res<=0){
+                if (res<0){
                     return "Vente terminée";
+                }
+                if (res==0){
+                    res=ChronoUnit.HOURS.between(LocalDateTime.now(), this.debut);
+                    if (res==0){
+                        res=ChronoUnit.MINUTES.between(LocalDateTime.now(), this.debut);
+                        return "Début dans "+res+" minutes";
+                    }
+                    return "Début dans "+res+" heures";
+                    
                 }
                 return String.valueOf("Début dans "+res+" jours");
             }
@@ -228,9 +237,6 @@ public class Vente {
                 return "Fin aujourd'hui";
             }
 
-            if (res<0){
-                return "Vente terminée";
-            }
 
 
             return String.valueOf(res)+ " jours restants";
