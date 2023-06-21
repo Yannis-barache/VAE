@@ -127,7 +127,7 @@ public class FenetreMesVentes extends BorderPane {
                 VBox editContent = new VBox();
                 Button edit = new Button("Modifier");
                 edit.setTooltip(saleToolTip);
-                Tooltip.uninstall(edit, saleToolTip);
+                // Tooltip.uninstall(edit, saleToolTip);
                 edit.setEffect(ds);
                 edit.setOnAction((key) -> this.appli.fenetreEditionVente(getVente(saleToolTip.getText())));
                 edit.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
