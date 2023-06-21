@@ -129,7 +129,7 @@ public class ApplicationVAE extends Application{
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreMesEncheres(this,new ArrayList<>()));
+        root.setCenter(new FenetreMesEncheres(this,utilisateur.getEncheres()));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
@@ -137,7 +137,7 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetreEnchere(Map<String,String> enchere) {
+    public void fenetreEnchere(Enchere enchere) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreEnchere(this,enchere));

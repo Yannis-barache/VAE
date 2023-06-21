@@ -23,7 +23,7 @@ import javafx.scene.paint.Stop;
 import javafx.scene.paint.CycleMethod;
 import javafx.util.Callback;
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
@@ -141,6 +141,14 @@ public class FenetreEditionVente extends GridPane {
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker endSale = new DatePicker();
+
+
+
+        System.out.println(this.vente.getFinVente());
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("");
+
         // endSale.setValue(this.vente.getFinVente()); //FIN VENTE
         // Définition de la cellule de date pour la date de fin
         Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {

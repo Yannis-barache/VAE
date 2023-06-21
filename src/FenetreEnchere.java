@@ -30,9 +30,9 @@ import java.util.HashMap;
 public class FenetreEnchere extends GridPane{
     
     private ApplicationVAE appli;
-    private Map<String,String> enchere;
+    private Enchere enchere;
 
-    public FenetreEnchere(ApplicationVAE appli,Map<String,String> enchere) {
+    public FenetreEnchere(ApplicationVAE appli,Enchere enchere) {
         super();
         this.appli = appli;
         this.enchere = enchere;
@@ -55,7 +55,7 @@ public class FenetreEnchere extends GridPane{
 
         //Titre et description de l'enchère
         VBox titleDesc = new VBox();
-        Label bidTitle = new Label(enchere.get("titre"));
+        Label bidTitle = new Label(enchere.getVente().getObjet().getNom());
         bidTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         bidTitle.setTextFill(Color.web("#5D48D7"));
         Text bidDesc = new Text("Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin ");
