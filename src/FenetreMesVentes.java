@@ -31,9 +31,9 @@ import java.util.Set;
 public class FenetreMesVentes extends BorderPane {
     
     private ApplicationVAE appli;
-    private Set<Vente> ventes;
+    private List<Vente> ventes;
 
-    public FenetreMesVentes(ApplicationVAE appli,Set<Vente> ventes) {
+    public FenetreMesVentes(ApplicationVAE appli,List<Vente> ventes) {
         super();
         this.appli = appli;
         this.ventes = ventes;
