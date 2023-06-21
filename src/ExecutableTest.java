@@ -14,13 +14,15 @@ public class ExecutableTest{
                 UtilisateurBD uBd = new UtilisateurBD(laConnexion);
                 VenteBD vBd = new VenteBD(laConnexion);
 
+                System.out.println(vBd.listeVentesEnCours());
+                
 
-                Utilisateur u = uBd.rechercherUtilisateurParNum(10);
-                uBd.ventesUtilisateur(u);
-                uBd.encheresUtilisateur(u);
-                System.out.println(u);
+                // Utilisateur u = uBd.rechercherUtilisateurParNum(10);
+                // uBd.ventesUtilisateur(u);
+                // uBd.encheresUtilisateur(u);
+                // System.out.println(u);
 
-                System.out.println("------------------------");
+                // System.out.println("------------------------");
 
                 // Utilisateur u2 = uBd.rechercherUtilisateurParNum(45);
                 // uBd.encheresUtilisateur(u2);
