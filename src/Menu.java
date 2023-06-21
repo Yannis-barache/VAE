@@ -122,10 +122,6 @@ public class Menu extends BorderPane {
         monProfilItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");        
         monProfilItem.setOnAction(new ControleurMenu(this.appli));
 
-        MenuItem deconnexionItem = new MenuItem("Déconnexion");
-        deconnexionItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
-        deconnexionItem.setOnAction(new ControleurRetourPageConnec(this.appli));
-        
         MenuItem pannelAdministrationItem = new MenuItem("Pannel Administration");
         pannelAdministrationItem.setVisible(false);
         pannelAdministrationItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
@@ -133,8 +129,12 @@ public class Menu extends BorderPane {
         if(this.appli.getUtilisateur().isAdmin()){
             pannelAdministrationItem.setVisible(true);
         }
-
-        contextMenu.getItems().addAll(monProfilItem, deconnexionItem, pannelAdministrationItem);
+        
+        MenuItem deconnexionItem = new MenuItem("Déconnexion");
+        deconnexionItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
+        deconnexionItem.setOnAction(new ControleurRetourPageConnec(this.appli));
+        
+        contextMenu.getItems().addAll(monProfilItem, pannelAdministrationItem, deconnexionItem);
         profil.setContextMenu(contextMenu);
 
         profil.setOnAction(event -> {
