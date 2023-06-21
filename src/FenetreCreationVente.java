@@ -32,6 +32,8 @@ import java.io.File;
 import java.security.Timestamp;
 import java.util.ArrayList;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javafx.util.Callback;
 import javafx.scene.control.TextFormatter.Change;
 
@@ -559,6 +561,15 @@ public class FenetreCreationVente extends GridPane {
     public void setAlertErreur(String alert) {
         this.alertErreur.setText(alert);
     }
+
+    public LocalDateTime getStartDateTime() {
+        return LocalDateTime.of(this.startSale.getValue().getYear(),this.startSale.getValue().getMonth(),this.startSale.getValue().getDayOfMonth(),Integer.parseInt(this.startHourValue.getText()),Integer.parseInt(this.startMinuteValue.getText()));
+    }
+
+    public LocalDateTime getEndDateTime() {
+        return LocalDateTime.of(this.endSale.getValue().getYear(),this.endSale.getValue().getMonth(),this.endSale.getValue().getDayOfMonth(),Integer.parseInt(this.endHourValue.getText()),Integer.parseInt(this.endMinuteValue.getText()));
+    }
+    
 
 
     

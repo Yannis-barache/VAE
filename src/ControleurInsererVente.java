@@ -17,68 +17,57 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
+        try{
+            String titre = this.fenetreCreate.getTitleSale().getText();
 
-        String titre = this.fenetreCreate.getTitleSale().getText();
+            String description = this.fenetreCreate.getDescSale().getText();
 
-        String description = this.fenetreCreate.getDescSale().getText();
+            String prixBase = this.fenetreCreate.getBasePriceSale().getText();
+            String prixMin = this.fenetreCreate.getMinPriceSale().getText();
 
-        String prixBase = this.fenetreCreate.getBasePriceSale().getText();
-        String prixMin = this.fenetreCreate.getMinPriceSale().getText();
-
-        LocalDate dateFin = this.fenetreCreate.getEndSale();
-        LocalDate dateDebut = this.fenetreCreate.getStartSale();
+            LocalDate dateFin = this.fenetreCreate.getEndSale();
+            LocalDate dateDebut = this.fenetreCreate.getStartSale();
     
-        String categorie = this.fenetreCreate.getCategorySale();
+            String categorie = this.fenetreCreate.getCategorySale();
 
-        String heureDebut = this.fenetreCreate.getHeureDebut();
-        String heureFin = this.fenetreCreate.getHeureFin();
-        int statut = 2;
+            String heureDebut = this.fenetreCreate.getHeureDebut();
+            String heureFin = this.fenetreCreate.getHeureFin();
+            int statut = 2;
 
-        String jourDeb = String.valueOf(dateDebut.getDayOfMonth());
-        String moisDeb = String.valueOf(dateDebut.getMonthValue());
-        String anneeDeb = String.valueOf(dateDebut.getYear());
+            String jourDeb = String.valueOf(dateDebut.getDayOfMonth());
+            String moisDeb = String.valueOf(dateDebut.getMonthValue());
+            String anneeDeb = String.valueOf(dateDebut.getYear());
 
         
 
-        if (moisDeb.length()==1){
+            if (moisDeb.length()==1){
             moisDeb="0"+moisDeb;
-        }
+            }
 
-        if (jourDeb.length()==1){
-            jourDeb="0"+jourDeb;
-        }
-
-
-
-        String dateDeb= jourDeb+"/"+moisDeb+"/"+anneeDeb;
-        String deb = dateDeb+":"+heureDebut+":00";
-
-
-        String jourFin = String.valueOf(dateFin.getDayOfMonth());
-        String moisFin = String.valueOf(dateFin.getMonthValue());
-        String anneeFin = String.valueOf(dateFin.getYear());
-
-        if (moisFin.length()==1){
-            moisFin="0"+moisFin;
-        }
-
-        if (jourFin.length()==1){
-            jourFin="0"+jourFin;
-        }
-
-        String dateF= jourFin+"/"+moisFin+"/"+anneeFin;
-        String fin = dateF+":"+heureFin+":00";
+            if (jourDeb.length()==1){
+                jourDeb="0"+jourDeb;
+            }
 
 
 
-        System.out.println(deb);
-        System.out.println(fin);
+            String dateDeb= jourDeb+"/"+moisDeb+"/"+anneeDeb;
+            String deb = dateDeb+":"+heureDebut+":00";
 
 
-        if(titre.equals("") || description.equals("") || prixBase.equals("") || prixMin.equals("") || dateFin.equals(null)|| dateDebut.equals(null) || categorie.equals("") || heureDebut.equals("") || heureFin.equals("")){
-            this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
-        }
-        else{
+            String jourFin = String.valueOf(dateFin.getDayOfMonth());
+            String moisFin = String.valueOf(dateFin.getMonthValue());
+            String anneeFin = String.valueOf(dateFin.getYear());
+
+            if (moisFin.length()==1){
+                moisFin="0"+moisFin;
+            }
+
+            if (jourFin.length()==1){
+                jourFin="0"+jourFin;
+            }
+
+            String dateF= jourFin+"/"+moisFin+"/"+anneeFin;
+            String fin = dateF+":"+heureFin+":00";
             try{
                 List<Categorie> categories = this.appli.getCategorieBD().listeCategories();
                 int idCategorie = 0;
@@ -97,13 +86,28 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
 
                 Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
                 this.appli.getVenteBD().insererVente(vente);
+                vente.setDebut(this.fenetreCreate.getStartDateTime());
+                vente.setFin(this.fenetreCreate.getEndDateTime());
                 this.fenetreCreate.setAlertErreur("Vente créée avec succès");
 
             } catch(SQLException ex){
                 System.out.println(ex.getMessage());
             }
-            
+
+        } catch (NullPointerException e){
+            this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
+
         }
+
+        
+
+
+
+        
+
+
+    
+            
 
     }
 }
