@@ -108,7 +108,15 @@ public class FenetreMesEncheres extends BorderPane {
                 Label actualEnchereLabel = new Label("Votre enchère : ");
                 actualEnchereLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchereLabel.setTextFill(Color.web("black"));
-                Label actualEnchere = new Label(enchere.getMontant()+" €");
+                int ourPriceValue = 0;
+                try {
+                    Enchere newEnchere = this.appli.getVenteBD().derniereEnchereUtilisateur(enchere.getVente(),this.appli.getUtilisateur());
+                    if (newEnchere != null) {
+                        ourPriceValue = newEnchere.getMontant();
+                    }
+                }
+                catch(SQLException ex) {}
+                Label actualEnchere = new Label(String.valueOf(ourPriceValue)+" €");
                 actualEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchere.setTextFill(Color.web("#5D48D7"));  
                 actualEnchere.setAlignment(Pos.BASELINE_RIGHT);
@@ -144,7 +152,7 @@ public class FenetreMesEncheres extends BorderPane {
                     bid.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
                     bid.setDisable(true);
                 } else {
-                    bid.setOnAction((key) -> this.appli.fenetreEnchere(enchere.getVente()));
+                    bid.setOnAction((key) -> this.appli.fenetreEnchere(enchere.getVente(),"encheres"));
                     bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
                     bid.setAlignment(Pos.BASELINE_RIGHT);
                 }                
