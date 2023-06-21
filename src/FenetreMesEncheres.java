@@ -108,7 +108,15 @@ public class FenetreMesEncheres extends BorderPane {
                 Label actualEnchereLabel = new Label("Votre enchère : ");
                 actualEnchereLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchereLabel.setTextFill(Color.web("black"));
-                Label actualEnchere = new Label(enchere.getMontant()+" €");
+                int ourPriceValue = 0;
+                try {
+                    Enchere newEnchere = this.appli.getVenteBD().derniereEnchereUtilisateur(enchere.getVente(),this.appli.getUtilisateur());
+                    if (newEnchere != null) {
+                        ourPriceValue = newEnchere.getMontant();
+                    }
+                }
+                catch(SQLException ex) {}
+                Label actualEnchere = new Label(String.valueOf(ourPriceValue)+" €");
                 actualEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchere.setTextFill(Color.web("#5D48D7"));  
                 actualEnchere.setAlignment(Pos.BASELINE_RIGHT);

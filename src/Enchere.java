@@ -71,7 +71,7 @@ public class Enchere {
 
         if (obj instanceof Enchere){
             Enchere e = (Enchere) obj;
-            if (e.getVente().getIdentifiant() == this.getVente().getIdentifiant() && this.getDate().equals(e.getDate()) && this.getEncherisseur().getIdentifiant() == e.getEncherisseur().getIdentifiant()) {
+            if (e.getVente().getIdentifiant() == this.getVente().getIdentifiant() && this.getEncherisseur().getIdentifiant() == e.getEncherisseur().getIdentifiant()) {
                 return true;
             }
         }
