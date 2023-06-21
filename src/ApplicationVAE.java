@@ -91,7 +91,7 @@ public class ApplicationVAE extends Application{
     }
 
     public void fenetreMesVentes() {
-        
+
         Utilisateur utilisateur = getUtilisateur();
         try {
             utilisateurBD.ventesUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
@@ -121,30 +121,15 @@ public class ApplicationVAE extends Application{
 
     public void fenetreMesEncheres() {
 
-        //TEST D'ENCHERE
-        List<Map<String,String>> ventes = new ArrayList<Map<String,String>>();
-
-        Map<String,String> v1 = new HashMap<String,String>();
-        v1.put("id","43");
-        v1.put("titre","Canapé repliable Castorama 180cm LES GAEL LES GAEL LES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELSLES GAEL LES GAEAL LES GAEL LES GAELS");
-        v1.put("prixBase","180");      
-        v1.put("nbEnchere","0");
-        
-        Map<String,String> v2 = new HashMap<String,String>();
-        v2.put("id","10");
-        v2.put("titre","Set Lego 7687");
-        v2.put("prixBase","55,99");    
-        v2.put("nbEnchere","3");
-
-        ventes.add(v1);
-        ventes.add(v2);
-
-        //...
-
+       Utilisateur utilisateur = getUtilisateur();
+        try {
+            utilisateurBD.encheresUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
+        }
+        catch(SQLException ex) {System.out.println(ex);}
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreMesEncheres(this,ventes));
+        root.setCenter(new FenetreMesEncheres(this,new ArrayList<>()));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);

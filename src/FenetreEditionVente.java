@@ -122,9 +122,11 @@ public class FenetreEditionVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox categorySaleCB = new ComboBox<>(FXCollections.observableArrayList(categories));
-        System.out.println(this.vente.getObjet().getCategorie()); //TEMP
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB.getItems().addAll(filtersList);
+        categorySaleCB.setValue(this.vente.getObjet().getCategorie().toString());
+        // System.out.println(this.vente.getObjet().getCategorie()); //TEMP
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
         categorySaleCB.setPrefWidth(300);
@@ -139,8 +141,8 @@ public class FenetreEditionVente extends GridPane {
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker endSale = new DatePicker();
-        System.out.println(this.vente.getFinVente()); //Fin vente
-        // Définition de la cellule de date pour la date de début
+        // endSale.setValue(this.vente.getFinVente()); //FIN VENTE
+        // Définition de la cellule de date pour la date de fin
         Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
             @Override
             public DateCell call(DatePicker datePicker) {

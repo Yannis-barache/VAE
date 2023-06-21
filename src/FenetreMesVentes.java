@@ -26,16 +26,19 @@ import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Set;
 
 public class FenetreMesVentes extends BorderPane {
     
     private ApplicationVAE appli;
-    private List<Vente> ventes;
+    private Set<Vente> ventes;
 
-    public FenetreMesVentes(ApplicationVAE appli,List<Vente> ventes) {
+    public FenetreMesVentes(ApplicationVAE appli,Set<Vente> ventes) {
         super();
         this.appli = appli;
         this.ventes = ventes;
+
+        System.out.println(this.ventes);
 
         this.content();
     }
@@ -61,13 +64,15 @@ public class FenetreMesVentes extends BorderPane {
         countVente.setTextFill(Color.web("black"));
         titleContent.getChildren().addAll(title,countVente);
         //Ajout du titre
-        ventesContent.getChildren().add(titleContent);
 
         // this.ventes = new ArrayList<List<Map<String,String>>>();
 
         if (this.ventes.size() > 0) {
 
             for (Vente vente : this.ventes) {
+                ventesContent.getChildren().clear();
+                ventesContent.getChildren().add(titleContent);
+
                 VBox venteContent = new VBox();
                 HBox splitVente = new HBox();
 
