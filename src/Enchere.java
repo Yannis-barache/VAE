@@ -57,6 +57,6 @@ public class Enchere {
 
     @Override
     public String toString(){
-        return ""+this.getVente()+" "+this.getEncherisseur().getPseudo()+" "+this.getMontant()+" "+this.getDate();
+        return "Enchere(Vente : "+this.getVente()+", Encherrisseur : "+this.getEncherisseur().getPseudo()+", Montant : "+this.getMontant()+", Date : "+this.getDate()+")";
     }
 }

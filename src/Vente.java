@@ -175,7 +175,7 @@ public class Vente {
 
     @Override 
     public String toString(){
-        return ""+this.getIdentifiant()+" "+this.getPrixBase()+" "+this.getPrixMin()+" "+this.getdebutVente()+" "+this.getFinVente()+" "+this.getStatus();
+        return "Vente( Id : "+this.getIdentifiant()+", Prix de base : "+this.getPrixBase()+", Prix minimum : "+this.getPrixMin()+", Debut Vente : "+this.getdebutVente()+", Fin Vente"+this.getFinVente()+", Statut : "+this.getStatus()+")";
     }
 
 
