@@ -28,8 +28,7 @@ public class ControleurInscription implements EventHandler<ActionEvent>{
         else{
             try{
                 this.fenetreInscription.setAlertLogin("Insertion en cours");
-                this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(45, pseudo, mail, mdp1, true, false));
-                this.fenetreInscription.setAlertLogin("Insertion réussie");
+                this.appli.getUtilisateurBD().insererUtilisateur(new Utilisateur(pseudo, mail, mdp1, true, false));
                 this.appli.setNotifReussie("Inscription réussie, veuillez vous connecter");
                 this.appli.fenetreConnexion();
 

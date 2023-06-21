@@ -1,3 +1,9 @@
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+
+
 public class Vente {
     private int identifiant;
     private int prixBase;
@@ -6,6 +12,11 @@ public class Vente {
     private String finVente;
     private Statut statut;
     private Objet objet;
+    private LocalDateTime debut;
+    private LocalDateTime fin;
+
+
+
     /**
      * Constructeur de la classe Vente.
      *
@@ -172,6 +183,43 @@ public class Vente {
     public void setObjet(Objet objet) {
         this.objet = objet;
     }
+
+    public void setDebut(LocalDateTime debut){
+        this.debut=debut;
+    }
+
+    public void setFin(LocalDateTime fin){
+        this.fin=fin;
+    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+
+
+    /**
+     * Obtient le temps restant avant la fin de la vente en jours.
+     *
+     * @return Le temps restant avant la fin de la vente en jours.
+     */
+
+    public String tempsRestant(){
+        try {
+            long res=ChronoUnit.DAYS.between(this.debut, this.fin);
+            if (this.statut.getIdentifiant()==1){
+                res=ChronoUnit.DAYS.between(LocalDateTime.now(), this.debut);
+                return String.valueOf("Début dans "+res+" jours");
+            }
+            if (res<0){
+                return "Vente terminée";
+            }
+
+            return String.valueOf(res)+ " jours restants";
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "Pas de date";
+    }
+
 
     @Override 
     public String toString(){
