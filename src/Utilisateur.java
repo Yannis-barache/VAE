@@ -10,8 +10,8 @@ public class Utilisateur {
     private String mdp;
     private boolean actif;
     private boolean admin;
-    private Set<Vente> ventes;
-    private Set<Enchere> encheres;
+    private List<Vente> ventes;
+    private List<Enchere> encheres;
 
     /**
      * Constructeur de la classe Utilisateur.
@@ -31,8 +31,8 @@ public class Utilisateur {
         this.mdp = mdp;
         this.actif = actif;
         this.admin = admin;
-        this.ventes = new HashSet<>();
-        this.encheres = new HashSet<>();
+        this.ventes = new ArrayList<>();
+        this.encheres = new ArrayList<>();
     }
 
     /**
@@ -52,8 +52,8 @@ public class Utilisateur {
         this.mdp = mdp;
         this.actif = actif;
         this.admin = admin;
-        this.ventes = new HashSet<>();
-        this.encheres = new HashSet<>();
+        this.ventes = new ArrayList<>();
+        this.encheres = new ArrayList<>();
     }
 
     /**
@@ -164,7 +164,7 @@ public class Utilisateur {
      *
      * @return La liste des ventes de l'utilisateur.
      */
-    public Set<Vente> getVentes() {
+    public List<Vente> getVentes() {
         return this.ventes;
     }
 
@@ -191,7 +191,7 @@ public class Utilisateur {
      *
      * @return La liste des encheres de l'utilisateur.
      */
-    public Set<Enchere> getEncheres() {
+    public List<Enchere> getEncheres() {
         return this.encheres;
     }
 
@@ -217,4 +217,6 @@ public class Utilisateur {
     public String toString(){
         return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" Ventes : "+getVentes()+" "+isActif()+" "+isAdmin()+" Encheres :"+getEncheres();
     }
+
+
 }

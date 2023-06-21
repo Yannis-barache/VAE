@@ -59,4 +59,22 @@ public class Enchere {
     public String toString(){
         return "Enchere(Vente : "+this.getVente()+", Encherrisseur : "+this.getEncherisseur().getPseudo()+", Montant : "+this.getMontant()+", Date : "+this.getDate()+")";
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this){
+            return true;
+        }
+        if (obj == null){
+            return false;       
+        }
+
+        if (obj instanceof Enchere){
+            Enchere e = (Enchere) obj;
+            if (e.getVente().getIdentifiant() == this.getVente().getIdentifiant() && this.getDate().equals(e.getDate()) && this.getEncherisseur().getIdentifiant() == e.getEncherisseur().getIdentifiant()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
