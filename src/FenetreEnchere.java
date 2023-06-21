@@ -32,11 +32,13 @@ public class FenetreEnchere extends GridPane{
     
     private ApplicationVAE appli;
     private Vente vente;
+    private String precFenetre;
 
-    public FenetreEnchere(ApplicationVAE appli,Vente vente) {
+    public FenetreEnchere(ApplicationVAE appli,Vente vente,String precFenetre) {
         super();
         this.appli = appli;
         this.vente = vente;
+        this.precFenetre = precFenetre;
 
         this.content();
     }
@@ -131,7 +133,11 @@ public class FenetreEnchere extends GridPane{
         VBox cancelContent = new VBox();
         Button cancel = new Button("Annuler");
         cancel.setEffect(ds);
-        cancel.setOnAction((key) -> this.appli.fenetreMesEncheres());
+        if (precFenetre.equals("accueil")) {
+            cancel.setOnAction((key) -> this.appli.fenetreAccueil());
+        } else {
+            cancel.setOnAction((key) -> this.appli.fenetreMesEncheres());
+        }
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));

@@ -247,7 +247,7 @@ public class FenetreAccueil extends BorderPane {
                 buttonItem.setPadding(new Insets(10,30,10,30));
                 buttonItem.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
                 Vente v = this.ventesEnCours.get(j);
-                buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v));
+                buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v,"accueil"));
                 buttonItem.setEffect(ds);
                 buttonContainer.getChildren().add(buttonItem);
                 buttonContainer.setAlignment(Pos.BASELINE_RIGHT);
