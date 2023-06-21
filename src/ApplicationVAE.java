@@ -55,10 +55,6 @@ public class ApplicationVAE extends Application{
             System.out.println("Erreur SQL : " + ex.getMessage());
             
         }
-        
-
-
-
     }
 
      public void fenetreConnexion() {
