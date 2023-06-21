@@ -118,15 +118,15 @@ public class ApplicationVAE extends Application{
 
         Utilisateur utilisateur = getUtilisateur();
 
-        try {
-            Objet table = new Objet("table", "une table là",this.categorieBD.rechercherCategorieParNum(1),utilisateur);
-            this.objetBD.insererObjet(table);
-            Vente vente = new Vente(10,15,"25/05/2023:10:00:00","02/07/2023:10:00:00",this.statutBD.rechercherStatutParNum(1),table);
-            this.venteBD.insererVente(vente);
+        // try {
+        //     Objet table = new Objet("table", "une table là",this.categorieBD.rechercherCategorieParNum(1),utilisateur);
+        //     this.objetBD.insererObjet(table);
+        //     Vente vente = new Vente(10,15,"25/05/2023:10:00:00","02/07/2023:10:00:00",this.statutBD.rechercherStatutParNum(1),table);
+        //     this.venteBD.insererVente(vente);
 
-            System.out.println(utilisateur.getVentes());
-        }
-        catch(SQLException ex) {System.out.println(ex);}
+        //     System.out.println(utilisateur.getVentes());
+        // }
+        // catch(SQLException ex) {System.out.println(ex);}
 
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
