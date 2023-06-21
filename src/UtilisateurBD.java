@@ -102,8 +102,12 @@ public class UtilisateurBD {
         try {
             ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET where  "+ u.getIdentifiant() + " = idUt");
             while(rs.next()){
-                u.ajouterVente(new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), sBD.rechercherStatutParNum(rs.getInt(7)), oBD.rechercherObjetParNum(rs.getInt(1))));
+                Vente v = new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), sBD.rechercherStatutParNum(rs.getInt(7)), oBD.rechercherObjetParNum(rs.getInt(1)));
+                if (!u.getVentes().contains(v)){
+                    u.ajouterVente(v);
+                }
             }
+                
             rs.close();
         } catch (SQLException e) {
             System.out.println(e);
@@ -116,7 +120,11 @@ public class UtilisateurBD {
         try {
             ResultSet rs3 = st.executeQuery("select * from ENCHERIR where " + u.getIdentifiant() + " = idUt");
             while (rs3.next()){
-                u.ajouterEnchere(new Enchere(vBd.rechercherVenteParNum(rs3.getInt(2)), u, rs3.getInt(4), rs3.getString(3)));
+                Enchere e = new Enchere(vBd.rechercherVenteParNum(rs3.getInt(2)), u, rs3.getInt(4), rs3.getString(3));
+                if (!u.getEncheres().contains(e)){
+                    u.ajouterEnchere(e);
+                }
+                    
             }
             rs3.close();
         } catch (SQLException e) {

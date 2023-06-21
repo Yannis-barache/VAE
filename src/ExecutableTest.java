@@ -22,10 +22,10 @@ public class ExecutableTest{
 
                 System.out.println("------------------------");
 
-                Utilisateur u2 = uBd.rechercherUtilisateurParNum(45);
-                uBd.encheresUtilisateur(u2);
-                uBd.encheresUtilisateur(u);
-                System.out.println(u2);
+                // Utilisateur u2 = uBd.rechercherUtilisateurParNum(45);
+                // uBd.encheresUtilisateur(u2);
+                // uBd.encheresUtilisateur(u);
+                // System.out.println(u2);
 
                 laConnexion.close();
             } catch (SQLException ex){
