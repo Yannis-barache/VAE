@@ -112,7 +112,7 @@ public class FenetreEnchere extends GridPane{
         VBox cancelContent = new VBox();
         Button cancel = new Button("Annuler");
         cancel.setEffect(ds);
-        cancel.setOnAction((key) -> this.appli.fenetreMesVentes());
+        cancel.setOnAction((key) -> this.appli.fenetreMesEncheres());
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
