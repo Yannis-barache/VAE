@@ -169,6 +169,18 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    public void fenetrePannelAdministration() {
+        BorderPane root = new BorderPane();
+        ScrollPane sc = new ScrollPane(root);
+        sc.setPrefWidth(1920);
+        root.setCenter(new FenetrePannelAdministration(this));
+        root.setTop(new Menu(this,4));
+        root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
+        sc.setFitToWidth(true);
+        sc.setFitToHeight(true);
+        this.scene.setRoot(sc);
+    }
+
     public ConnexionMySQL getConnexionMySQL() {
         return this.laConnexion;
     }
