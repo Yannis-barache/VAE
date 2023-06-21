@@ -422,6 +422,7 @@ public class FenetreCreationVente extends GridPane {
         eHourLabel.setTextFill(Color.web("black"));
         endHourLabelContent.setAlignment(Pos.CENTER);
         endHourLabelContent.getChildren().add(eHourLabel);
+
         //Minutes
         this.endMinuteValue = new TextField();
 
@@ -457,6 +458,7 @@ public class FenetreCreationVente extends GridPane {
             }
             return null;
         }));
+
         //Indicatif minute
         VBox endMinuteLabelContent = new VBox();
         Label endMinuteLabel = new Label("m");
@@ -536,43 +538,40 @@ public class FenetreCreationVente extends GridPane {
         return this.minPriceSale;
     }
 
-    public LocalDate getStartSale() {
-        return this.startSale.getValue();
+    public DatePicker getStartSale() {
+        return this.startSale;
     }
 
-    public LocalDate getEndSale() {
-        return this.endSale.getValue();
+    public DatePicker getEndSale() {
+        return this.endSale;
     }
 
-    public String getHeureDebut(){
+    public int getHeureDebut(){
 
-        int hour = Integer.parseInt(this.startHourValue.getText())%12;
-
-        if (String.valueOf(hour).length()==1){
-            hour = Integer.parseInt("0"+hour);
-        }
-
-        if (String.valueOf(this.startMinuteValue.getText()).length()==1){
-            this.startMinuteValue.setText("0"+this.startMinuteValue.getText());
-        }
-
-        return  hour+":"+this.startMinuteValue.getText();
+        int hour = Integer.parseInt(this.startHourValue.getText());
+        return  hour;
     }
 
-    public String getHeureFin(){
-        int hour = Integer.parseInt(this.endHourValue.getText())%12;
-
-        if (String.valueOf(hour).length()==1){
-            hour = Integer.parseInt("0"+hour);
-        }
-
-        if (String.valueOf(this.endMinuteValue.getText()).length()==1){
-            this.endMinuteValue.setText("0"+this.endMinuteValue.getText());
-        }
-
-        
-        return hour+":"+this.endMinuteValue.getText();
+    public int getHeureFin(){
+            
+            int hour = Integer.parseInt(this.endHourValue.getText());
+            return  hour;
     }
+
+
+    public int getMinuteDebut(){
+            
+            int minute = Integer.parseInt(this.startMinuteValue.getText());
+            return  minute;
+    }
+
+    public int getMinuteFin(){
+            
+            int minute = Integer.parseInt(this.endMinuteValue.getText());
+            return  minute;
+    }
+
+    
 
     public String getCategorySale() {
         return this.categorySaleCB.getValue();

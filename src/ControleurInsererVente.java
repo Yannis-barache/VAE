@@ -1,8 +1,12 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.DatePicker;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 
@@ -26,13 +30,14 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             String prixBase = this.fenetreCreate.getBasePriceSale().getText();
             String prixMin = this.fenetreCreate.getMinPriceSale().getText();
 
-            LocalDate dateFin = this.fenetreCreate.getEndSale();
-            LocalDate dateDebut = this.fenetreCreate.getStartSale();
+            
+            LocalDate dateFin = this.fenetreCreate.getEndSale().getValue();
+            LocalDate dateDebut = this.fenetreCreate.getStartSale().getValue();
     
             String categorie = this.fenetreCreate.getCategorySale();
 
-            String heureDebut = this.fenetreCreate.getHeureDebut();
-            String heureFin = this.fenetreCreate.getHeureFin();
+            String heureDebut = String.valueOf(this.fenetreCreate.getHeureDebut());
+            String heureFin = String.valueOf(this.fenetreCreate.getHeureFin());
             int statut = 2;
 
             String jourDeb = String.valueOf(dateDebut.getDayOfMonth());
@@ -58,71 +63,111 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             }
 
 
+            
 
-            String dateDeb= jourDeb+"/"+moisDeb+"/"+anneeDeb;
-            String deb = dateDeb+":"+heureDebut+":00";
+            // if (heureDebut.substring(0,1).equals("0")){
+            //     heureDebut="00"+heureDebut.substring(3,4);
+            // }
+
+
+            // System.out.println("------------------- test -------------------");
+            // System.out.println(heureDebut.substring(0, 1));
+            // System.out.println(heureDebut.substring(0, 2));
+            // System.out.println(heureDebut.substring(0, 3));
+            // System.out.println(heureDebut.substring(0, 4));
+            // System.out.println(heureDebut);
+
+
+            // On récupère la date et l'heure de début
+            LocalDate date = this.fenetreCreate.getStartSale().getValue(); // Supposons que cela renvoie un objet LocalDate
+            LocalTime time = LocalTime.of(this.fenetreCreate.getHeureDebut(), this.fenetreCreate.getMinuteDebut());
+
+            // Combinez LocalDate et LocalTime en LocalDateTime
+            LocalDateTime dateTime = LocalDateTime.of(date, time);
+            // Affichez la date et l'heure au format 24 heures en français
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+            String formattedDateTimeDebut = dateTime.format(formatter);
+            System.out.println(formattedDateTimeDebut);
+            formattedDateTimeDebut=formattedDateTimeDebut+":00";
+            formattedDateTimeDebut=formattedDateTimeDebut.replace(" ",":");
+            System.out.println(formattedDateTimeDebut);
+            String deb = formattedDateTimeDebut;
+
+
+            // On récupère la date et l'heure de fin
+            LocalDate date2 = this.fenetreCreate.getEndSale().getValue(); // Supposons que cela renvoie un objet LocalDate
+            LocalTime time2 = LocalTime.of(this.fenetreCreate.getHeureFin(), this.fenetreCreate.getMinuteFin());
+
+            // Combinez LocalDate et LocalTime en LocalDateTime
+            LocalDateTime dateTime2 = LocalDateTime.of(date2, time2);
+            // Affichez la date et l'heure au format 24 heures en français
+            String formattedDateTimeFin = dateTime2.format(formatter);
+            formattedDateTimeFin=formattedDateTimeFin+":00";
+            formattedDateTimeFin=formattedDateTimeFin.replace(" ",":");
+            System.out.println(formattedDateTimeFin);
+            String fin = formattedDateTimeFin;
+
 
 
             String jourFin = String.valueOf(dateFin.getDayOfMonth());
             String moisFin = String.valueOf(dateFin.getMonthValue());
             String anneeFin = String.valueOf(dateFin.getYear());
 
-            if (moisFin.length()==1){
-                moisFin="0"+moisFin;
-            }
+            LocalDateTime maintenant = LocalDateTime.now();
+            String heureMinute = String.valueOf(maintenant.getHour())+ ":" + String.valueOf(maintenant.getMinute());
+           
 
             if (jourFin.length()==1){
                 jourFin="0"+jourFin;
             }
 
-            String dateF= jourFin+"/"+moisFin+"/"+anneeFin;
-            String fin = dateF+":"+heureFin+":00";
 
-        
-            if (Valide.differentHeure(deb,fin)){
-                try{
-                    List<Categorie> categories = this.appli.getCategorieBD().listeCategories();
-                    int idCategorie = 0;
-                    for(Categorie c : categories){
-                        if(c.getNom().equals(categorie)){
-                            idCategorie = c.getIdentifiant();
-                        }
-                    }
-    
-                    if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
-                        statut=1;
-                    }
-    
-                    Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
-                    this.appli.getObjetBD().insererObjet(objet);
-    
-                    Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
-                    this.appli.getVenteBD().insererVente(vente);
-                    vente.setDebut(this.fenetreCreate.getStartDateTime());
-                    vente.setFin(this.fenetreCreate.getEndDateTime());
-                    this.fenetreCreate.setAlertErreur("Vente créée avec succès");
-    
-                } catch(SQLException ex){
-                    System.out.println(ex.getMessage());
-                }
+            if (heureMinute.compareTo(heureDebut)>0 && jourDeb.equals(String.valueOf(maintenant.getDayOfMonth()))){
+                this.fenetreCreate.setAlertErreur("L'heure de début doit être supérieure à l'heure actuelle");
             }
             else{
-                this.fenetreCreate.setAlertErreur("Les dates ne doivent pas être identiques");
+                if (Valide.differentHeure(deb,fin)){
+                    try{
+                        List<Categorie> categories = this.appli.getCategorieBD().listeCategories();
+                        int idCategorie = 0;
+                        for(Categorie c : categories){
+                            if(c.getNom().equals(categorie)){
+                                idCategorie = c.getIdentifiant();
+                            }
+                        }
+        
+                        if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
+                            statut=1;
+                        }
+        
+                        Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
+                        this.appli.getObjetBD().insererObjet(objet);
+        
+                        Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
+                        this.appli.getVenteBD().insererVente(vente);
+                        vente.setDebut(this.fenetreCreate.getStartDateTime());
+                        vente.setFin(this.fenetreCreate.getEndDateTime());
+                        this.fenetreCreate.setAlertErreur("Vente créée avec succès");
+        
+                    } catch(SQLException ex){
+                        this.fenetreCreate.setAlertErreur(ex.getMessage());
+                        System.out.println(ex.getMessage());
+                    }
+                }
+                else{
+                    this.fenetreCreate.setAlertErreur("Les dates ne doivent pas être identiques");
+                }
+    
+            } }catch (NumberFormatException e){
+                this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
+    
             }
 
-        } catch (NumberFormatException e){
-            this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
-
-        }
-
-        
-
+            
 
 
         
-
-
-    
             
 
     }

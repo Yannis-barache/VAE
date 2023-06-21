@@ -67,6 +67,7 @@ public class FenetreEnchere extends GridPane{
 
         //Image de l'enchère
         ImageView bidPic = new ImageView(new Image("file:./img/vae2.png"));
+        bidPic.setFitHeight(300);
 
         //Informations sur l'enchère
         GridPane bidInformations = new GridPane();
