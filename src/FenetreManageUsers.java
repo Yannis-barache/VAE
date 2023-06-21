@@ -64,9 +64,9 @@ public class FenetreManageUsers extends VBox {
                 desactivate.setDisable(true);
             }
 
-            delete.setOnAction(new ControleurAdmin(this.appli, user ));
-            desactivate.setOnAction(new ControleurAdmin(this.appli, user ));
-            activate.setOnAction(new ControleurAdmin(this.appli, user ));
+            delete.setOnAction(new ControleurAdminUser(this.appli, user ));
+            desactivate.setOnAction(new ControleurAdminUser(this.appli, user ));
+            activate.setOnAction(new ControleurAdminUser(this.appli, user ));
 
 
             userContent.add(image, 0, 0, 2, 2);
