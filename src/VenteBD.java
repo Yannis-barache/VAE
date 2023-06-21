@@ -86,7 +86,7 @@ public class VenteBD {
         StatutBD statutBD = new StatutBD(connexMySQL);
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         while(rs.next()){
-            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(6)), objetBD.rechercherObjetParNum(rs.getInt(7)));
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
             liste.add(v);
         }
         rs.close();
