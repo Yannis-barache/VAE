@@ -55,10 +55,11 @@ public class FenetreEnchere extends GridPane{
 
         //Titre et description de l'enchère
         VBox titleDesc = new VBox();
-        Label bidTitle = new Label(enchere.getVente().getObjet().getNom());
+        Label bidTitle = new Label(enchere.getVente().getObjet().getNom()); //Titre
         bidTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         bidTitle.setTextFill(Color.web("#5D48D7"));
-        Text bidDesc = new Text("Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin ");
+        bidTitle.setPadding(new Insets(30,0,0,0));
+        Text bidDesc = new Text("Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin Marin "); //Desc
         bidDesc.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         bidDesc.setWrappingWidth(600);
         // bidDesc.setTextFill(Color.web("black"));
@@ -66,7 +67,9 @@ public class FenetreEnchere extends GridPane{
         titleDesc.getChildren().addAll(bidTitle,bidDesc);
 
         //Image de l'enchère
-        ImageView bidPic = new ImageView(new Image("file:./img/vae2.png"));
+        ImageView bidPic = new ImageView(new Image("file:./img/blank.png"));
+        bidPic.setFitWidth(440);
+        bidPic.setPreserveRatio(true);
 
         //Informations sur l'enchère
         GridPane bidInformations = new GridPane();
@@ -99,7 +102,7 @@ public class FenetreEnchere extends GridPane{
         VBox newBidContainer = new VBox();
         Label newBidLabel = new Label("Nouvelle enchère");
         newBidLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        newBidLabel.setTextFill(Color.web("black"));
+        newBidLabel.setTextFill(Color.web("#5D48D7"));
         TextField newBid = new TextField();
         newBid.setPromptText("Nouvelle enchère");
         newBid.setEffect(ds);
@@ -107,6 +110,8 @@ public class FenetreEnchere extends GridPane{
         newBid.setPrefWidth(350);
         newBid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newBid.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+
+        newBidContainer.getChildren().addAll(newBidLabel,newBid);
 
         //Buttons
         VBox cancelContent = new VBox();

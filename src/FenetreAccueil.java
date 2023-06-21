@@ -178,10 +178,7 @@ public class FenetreAccueil extends BorderPane {
                 int j = (int) (Math.random()*ventesEnCours.size());
                 List<Integer> indexs = new ArrayList<>();
                 indexs.add(j);
-                while (indexs.contains(j)) {
-                    System.out.println(j);
-                    j = (int) (Math.random()*ventesEnCours.size());
-                }
+                while (indexs.contains(j)) j = (int) (Math.random()*ventesEnCours.size());
                 indexs.add(j);
 
                 //Une vente
@@ -200,34 +197,34 @@ public class FenetreAccueil extends BorderPane {
 
                 //Titre
                 Label actualTitle = new Label(String.valueOf(this.ventesEnCours.get(j).getObjet().getNom())); //Get le prix de la vente
-                actualTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                actualTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualTitle.setTextFill(Color.web("#5D48D7"));
                 actualTitle.setAlignment(Pos.BASELINE_RIGHT);
         
                 //Prix actuel
                 Label actualPriceLabel = new Label("Prix actuel :");
-                actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPriceLabel.setTextFill(Color.web("black"));
                 Label actualPrice = new Label(String.valueOf(this.ventesEnCours.get(j).getPrixBase())+" €"); //Get le prix de la vente
-                actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPrice.setTextFill(Color.web("#5D48D7"));
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Temps restant
                 Label remainTimeLabel = new Label("Temps restant :");
-                remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 remainTimeLabel.setTextFill(Color.web("black"));
                 Label remainTime = new Label(this.ventesEnCours.get(j).tempsRestant()); //temps restants
-                remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 remainTime.setTextFill(Color.web("#5D48D7"));
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Nombre d'enchères
                 Label nbEncheresLabel = new Label("Nombre d'enchères :");
-                nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 nbEncheresLabel.setTextFill(Color.web("black"));
                 Label nbEnchere = new Label(String.valueOf(12)); //Get nombre d'enchère (j)
-                nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 nbEnchere.setTextFill(Color.web("#5D48D7"));
                 nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
 
