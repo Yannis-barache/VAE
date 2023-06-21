@@ -263,7 +263,7 @@ public class Vente {
         }
         if (obj instanceof Vente){
             Vente v = (Vente) obj;
-            if (v.getIdentifiant() == this.getIdentifiant()){
+            if (v.getIdentifiant() == this.getIdentifiant() && v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente() == this.getFinVente() && v.getStatus() == this.getStatus() && v.getObjet() == this.getObjet()){
                 return true;
             }
         }

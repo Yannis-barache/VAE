@@ -52,6 +52,16 @@ public class CategorieBD {
         return c;
     }
 
+
+    public Categorie rechercherCategorieParNum(String nomCat)throws SQLException{
+        st= this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from CATEGORIE where '"+nomCat+"'=nomCat");
+        rs.next();
+        Categorie c=new Categorie(rs.getInt(1),rs.getString(2));
+        rs.close();
+        return c;
+    }
+
     public List<Categorie> listeCategories()throws SQLException{
         st= this.connexMySQL.createStatement();
         List<Categorie> liste = new ArrayList<>();

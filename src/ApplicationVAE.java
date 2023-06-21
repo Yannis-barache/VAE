@@ -27,6 +27,8 @@ public class ApplicationVAE extends Application{
     private EnchereBD enchereBD;
     private CategorieBD categorieBD;
     private Label notifReussie;
+    private Utilisateur utilisateur;
+
 
     @Override
     public void init() {
@@ -81,7 +83,10 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreAccueil(this,ventesEnCours));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
-        this.scene.setRoot(sc);   
+        sc.setVvalue(0.1);
+        sc.setHvalue(1.5);
+        this.scene.setRoot(sc);
+           
     }
 
     public void fenetreCreationVente() {
@@ -92,12 +97,17 @@ public class ApplicationVAE extends Application{
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         sc.setFitToHeight(true);
+        //Augmenter la vitesse de scroll
+        sc.setVvalue(0.5);
+        sc.setHvalue(0.5);
+
         this.scene.setRoot(sc);   
     }
 
     public void fenetreMesVentes() {
 
         Utilisateur utilisateur = getUtilisateur();
+        utilisateur.getVentes().clear();
         try {
             utilisateurBD.ventesUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
         }
