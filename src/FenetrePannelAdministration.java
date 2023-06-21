@@ -28,7 +28,7 @@ import java.util.Arrays;
 import java.io.File;
 import java.util.ArrayList;
 
-public class FenetrePannelAdministration extends GridPane{
+public class FenetrePannelAdministration extends TilePane{
     
     private ApplicationVAE appli;
 
@@ -36,11 +36,30 @@ public class FenetrePannelAdministration extends GridPane{
     public FenetrePannelAdministration(ApplicationVAE appli) {
         super();
         this.appli = appli;
-
         this.content();
     }
 
     private void content() {
+        //Shadows
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(6.0f);
+        ds.setOffsetX(4.0f);
+        ds.setColor(Color.web("lightgray"));
+
+        //Titre
+        HBox titleContent = new HBox();
+        Label title = new Label("Bienvenu sur la page d'administration :" + this.appli.getUtilisateur().getPseudo());
+        title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleContent.getChildren().add(title);
+
+
+        //Ajout des boutons à la page
+        Button manageUsers = new Button("Gérer les utilisateurs");
+        Button manageItems = new Button("Gérer les items");
+        Button manageSales = new Button("Gérer les ventes");
+        Button managePurchases = new Button("Gérer les achats");
+
+
     
     }
 

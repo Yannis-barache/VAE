@@ -36,7 +36,7 @@ public class ApplicationVAE extends Application{
             ConnexionMySQL laConnexion= new ConnexionMySQL();
             this.notifReussie = new Label();
             try{
-                laConnexion.connecter("servinfo-mariadb", "DBbarache", "barache", "barache");
+                laConnexion.connecter("localhost", "VAE", " ", "");
                 this.script = new ScriptJDBC(laConnexion);
                 this.objetBD =new ObjetBD(laConnexion);
                 this.utilisateurBD = new UtilisateurBD(laConnexion);
