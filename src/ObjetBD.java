@@ -55,7 +55,7 @@ public class ObjetBD {
         rs.next();
         CategorieBD categorieBD = new CategorieBD(connexMySQL);
         UtilisateurBD utilisateurBD = new UtilisateurBD(connexMySQL);
-        Objet o = new Objet(rs.getInt(1), rs.getString(2),  rs.getString(3), categorieBD.rechercherCategorieParNum(rs.getInt(4)) , utilisateurBD.rechercherUtilisateurParNum(rs.getInt(5)));
+        Objet o = new Objet(rs.getInt(1), rs.getString(2),  rs.getString(3), categorieBD.rechercherCategorieParNum(rs.getInt(5)) , utilisateurBD.rechercherUtilisateurParNum(rs.getInt(4)));
         rs.close();
         return o;
     }

@@ -5,7 +5,7 @@
 - Tom DUBOIS
 - Jordan LAVENANT
 - Quentin PIEDANNA
-- Marin TRÉMINE
+- Marin TREMINE
 
 ## Pour clone le répertoire
 

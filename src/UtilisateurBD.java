@@ -76,6 +76,9 @@ public class UtilisateurBD {
 
     public Utilisateur rechercherUtilisateurParNum(int idUt)throws SQLException{
         st= this.connexMySQL.createStatement();
+
+
+
         ResultSet rs = st.executeQuery("select * from UTILISATEUR where "+idUt+"=idUt");
         rs.next();
         boolean admin=false;
@@ -88,7 +91,35 @@ public class UtilisateurBD {
         }
         Utilisateur u=new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),actif,admin);
         rs.close();
+        
         return u;
+    }
+
+    public void ventesUtilisateur(Utilisateur u){
+        StatutBD sBD = new StatutBD(connexMySQL);
+        ObjetBD oBD = new ObjetBD(connexMySQL);
+        try {
+            ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET where  "+ u.getIdentifiant() + " = idUt");
+            while(rs.next()){
+                u.ajouterVente(new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), sBD.rechercherStatutParNum(rs.getInt(7)), oBD.rechercherObjetParNum(rs.getInt(1))));
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void encheresUtilisateur(Utilisateur u){
+        VenteBD vBd = new VenteBD(connexMySQL);
+        try {
+            ResultSet rs3 = st.executeQuery("select * from ENCHERIR where " + u.getIdentifiant() + " = idUt");
+            while (rs3.next()){
+                u.ajouterEnchere(new Enchere(vBd.rechercherVenteParNum(rs3.getInt(2)), u, rs3.getInt(4), rs3.getString(3)));
+            }
+            rs3.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
     }
 
     public List<Utilisateur> listeUtilisateurs()throws SQLException{
