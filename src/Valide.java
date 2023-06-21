@@ -29,6 +29,25 @@ public class Valide {
             return false;
         }
 
+        // Vérifier qu'il y a au moins un caractère entre le @ et le .
+        if (indexPoint - indexSymbole < 2) {
+            return false;
+        }
+
+        // Vérifier qu'il y a au moins deux caractères après le .
+        if (email.length() - indexPoint < 3) {
+            return false;
+        }
+        if (email.contains(" ")) {
+            return false;
+        }
+
+        if (indexSymbole<1){
+            return false;
+        }
+
+        
+
         return true;
     }
 
