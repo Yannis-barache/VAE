@@ -92,5 +92,29 @@ public class VenteBD {
         rs.close();
         return liste;
     }
+
+    public Enchere derniereEnchere(Vente v) throws SQLException{
+        st = this.connexMySQL.createStatement();
+        UtilisateurBD uBd = new UtilisateurBD(connexMySQL);
+        try {
+            ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" order by montant desc limit 1;");
+            rs.next();
+                Enchere e = new Enchere(v, uBd.rechercherUtilisateurParNum(rs.getInt(1)) , rs.getInt(4), rs.getString(3));
+            rs.close();
+            return e;
+        } catch (Exception e) {
+            System.out.println("Pas d'enchere sur la vente");
+        }
+        return null;
+    }
+
+    public int nbTotalEnchereSurUneVente(Vente v)throws SQLException{
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select Count(*) nb from ENCHERIR where idve="+v.getIdentifiant());
+        rs.next();
+        int nb = rs.getInt(1);
+        rs.close();
+        return nb;
+    }
 }
 
