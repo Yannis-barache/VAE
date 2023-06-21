@@ -140,8 +140,8 @@ public class FenetreEditionVente extends GridPane {
         Label newEndLabel = new Label("Nouvelle date de fin");
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate localDate = LocalDate.parse(this.vente.getFinVente().substring(0,10),formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");        
+        LocalDate localDate = LocalDate.parse(this.vente.getFinVente(),formatter);
         DatePicker endSale = new DatePicker(localDate);
         endSale.getEditor().setDisable(true);       
 
