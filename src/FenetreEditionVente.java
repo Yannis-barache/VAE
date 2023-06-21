@@ -140,16 +140,11 @@ public class FenetreEditionVente extends GridPane {
         Label newEndLabel = new Label("Nouvelle date de fin");
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
-        DatePicker endSale = new DatePicker();
-        endSale.getEditor().setDisable(true);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(this.vente.getFinVente().substring(0,10),formatter);
+        DatePicker endSale = new DatePicker(localDate);
+        endSale.getEditor().setDisable(true);       
 
-
-        System.out.println(this.vente.getFinVente());
-
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("");
-
-        // endSale.setValue(this.vente.getFinVente()); //FIN VENTE
         // Définition de la cellule de date pour la date de fin
         Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
             @Override
