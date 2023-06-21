@@ -2,6 +2,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 
 public class Vente {
@@ -36,6 +37,10 @@ public class Vente {
         this.finVente = finVente;
         this.statut = statut;
         this.objet = objet;
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");        
+        this.debut = LocalDateTime.parse(debutVente, formatter);
+        this.fin = LocalDateTime.parse(finVente, formatter);
     }
 
     /**
@@ -56,6 +61,8 @@ public class Vente {
         this.finVente = finVente;
         this.statut = statut;
         this.objet = objet;
+
+
     }
 
     /**
@@ -192,7 +199,6 @@ public class Vente {
         this.fin=fin;
     }
 
-    SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
 
     /**
@@ -204,13 +210,28 @@ public class Vente {
     public String tempsRestant(){
         try {
             long res=ChronoUnit.DAYS.between(this.debut, this.fin);
+            
+        
+
             if (this.statut.getIdentifiant()==1){
                 res=ChronoUnit.DAYS.between(LocalDateTime.now(), this.debut);
+                if (res<=0){
+                    return "Vente terminée";
+                }
                 return String.valueOf("Début dans "+res+" jours");
             }
+            if (this.statut.getIdentifiant()==4){
+                return "Vente terminée";
+            }
+
+            if (res==0){
+                return "Fin aujourd'hui";
+            }
+
             if (res<0){
                 return "Vente terminée";
             }
+
 
             return String.valueOf(res)+ " jours restants";
             

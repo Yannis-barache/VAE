@@ -545,12 +545,32 @@ public class FenetreCreationVente extends GridPane {
     }
 
     public String getHeureDebut(){
+
         int hour = Integer.parseInt(this.startHourValue.getText())%12;
-        return  hour+":"+this.endMinuteValue.getText();
+
+        if (String.valueOf(hour).length()==1){
+            hour = Integer.parseInt("0"+hour);
+        }
+
+        if (String.valueOf(this.startMinuteValue.getText()).length()==1){
+            this.startMinuteValue.setText("0"+this.startMinuteValue.getText());
+        }
+
+        return  hour+":"+this.startMinuteValue.getText();
     }
 
     public String getHeureFin(){
         int hour = Integer.parseInt(this.endHourValue.getText())%12;
+
+        if (String.valueOf(hour).length()==1){
+            hour = Integer.parseInt("0"+hour);
+        }
+
+        if (String.valueOf(this.endMinuteValue.getText()).length()==1){
+            this.endMinuteValue.setText("0"+this.endMinuteValue.getText());
+        }
+
+        
         return hour+":"+this.endMinuteValue.getText();
     }
 
