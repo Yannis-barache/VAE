@@ -26,6 +26,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FenetreAccueil extends BorderPane {
@@ -205,7 +206,12 @@ public class FenetreAccueil extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel :");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(String.valueOf(this.ventesEnCours.get(j).getPrixBase())+" €"); //Get le prix de la vente
+                int actualPriceValue = this.ventesEnCours.get(j).getPrixBase();
+                try {
+                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j)).getMontant();
+                }
+                catch(SQLException ex) {}
+                Label actualPrice = new Label(String.valueOf(actualPriceValue)); //Get le prix de la vente
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPrice.setTextFill(Color.web("#5D48D7"));
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -223,18 +229,25 @@ public class FenetreAccueil extends BorderPane {
                 Label nbEncheresLabel = new Label("Nombre d'enchères :");
                 nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 nbEncheresLabel.setTextFill(Color.web("black"));
-                Label nbEnchere = new Label(String.valueOf(12)); //Get nombre d'enchère (j)
+                int enchereCount = 0;
+                try {
+                    enchereCount = this.appli.getVenteBD().nbTotalEnchereSurUneVente(this.ventesEnCours.get(j));
+                }
+                catch(SQLException ex) {}
+                Label nbEnchere = new Label(String.valueOf(enchereCount)); //Get nombre d'enchère (j)
                 nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 nbEnchere.setTextFill(Color.web("#5D48D7"));
                 nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Button
+                Tooltip bidToolTip = new Tooltip(String.valueOf(this.ventesEnCours.get(j).getIdentifiant()));
                 VBox buttonContainer = new VBox();
                 Button buttonItem = new Button("Enchérir");
                 buttonItem.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 buttonItem.setPadding(new Insets(10,30,10,30));
                 buttonItem.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-                buttonItem.setOnAction((key) -> System.out.println("next"));
+                Vente v = this.ventesEnCours.get(j);
+                buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v));
                 buttonItem.setEffect(ds);
                 buttonContainer.getChildren().add(buttonItem);
                 buttonContainer.setAlignment(Pos.BASELINE_RIGHT);

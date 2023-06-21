@@ -23,6 +23,7 @@ import javafx.scene.paint.CycleMethod;
 import java.util.List;
 import java.util.Arrays;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
@@ -93,7 +94,12 @@ public class FenetreMesEncheres extends BorderPane {
                 Label actualPriceLabel = new Label("Enchère actuel : ");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                Label actualPrice = new Label(enchere.getMontant()+" €"); //FAIRE LA REQUETE POUR AVOIR LA DERNIERE ENCHERE DUNE VENTE
+                int actualPriceValue = enchere.getVente().getPrixBase();
+                try {
+                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(enchere.getVente()).getMontant();
+                }
+                catch(SQLException ex) {}
+                Label actualPrice = new Label(String.valueOf(actualPriceValue)+" €"); //Get le prix de la vente
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualPrice.setTextFill(Color.web("#5D48D7"));  
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -126,19 +132,22 @@ public class FenetreMesEncheres extends BorderPane {
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Bouton
-                Tooltip bidToolTip = new Tooltip("test");
+                Tooltip bidToolTip = new Tooltip(String.valueOf(enchere.getVente().getIdentifiant()));
                 VBox bidButtonContent = new VBox();
                 Button bid = new Button("Enchérir");
                 bid.setTooltip(bidToolTip);
                 Tooltip.uninstall(bid,bidToolTip);
                 bid.setEffect(ds);
-                bid.setOnAction((key) -> this.appli.fenetreEnchere(getEnchere(bidToolTip.getText())));
                 bid.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 bid.setPadding(new Insets(10,30,10,30));
-                bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-                bid.setPadding(new Insets(10,30,10,30));
-                bid.setAlignment(Pos.BASELINE_RIGHT);
-                // bidContent.setPadding(new Insets(28,0,0,0));
+                if (remainTime.getText().equals("Vente terminée")) {
+                    bid.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+                    bid.setDisable(true);
+                } else {
+                    bid.setOnAction((key) -> this.appli.fenetreEnchere(enchere.getVente()));
+                    bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+                    bid.setAlignment(Pos.BASELINE_RIGHT);
+                }                
                 bidButtonContent.getChildren().add(bid);
 
                 //Placement dans les informations (partie de droite)
@@ -183,14 +192,5 @@ public class FenetreMesEncheres extends BorderPane {
 
             this.setCenter(emptyBidsContent);
         }
-    }
-
-    private Enchere getEnchere(String id) {
-        for (Enchere enchere : this.encheres) {
-            if ("test".equals(id)) {
-                return enchere;
-            }
-        }
-        return null;
     }
 }

@@ -143,10 +143,10 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetreEnchere(Enchere enchere) {
+    public void fenetreEnchere(Vente vente) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
-        root.setCenter(new FenetreEnchere(this,enchere));
+        root.setCenter(new FenetreEnchere(this,vente));
         root.setTop(new Menu(this,3));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
