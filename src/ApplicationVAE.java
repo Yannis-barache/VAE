@@ -97,9 +97,6 @@ public class ApplicationVAE extends Application{
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         sc.setFitToHeight(true);
-        //Augmenter la vitesse de scroll
-        sc.setVvalue(0.5);
-        sc.setHvalue(0.5);
 
         this.scene.setRoot(sc);   
     }

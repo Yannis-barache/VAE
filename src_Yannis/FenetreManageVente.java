@@ -51,6 +51,8 @@ public class FenetreManageVente extends VBox {
         ventes.add(vente2);
 
 
+        // Création des gridpane pour chaque vente
+
         for (Vente vente : ventes) {
             GridPane saleContent = new GridPane();
             saleContent.setAlignment(Pos.CENTER);
@@ -61,18 +63,25 @@ public class FenetreManageVente extends VBox {
             saleContent.setVgap(10);
 
 
+            //Image de l'objet
             ImageView image = new ImageView(new Image("file:../img/blank.png"));
             image.setFitHeight(100);
             image.setFitWidth(100);
 
+            //Titre de l'objet
             Label titre = new Label(vente.getObjet().getNom());
             Label description = new Label(vente.getObjet().getDescription());
+
+            //Création des boutons
             Button delete = new Button("Supprimer");
             Button modify = new Button("Modifier");
 
-            delete.setOnAction(new ControleurAdminVente(this.appli, vente ));
+            //On met les controleurs sur les boutons
+            delete.setOnAction(new ControleurAdminVente(this.appli, vente));
             modify.setOnAction(new ControleurAdminVente(this.appli, vente));
 
+
+            //On ajoute les éléments à la gridpane
             saleContent.add(image, 0, 0);
             saleContent.add(titre, 1, 0);
             saleContent.add(description, 1, 1);
@@ -80,6 +89,7 @@ public class FenetreManageVente extends VBox {
             saleContent.add(modify, 2, 1);
 
 
+            //On ajoute la gridpane à la fenêtre
             this.getChildren().add(saleContent);
 
         }
