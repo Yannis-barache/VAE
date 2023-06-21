@@ -214,7 +214,7 @@ public class Vente {
 
             return String.valueOf(res)+ " jours restants";
             
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
         return "Pas de date";

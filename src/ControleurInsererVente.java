@@ -48,6 +48,14 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                 jourDeb="0"+jourDeb;
             }
 
+            if (heureDebut.length()==1){
+                heureDebut="0"+heureDebut;
+            }
+
+            if (heureFin.length()==1){
+                heureFin="0"+heureFin;
+            }
+
 
 
             String dateDeb= jourDeb+"/"+moisDeb+"/"+anneeDeb;
@@ -94,7 +102,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                 System.out.println(ex.getMessage());
             }
 
-        } catch (NullPointerException e){
+        } catch (NumberFormatException e){
             this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
 
         }
