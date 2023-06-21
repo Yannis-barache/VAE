@@ -45,10 +45,11 @@ public class Valide {
         if (indexSymbole<1){
             return false;
         }
-
-        
-
         return true;
+    }
+
+    public static boolean differentHeure(String heureDebut, String heureFin){
+        return !heureDebut.equals(heureFin);
     }
 
 

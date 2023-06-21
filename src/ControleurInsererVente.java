@@ -77,30 +77,37 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
 
             String dateF= jourFin+"/"+moisFin+"/"+anneeFin;
             String fin = dateF+":"+heureFin+":00";
-            try{
-                List<Categorie> categories = this.appli.getCategorieBD().listeCategories();
-                int idCategorie = 0;
-                for(Categorie c : categories){
-                    if(c.getNom().equals(categorie)){
-                        idCategorie = c.getIdentifiant();
+
+        
+            if (Valide.differentHeure(deb,fin)){
+                try{
+                    List<Categorie> categories = this.appli.getCategorieBD().listeCategories();
+                    int idCategorie = 0;
+                    for(Categorie c : categories){
+                        if(c.getNom().equals(categorie)){
+                            idCategorie = c.getIdentifiant();
+                        }
                     }
+    
+                    if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
+                        statut=1;
+                    }
+    
+                    Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
+                    this.appli.getObjetBD().insererObjet(objet);
+    
+                    Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
+                    this.appli.getVenteBD().insererVente(vente);
+                    vente.setDebut(this.fenetreCreate.getStartDateTime());
+                    vente.setFin(this.fenetreCreate.getEndDateTime());
+                    this.fenetreCreate.setAlertErreur("Vente créée avec succès");
+    
+                } catch(SQLException ex){
+                    System.out.println(ex.getMessage());
                 }
-
-                if (this.fenetreCreate.getStartDateTime().isAfter(LocalDateTime.now())){
-                    statut=1;
-                }
-
-                Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
-                this.appli.getObjetBD().insererObjet(objet);
-
-                Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
-                this.appli.getVenteBD().insererVente(vente);
-                vente.setDebut(this.fenetreCreate.getStartDateTime());
-                vente.setFin(this.fenetreCreate.getEndDateTime());
-                this.fenetreCreate.setAlertErreur("Vente créée avec succès");
-
-            } catch(SQLException ex){
-                System.out.println(ex.getMessage());
+            }
+            else{
+                this.fenetreCreate.setAlertErreur("Les dates ne doivent pas être identiques");
             }
 
         } catch (NumberFormatException e){
