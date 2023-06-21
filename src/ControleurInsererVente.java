@@ -78,7 +78,8 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             // System.out.println(heureDebut);
 
 
-            // On récupère la date et l'heure de début
+            if (!this.fenetreCreate.getCategorySale().equals("")){
+                // On récupère la date et l'heure de début
             LocalDate date = this.fenetreCreate.getStartSale().getValue(); // Supposons que cela renvoie un objet LocalDate
             LocalTime time = LocalTime.of(this.fenetreCreate.getHeureDebut(), this.fenetreCreate.getMinuteDebut());
 
@@ -159,7 +160,18 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                     this.fenetreCreate.setAlertErreur("Les dates ne doivent pas être identiques");
                 }
     
-            } }catch (NumberFormatException e){
+            } 
+            }
+            else{
+                this.fenetreCreate.setAlertErreur("Veuillez choisir une catégorie");
+            }
+            
+            }
+            catch (NullPointerException e){
+                this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
+    
+            }
+            catch (Exception e){
                 this.fenetreCreate.setAlertErreur("Veuillez remplir tous les champs");
     
             }
