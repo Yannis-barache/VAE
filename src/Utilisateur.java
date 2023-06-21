@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Utilisateur {
     private int identifiant;
@@ -213,6 +215,8 @@ public class Utilisateur {
 
     @Override
     public String toString(){
-        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" "+getVentes()+" "+isActif()+" "+isAdmin()+" "+getEncheres();
+        return ""+getIdentifiant()+" "+getPseudo()+" "+getMail()+" "+getMdp()+" Ventes : "+getVentes()+" "+isActif()+" "+isAdmin()+" Encheres :"+getEncheres();
     }
+
+
 }

@@ -21,7 +21,9 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.paint.CycleMethod;
-
+import javafx.util.Callback;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Map;
@@ -63,7 +65,7 @@ public class FenetreEditionVente extends GridPane {
         Label newTitleLabel = new Label("Nouveau titre");
         newTitleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newTitleLabel.setTextFill(Color.web("#5D48D7"));
-        TextField newTitle = new TextField();
+        TextField newTitle = new TextField(this.vente.getObjet().getNom());
         newTitle.setEffect(ds);
         newTitle.setPrefHeight(40);
         newTitle.setPrefWidth(350);
@@ -77,7 +79,7 @@ public class FenetreEditionVente extends GridPane {
         Label newDescLabel = new Label("Nouvelle description");
         newDescLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newDescLabel.setTextFill(Color.web("#5D48D7"));
-        TextArea newDesc = new TextArea();
+        TextArea newDesc = new TextArea(this.vente.getObjet().getDescription());
         newDesc.setEffect(ds);
         newDesc.setPrefHeight(170);
         newDesc.setPrefWidth(350);
@@ -120,8 +122,11 @@ public class FenetreEditionVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
-        ComboBox categorySaleCB = new ComboBox<>(FXCollections.observableArrayList(categories));
+        List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        ComboBox<String> categorySaleCB = new ComboBox<String>();
+        categorySaleCB.getItems().addAll(filtersList);
+        categorySaleCB.setValue(this.vente.getObjet().getCategorie().toString());
+        // System.out.println(this.vente.getObjet().getCategorie()); //TEMP
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
         categorySaleCB.setPrefWidth(300);
@@ -136,6 +141,32 @@ public class FenetreEditionVente extends GridPane {
         newEndLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newEndLabel.setTextFill(Color.web("#5D48D7"));
         DatePicker endSale = new DatePicker();
+
+
+
+        System.out.println(this.vente.getFinVente());
+
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("");
+
+        // endSale.setValue(this.vente.getFinVente()); //FIN VENTE
+        // Définition de la cellule de date pour la date de fin
+        Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item.isBefore(LocalDate.now())) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #F8F8F8; -fx-text-fill: gray;");
+                        }
+                    }
+                };
+            }
+        };
+        endSale.setDayCellFactory(startSaleCellFactory);
         endSale.setEffect(ds);
         endSale.setPrefHeight(50);
         endSale.setPrefWidth(350);
