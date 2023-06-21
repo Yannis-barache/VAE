@@ -78,5 +78,19 @@ public class VenteBD {
         rs.close();
         return liste;
     }
+
+    public List<Vente> listeVentesEnCours() throws SQLException{
+        st= this.connexMySQL.createStatement();
+        List<Vente> liste = new ArrayList<>();
+        ResultSet rs = st.executeQuery("select * from VENTE where idSt = 2");
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(6)), objetBD.rechercherObjetParNum(rs.getInt(7)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
 }
 
