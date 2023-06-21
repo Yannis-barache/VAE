@@ -81,7 +81,7 @@ public class FenetreCreationVente extends GridPane {
         titleSale.setPrefHeight(40);
         titleSale.setPrefWidth(350);
         titleSale.setPromptText("Insérer le titre");
-        titleSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        titleSale.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         titleSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
         titleSaleContent.getChildren().addAll(titleSaleLabel,titleSale);
@@ -96,7 +96,7 @@ public class FenetreCreationVente extends GridPane {
         descSale.setEffect(ds);
         descSale.setPrefHeight(170);
         descSale.setPrefWidth(350);
-        descSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        descSale.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         descSale.setStyle("-fx-control-inner-background: #F8F8F8");
         descSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         descSaleContent.getChildren().addAll(descSaleLabel,descSale);
@@ -133,7 +133,6 @@ public class FenetreCreationVente extends GridPane {
         Label categorySaleLabel = new Label("Catégorie");
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
-        //String[] categories = {"(Aucun)","Meuble","Outils","Ahmet","Martin"};
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
         categorySaleCB = new ComboBox<String>();
         categorySaleCB.getItems().addAll(filtersList);
@@ -155,7 +154,7 @@ public class FenetreCreationVente extends GridPane {
         basePriceSale.setEffect(ds);
         basePriceSale.setPrefHeight(40);
         basePriceSale.setPrefWidth(350);
-        basePriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        basePriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         basePriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         basePriceSale.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -177,7 +176,7 @@ public class FenetreCreationVente extends GridPane {
         minPriceSale.setEffect(ds);
         minPriceSale.setPrefHeight(40);
         minPriceSale.setPrefWidth(350);
-        minPriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        minPriceSale.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         minPriceSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         minPriceSale.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -490,6 +489,7 @@ public class FenetreCreationVente extends GridPane {
         VBox sendContent = new VBox();
         Button send = new Button("Mettre en ligne");
         send.setOnAction(new ControleurInsererVente(appli, this));
+        //send.setOnAction(new ControleurRetourMesVentes(this.appli));
         send.setEffect(ds);
         send.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         send.setPadding(new Insets(10,30,10,30));
