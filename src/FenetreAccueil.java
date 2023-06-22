@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.SetProperty;
 import javafx.collections.FXCollections;
@@ -175,60 +174,69 @@ public class FenetreAccueil extends BorderPane {
         searchContent.add(priceFilter,1,1,1,1);
         searchContent.add(dateFilter,2,1,1,1);
         searchContent.add(searchButtonBox,3,0,1,1);
+
         //Decouvrez
-        VBox discoverContent = new VBox();
-        VBox discoverLabelContainer = new VBox();
-        Label discoverLabel = new Label("Découvrez");
-        discoverLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        discoverLabel.setPadding(new Insets(0,0,50,00));
-        discoverLabel.setTextFill(Color.web("#5D48D7"));
-        discoverLabel.setAlignment(Pos.TOP_LEFT);
-        VBox discoverItemsContainer = new VBox();
-        TilePane discoverItems = new TilePane();
-        discoverItems.setHgap(50);
-        discoverItems.setVgap(50);
-
-        //Si nous n'avons pas fait de recherche
-        if (this.searchResult.size() == 0) {
-
-            //Si il y a des ventes en cours
-            if (this.ventesEnCours.size() > 0) {
-                for (int i=0;i<9;++i) {
-                    int j = (int) (Math.random()*ventesEnCours.size());
-                    List<Integer> indexs = new ArrayList<>();
-                    indexs.add(j);
-                    while (indexs.contains(j)) j = (int) (Math.random()*ventesEnCours.size());
-                    indexs.add(j);
-
-                    Vente actualVente = ventesEnCours.get(j);
-
-                    //Une vente
-                    VBox item = new VBox();
+        this.discoverContent = new VBox();
+        this.discoverLabelContainer = new VBox();
+        this.discoverLabel = new Label("Découvrez");
+        this.discoverLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.discoverLabel.setPadding(new Insets(0,0,50,00));
+        this.discoverLabel.setTextFill(Color.web("#5D48D7"));
+        this.discoverLabel.setAlignment(Pos.TOP_LEFT);
         
-                    //Image
-                    VBox picContainer = new VBox();
-                    this.ventesEnCours.get(j);
-                    ImageView pic;
-                    try {
-                        List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(actualVente.getObjet());
-                        System.out.println(actualVente.getObjet().getLesPhotos());
-                        for(Photo ph : liste){
-                            actualVente.getObjet().ajoutePhoto(ph);
-                        }
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    try {
-                        System.out.println(actualVente.getObjet().getLesPhotos());
-                        pic = new ImageView(actualVente.getObjet().getLesPhotos().get(0).getImg());
-                    } catch (Exception e) {
-                        System.out.println("erreur");
-                        pic=new ImageView(new Image("file:./img/blank.png"));
-                    }
-                    pic.setFitWidth(440);
-                    pic.setPreserveRatio(true);
-                    picContainer.getChildren().add(pic);
-                    picContainer.setPadding(new Insets(0,0,50,0));
+        
+        this.discoverItemsContainer = new VBox();
+        this.discoverItems = new TilePane();
+        this.discoverItems.setHgap(50);
+        this.discoverItems.setVgap(50);
+        this.discoverLabelContainer.getChildren().add(this.discoverLabel);
+        this.discoverItemsContainer.getChildren().add(this.discoverItems);
+        this.discoverContent.setPadding(new Insets(200,0,35,100));
+        this.discoverContent.getChildren().addAll(discoverLabelContainer,this.discoverItemsContainer);
+
+        this.setTop(searchContent);
+        afficheVentes(ventesEnCours);
+    }
+
+    public void afficheVentes(List<Vente> ventes) {
+        this.discoverItems.getChildren().clear();
+    
+        for (int i=0;i<ventes.size();++i) {
+            // int j = (int) (Math.random()*ventesEnCours.size());
+            // List<Integer> indexs = new ArrayList<>();
+            // indexs.add(j);
+            // while (indexs.contains(j)) j = (int) (Math.random()*ventesEnCours.size());
+            // indexs.add(j);
+
+            Vente actualVente = ventes.get(i);
+
+            //Une vente
+            VBox item = new VBox();
+
+            //Image
+            VBox picContainer = new VBox();
+            this.ventesEnCours.get(i);
+            ImageView pic;
+            try {
+                List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(actualVente.getObjet());
+                System.out.println(actualVente.getObjet().getLesPhotos());
+                for(Photo ph : liste){
+                    actualVente.getObjet().ajoutePhoto(ph);
+                }
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+            try {
+                System.out.println(actualVente.getObjet().getLesPhotos());
+                pic = new ImageView(actualVente.getObjet().getLesPhotos().get(0).getImg());
+            } catch (Exception e) {
+                System.out.println("erreur");
+                pic=new ImageView(new Image("file:./img/blank.png"));
+            }
+            pic.setFitWidth(440);
+            pic.setPreserveRatio(true);
+            picContainer.getChildren().add(pic);
+            picContainer.setPadding(new Insets(0,0,50,0));
 
             //Informations
             GridPane informations = new GridPane();
