@@ -33,11 +33,14 @@ public class FenetreAccueil extends BorderPane {
     
     private ApplicationVAE appli;
     private List<Vente> ventesEnCours;
+    private List<Vente> searchResult;
 
     public FenetreAccueil(ApplicationVAE appli,List<Vente> ventesEnCours)  {
         super();
         this.appli = appli;
         this.ventesEnCours = ventesEnCours;
+        this.searchResult = new ArrayList<Vente>();
+
 
         this.content();
     }
@@ -173,34 +176,182 @@ public class FenetreAccueil extends BorderPane {
         discoverItems.setHgap(50);
         discoverItems.setVgap(50);
 
-        if (ventesEnCours.size() > 0) {
+        //Si nous n'avons pas fait de recherche
+        if (this.searchResult.size() == 0) {
 
-            for (int i=0;i<9;++i) {
-                int j = (int) (Math.random()*ventesEnCours.size());
-                List<Integer> indexs = new ArrayList<>();
-                indexs.add(j);
-                while (indexs.contains(j)) j = (int) (Math.random()*ventesEnCours.size());
-                indexs.add(j);
+            //Si il y a des ventes en cours
+            if (this.ventesEnCours.size() > 0) {
+                for (int i=0;i<9;++i) {
+                    int j = (int) (Math.random()*ventesEnCours.size());
+                    List<Integer> indexs = new ArrayList<>();
+                    indexs.add(j);
+                    while (indexs.contains(j)) j = (int) (Math.random()*ventesEnCours.size());
+                    indexs.add(j);
+
+                    Vente actualVente = ventesEnCours.get(j);
+
+                    //Une vente
+                    VBox item = new VBox();
+        
+                    //Image
+                    VBox picContainer = new VBox();
+                    this.ventesEnCours.get(j);
+                    ImageView pic;
+                    try {
+                        List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(actualVente.getObjet());
+                        System.out.println(actualVente.getObjet().getLesPhotos());
+                        for(Photo ph : liste){
+                            actualVente.getObjet().ajoutePhoto(ph);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    try {
+                        System.out.println(actualVente.getObjet().getLesPhotos());
+                        pic = new ImageView(actualVente.getObjet().getLesPhotos().get(0).getImg());
+                    } catch (Exception e) {
+                        System.out.println("erreur");
+                        pic=new ImageView(new Image("file:./img/blank.png"));
+                    }
+                    pic.setFitWidth(440);
+                    pic.setPreserveRatio(true);
+                    picContainer.getChildren().add(pic);
+                    picContainer.setPadding(new Insets(0,0,50,0));
+
+                    //Informations
+                    GridPane informations = new GridPane();
+
+                    //Titre
+                    Label actualTitle = new Label(String.valueOf(actualVente.getObjet().getNom())); //Get le prix de la vente
+                    actualTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    actualTitle.setTextFill(Color.web("#5D48D7"));
+                    actualTitle.setAlignment(Pos.BASELINE_RIGHT);
+            
+                    //Prix actuel
+                    Label actualPriceLabel = new Label("Prix actuel :");
+                    actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    actualPriceLabel.setTextFill(Color.web("black"));
+                    int actualPriceValue = this.ventesEnCours.get(j).getPrixBase();
+                    try {
+                        Enchere e = this.appli.getVenteBD().derniereEnchere(actualVente);
+                        if (e != null){
+                            actualPriceValue = e.getMontant();
+                        }
+                    }
+                    catch(SQLException ex) {}
+                    Label actualPrice = new Label(String.valueOf(actualPriceValue)); //Get le prix de la vente
+                    actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    actualPrice.setTextFill(Color.web("#5D48D7"));
+                    actualPrice.setAlignment(Pos.BASELINE_RIGHT);
+
+                    //Temps restant
+                    Label remainTimeLabel = new Label("Temps restant :");
+                    remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    remainTimeLabel.setTextFill(Color.web("black"));
+                    Label remainTime = new Label(actualVente.tempsRestant()); //temps restants
+                    remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    remainTime.setTextFill(Color.web("#5D48D7"));
+                    remainTime.setAlignment(Pos.BASELINE_RIGHT);
+
+                    //Nombre d'enchères
+                    Label nbEncheresLabel = new Label("Nombre d'enchères :");
+                    nbEncheresLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    nbEncheresLabel.setTextFill(Color.web("black"));
+                    int enchereCount = 0;
+                    try {
+                        enchereCount = this.appli.getVenteBD().nbTotalEnchereSurUneVente(actualVente);
+                    }
+                    catch(SQLException ex) {}
+                    Label nbEnchere = new Label(String.valueOf(enchereCount)); //Get nombre d'enchère (j)
+                    nbEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+                    nbEnchere.setTextFill(Color.web("#5D48D7"));
+                    nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
+
+                    //Button
+                    Tooltip bidToolTip = new Tooltip(String.valueOf(actualVente.getIdentifiant()));
+                    VBox buttonContainer = new VBox();
+                    Button buttonItem = new Button("Enchérir");
+                    buttonItem.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+                    buttonItem.setPadding(new Insets(10,30,10,30));
+                    buttonItem.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+                    Vente v = actualVente;
+                    buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v,this));
+                    buttonItem.setEffect(ds);
+                    buttonContainer.getChildren().add(buttonItem);
+                    buttonContainer.setAlignment(Pos.BASELINE_RIGHT);
+
+                    //Placement
+                    informations.setHgap(30);
+                    informations.setVgap(30);
+                    informations.setPadding(new Insets(50,0,50,0));
+                    informations.setStyle("-fx-border-color: lightgray; -fx-border-width: 3 0 0 0"); 
+                    informations.add(actualTitle,0,0,1,1);
+                    informations.add(actualPriceLabel,0,1,1,1);
+                    informations.add(actualPrice,1,1,1,1);
+                    informations.add(remainTimeLabel,0,2,1,1);
+                    informations.add(remainTime,1,2,1,1);
+                    informations.add(nbEncheresLabel,0,3,1,1);
+                    informations.add(nbEnchere,1,3,1,1);
+                    informations.add(buttonContainer,0,4,2,1);
+                    
+                    //Properties
+                    item.setPadding(new Insets(30));
+                    item.setPrefWidth(500);
+                    // item.setPrefHeight(520);
+                    item.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+                    item.getChildren().addAll(picContainer,informations);
+                    item.setEffect(ds);
+                    discoverItems.getChildren().add(item);
+                }
+            }
+
+            // discoverItemsContainer.setAlignment(Pos.CENTER);
+
+            discoverLabelContainer.getChildren().add(discoverLabel);
+            discoverItemsContainer.getChildren().add(discoverItems);
+
+            
+
+            discoverContent.setPadding(new Insets(200,0,35,100));
+            discoverContent.getChildren().addAll(discoverLabelContainer,discoverItemsContainer);
+            this.setCenter(discoverContent);
+        } else {
+            //Résultat
+            VBox searchResultContent = new VBox();
+            VBox searchResultLabel = new VBox();
+            Label resultLabel = new Label(String.valueOf(this.searchResult.size())+" résultats");
+            resultLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+            resultLabel.setPadding(new Insets(0,0,50,00));
+            resultLabel.setTextFill(Color.web("#5D48D7"));
+            resultLabel.setAlignment(Pos.TOP_LEFT);
+            VBox resultSearchContainer = new VBox();
+            TilePane resultSearchItems = new TilePane();
+            discoverItems.setHgap(50);
+            discoverItems.setVgap(50);
+
+            for (int i=0;i<this.searchResult.size();++i) {
+
+                Vente actualVente = this.searchResult.get(i);
 
                 //Une vente
                 VBox item = new VBox();
-    
+        
                 //Image
                 VBox picContainer = new VBox();
-                this.ventesEnCours.get(j);
+                this.searchResult.get(i);
                 ImageView pic;
                 try {
-                    List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(this.ventesEnCours.get(j).getObjet());
-                    System.out.println(this.ventesEnCours.get(j).getObjet().getLesPhotos());
+                    List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(actualVente.getObjet());
+                    System.out.println(actualVente.getObjet().getLesPhotos());
                     for(Photo ph : liste){
-                        this.ventesEnCours.get(j).getObjet().ajoutePhoto(ph);
+                        actualVente.getObjet().ajoutePhoto(ph);
                     }
                 } catch (Exception e) {
                     System.out.println(e);
                 }
                 try {
-                    System.out.println(this.ventesEnCours.get(j).getObjet().getLesPhotos());
-                    pic = new ImageView(this.ventesEnCours.get(j).getObjet().getLesPhotos().get(0).getImg());
+                    System.out.println(actualVente.getObjet().getLesPhotos());
+                    pic = new ImageView(actualVente.getObjet().getLesPhotos().get(0).getImg());
                 } catch (Exception e) {
                     System.out.println("erreur");
                     pic=new ImageView(new Image("file:./img/blank.png"));
@@ -214,7 +365,7 @@ public class FenetreAccueil extends BorderPane {
                 GridPane informations = new GridPane();
 
                 //Titre
-                Label actualTitle = new Label(String.valueOf(this.ventesEnCours.get(j).getObjet().getNom())); //Get le prix de la vente
+                Label actualTitle = new Label(String.valueOf(actualVente.getObjet().getNom())); //Get le prix de la vente
                 actualTitle.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualTitle.setTextFill(Color.web("#5D48D7"));
                 actualTitle.setAlignment(Pos.BASELINE_RIGHT);
@@ -223,9 +374,12 @@ public class FenetreAccueil extends BorderPane {
                 Label actualPriceLabel = new Label("Prix actuel :");
                 actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPriceLabel.setTextFill(Color.web("black"));
-                int actualPriceValue = this.ventesEnCours.get(j).getPrixBase();
+                int actualPriceValue = actualVente.getPrixBase();
                 try {
-                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j)).getMontant();
+                    Enchere e = this.appli.getVenteBD().derniereEnchere(actualVente);
+                    if (e != null){
+                        actualPriceValue = e.getMontant();
+                    }
                 }
                 catch(SQLException ex) {}
                 Label actualPrice = new Label(String.valueOf(actualPriceValue)); //Get le prix de la vente
@@ -237,7 +391,7 @@ public class FenetreAccueil extends BorderPane {
                 Label remainTimeLabel = new Label("Temps restant :");
                 remainTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 remainTimeLabel.setTextFill(Color.web("black"));
-                Label remainTime = new Label(this.ventesEnCours.get(j).tempsRestant()); //temps restants
+                Label remainTime = new Label(actualVente.tempsRestant()); //temps restants
                 remainTime.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 remainTime.setTextFill(Color.web("#5D48D7"));
                 remainTime.setAlignment(Pos.BASELINE_RIGHT);
@@ -248,7 +402,7 @@ public class FenetreAccueil extends BorderPane {
                 nbEncheresLabel.setTextFill(Color.web("black"));
                 int enchereCount = 0;
                 try {
-                    enchereCount = this.appli.getVenteBD().nbTotalEnchereSurUneVente(this.ventesEnCours.get(j));
+                    enchereCount = this.appli.getVenteBD().nbTotalEnchereSurUneVente(actualVente);
                 }
                 catch(SQLException ex) {}
                 Label nbEnchere = new Label(String.valueOf(enchereCount)); //Get nombre d'enchère (j)
@@ -257,13 +411,13 @@ public class FenetreAccueil extends BorderPane {
                 nbEnchere.setAlignment(Pos.BASELINE_RIGHT);
 
                 //Button
-                Tooltip bidToolTip = new Tooltip(String.valueOf(this.ventesEnCours.get(j).getIdentifiant()));
+                Tooltip bidToolTip = new Tooltip(String.valueOf(actualVente.getIdentifiant()));
                 VBox buttonContainer = new VBox();
                 Button buttonItem = new Button("Enchérir");
                 buttonItem.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 buttonItem.setPadding(new Insets(10,30,10,30));
                 buttonItem.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-                Vente v = this.ventesEnCours.get(j);
+                Vente v = actualVente;
                 buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v,this));
                 buttonItem.setEffect(ds);
                 buttonContainer.getChildren().add(buttonItem);
@@ -292,19 +446,14 @@ public class FenetreAccueil extends BorderPane {
                 item.setEffect(ds);
                 discoverItems.getChildren().add(item);
             }
+
+            searchResultLabel.getChildren().add(resultLabel);
+
+            searchResultContent.setPadding(new Insets(200,0,35,100));
+            searchResultContent.getChildren().addAll(searchResultLabel,resultSearchContainer);
+
+            this.setCenter(searchResultContent);
         }
-
-        // discoverItemsContainer.setAlignment(Pos.CENTER);
-
-        discoverLabelContainer.getChildren().add(discoverLabel);
-        discoverItemsContainer.getChildren().add(discoverItems);
-
-        
-
-        discoverContent.setPadding(new Insets(200,0,35,100));
-        discoverContent.getChildren().addAll(discoverLabelContainer,discoverItemsContainer);
-
         this.setTop(searchContent);
-        this.setCenter(discoverContent);
     }
 }
