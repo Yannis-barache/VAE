@@ -1,27 +1,52 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 
+/**
+ * ControleurEncherir est la classe qui represente le controleur de la fenetre d'enchere
+ */
 public class ControleurEncherir implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     private ApplicationVAE appli;
+
+    /**
+     * La fenetre d'enchere
+     */
     private FenetreEnchere fenetreEnchere;
 
+
+    /**
+     * Constructeur ControleurEncherir
+     * @param appli L'application
+     * @param fenetreEnchere La fenetre d'enchere
+     */
     public ControleurEncherir(ApplicationVAE appli,FenetreEnchere fenetreEnchere) {
         this.appli=appli;
         this.fenetreEnchere = fenetreEnchere;
     }
 
+
+    /**
+     * Methode servant a verifier si la nouvelle enchere est superieur a l'enchere actuelle
+     * @param newB La nouvelle enchere
+     * @param oldB L'enchere actuelle
+     * @return true si la nouvelle enchere est superieur a l'enchere actuelle, false sinon
+     */
     public boolean newBidVerif(String newB,int oldB) {
-        if (Integer.parseInt(newB) > oldB) return true;
-        return false;
+        return Integer.parseInt(newB) > oldB;
     }
 
 
+    /**
+     * Methode servant à gérer les actions sur les boutons de la fenêtre d'enchère
+     * @param actionEvent L'événement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         String newBid = this.fenetreEnchere.getNewBid();

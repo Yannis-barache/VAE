@@ -4,14 +4,31 @@ import java.sql.SQLException;
 
 
 public class ControleurInscription implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre d'inscription
+     */
     FenetreInscription fenetreInscription;
 
+    /**
+     * Constructeur ControleurInscription
+     * @param appli L'application
+     * @param fenetreInscription La fenetre d'inscription
+     */
     public ControleurInscription(ApplicationVAE appli, FenetreInscription fenetreInscription) {
         this.appli=appli;
         this.fenetreInscription=fenetreInscription;
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre d'inscription
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         String pseudo= this.fenetreInscription.getPseudoField().getText();

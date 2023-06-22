@@ -5,13 +5,32 @@ import java.sql.*;
 
 
 public class EnchereBD {
+
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL connexMySQL;
+
+    /**
+     * La requête SQL
+     */
     private Statement st;
 
+    /**
+     * Constructeur de la classe EnchereBD.
+     *
+     * @param connexMySQL La connexion à la base de données.
+     */
     public EnchereBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
     }
 
+
+    /**
+     * Insère une enchère dans la base de données.
+     * @param e L'enchère à insérer.
+     * @throws SQLException Si une erreur survient lors de l'insertion.
+     */
     public void insererEnchere(Enchere e)throws SQLException{
         PreparedStatement ps = this.connexMySQL.prepareStatement("insert into ENCHERIR(idUT,idVe,dateheure,montant) values (?,?,STR_TO_DATE(?,'%d/%m/%Y:%H:%i:%s'),?)");
         ps.setInt(1, e.getEncherisseur().getIdentifiant());
@@ -19,13 +38,14 @@ public class EnchereBD {
         ps.setString(3, e.getDate());
         ps.setInt(4, e.getMontant());
         ps.executeUpdate();
-        System.out.println("------------------");
-        System.out.println("Encherrisseur : ");
-        System.out.println(e.getEncherisseur());
-        System.out.println("------------------");
         e.getEncherisseur().ajouterEnchere(e);
     }
 
+    /**
+     * Supprime une enchère de la base de données.
+     * @param e L'enchère à supprimer.
+     * @throws SQLException Si une erreur survient lors de la suppression.
+     */
     public void supprimerEnchere(Enchere e)throws SQLException{
         int idUT = e.getEncherisseur().getIdentifiant();
         int idVe = e.getVente().getIdentifiant();
@@ -37,6 +57,14 @@ public class EnchereBD {
         e.getEncherisseur().supprimerEnchere(e);
     }
 
+    /**
+     * Recherche une enchère dans la base de données.
+     * @param idVe L'identifiant de la vente associée à l'enchère.
+     * @param idUt L'identifiant de l'utilisateur encherisseur.
+     * @param dateheure La date de l'enchère.
+     * @return L'enchère recherchée.
+     * @throws SQLException Si une erreur survient lors de la recherche.
+     */
     public Enchere rechercherEnchereParNum(int idVe, int idUt, String dateheure)throws SQLException{
         st= this.connexMySQL.createStatement();
         ResultSet rs = st.executeQuery("select * from ENCHERIR where "+idUt+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%h:%i:%s')=dateheure");
@@ -48,6 +76,10 @@ public class EnchereBD {
         return e;
     }
 
+    /**
+     * Recherche toutes les enchères de la base.
+     * @return La liste des enchères.
+     */
     public List<Enchere> listeEncheres() throws SQLException{
         st= this.connexMySQL.createStatement();
         List<Enchere> liste = new ArrayList<>();

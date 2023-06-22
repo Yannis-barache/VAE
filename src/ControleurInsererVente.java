@@ -9,31 +9,49 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
+/**
+ * ControleurInsererVente est la classe qui represente le controleur de la fenetre de creation de vente
+ */
 public class ControleurInsererVente implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre de creation de vente
+     */
     FenetreCreationVente fenetreCreate;
 
+    /**
+     * Constructeur ControleurInsererVente
+     * @param appli L'application
+     * @param fenetreCrea La fenetre de creation de vente
+     */
     public ControleurInsererVente(ApplicationVAE appli, FenetreCreationVente fenetreCrea) {
         this.appli=appli;
         this.fenetreCreate=fenetreCrea;
 
     }
 
+
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre de creation de vente
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         try{
+
             String titre = this.fenetreCreate.getTitleSale().getText();
-
             String description = this.fenetreCreate.getDescSale().getText();
-
             String prixBase = this.fenetreCreate.getBasePriceSale().getText();
             String prixMin = this.fenetreCreate.getMinPriceSale().getText();
 
-            
             LocalDate dateFin = this.fenetreCreate.getEndSale().getValue();
             LocalDate dateDebut = this.fenetreCreate.getStartSale().getValue();
     
@@ -71,21 +89,6 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             }
 
             heureDebut+=":"+minuteDebut;
-
-
-            
-
-            // if (heureDebut.substring(0,1).equals("0")){
-            //     heureDebut="00"+heureDebut.substring(3,4);
-            // }
-
-
-            // System.out.println("------------------- test -------------------");
-            // System.out.println(heureDebut.substring(0, 1));
-            // System.out.println(heureDebut.substring(0, 2));
-            // System.out.println(heureDebut.substring(0, 3));
-            // System.out.println(heureDebut.substring(0, 4));
-            // System.out.println(heureDebut);
 
 
             if (!this.fenetreCreate.getCategorySale().equals("")){

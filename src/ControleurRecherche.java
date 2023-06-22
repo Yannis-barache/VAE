@@ -19,15 +19,39 @@ import javax.swing.text.DateFormatter;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
+
+/**
+ * ControleurInsererVente est la classe qui represente le controleur de la fenetre de creation de vente
+ */
 public class ControleurRecherche implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre de creation de vente
+     */
     FenetreAccueil fenetreAccueil;
 
+    /**
+     * Constructeur ControleurInsererVente
+     * @param appli L'application
+     * @param fenetreAccueil La fenetre d'accueil
+     */
     public ControleurRecherche(ApplicationVAE appli,FenetreAccueil fenetreAccueil) {
         this.appli=appli;
         this.fenetreAccueil = fenetreAccueil;
     }
 
+    /**
+     * Méthode permettant de faire l'intersection de deux listes
+     * @param list1 La première liste
+     * @param list2 La deuxième liste
+     * @return La liste résultante
+     * @param <T> Le type de la liste
+     */
 
     public <T> List<T> intersection(List<T> list1, List<T> list2) {
         List<T> list = new ArrayList<T>();
@@ -38,6 +62,11 @@ public class ControleurRecherche implements EventHandler<ActionEvent>{
         }
         return list;
     }
+
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre de creation de vente
+     * @param actionEvent L'evenement
+     */
 
     @Override
     public void handle(ActionEvent actionEvent) {      

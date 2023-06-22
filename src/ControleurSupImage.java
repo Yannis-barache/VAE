@@ -9,20 +9,39 @@ import java.util.Map;
 
 
 public class ControleurSupImage implements EventHandler<ActionEvent>{
+
+    /**
+     * La liste des photos
+     */
     List<Map<String,String>> listePhoto;
+
+    /**
+     * L'indice de la photo
+     */
     int i;
+
+    /**
+     * La fenetre de creation de vente
+     */
     FenetreCreationVente fenetreCreationVente;
 
+
+    /**
+     * Constructeur ControleurSupImage
+     * @param listePhoto La liste des photos
+     * @param i L'indice de la photo
+     * @param fenetreCreationVente La fenetre de creation de vente
+     */
     public ControleurSupImage(List<Map<String,String>> listePhoto, int i, FenetreCreationVente fenetreCreationVente) {
         this.listePhoto=listePhoto;
         this.i=i-1;
         this.fenetreCreationVente=fenetreCreationVente;
-
-
-
-
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre de creation de vente
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         if (this.listePhoto.size()>0) {

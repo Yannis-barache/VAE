@@ -8,15 +8,32 @@ import java.sql.SQLException;
 
 
 public class ControleurModifierVente implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre d'edition de la vente
+     */
     FenetreEditionVente fenetreEdit;
 
+    /**
+     * Constructeur ControleurModifierVente
+     * @param appli L'application
+     * @param fenetreEdit La fenetre d'edition de la vente
+     */
     public ControleurModifierVente(ApplicationVAE appli, FenetreEditionVente fenetreEdit) {
         this.appli=appli;
         this.fenetreEdit=fenetreEdit;
 
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre d'édition de la vente
+     * @param actionEvent L'événement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         
