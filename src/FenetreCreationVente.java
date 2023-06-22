@@ -546,7 +546,9 @@ public class FenetreCreationVente extends GridPane {
         this.filesSaleNames.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.filesSaleNames.setPrefHeight(200);
         this.filesSaleNames.setPrefWidth(200);
+        int i = 0;
         for (Map<String,String> file : this.filesSale) {
+            i++;
             HBox fileContent = new HBox();
             fileContent.setSpacing(10);
             fileContent.setPadding(new Insets(10,10,10,10));
@@ -555,6 +557,8 @@ public class FenetreCreationVente extends GridPane {
             bouton.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
             bouton.setPadding(new Insets(5,10,5,10));
             bouton.setBackground(new Background(new BackgroundFill(Color.web("#e0584f"),CornerRadii.EMPTY,Insets.EMPTY)));
+            bouton.setTextFill(Color.web("#FFFFFF"));
+            bouton.setOnAction(new ControleurSupImage(this.getListePhotos(),i,this));
 
             for (String key : file.keySet()){
                 
