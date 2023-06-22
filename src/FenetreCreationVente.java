@@ -50,8 +50,7 @@ public class FenetreCreationVente extends GridPane {
     private ComboBox<String> categorySaleCB;
     private Label alertErreur;
     private List<Map<String,String>> filesSale;
-
-
+    private Label filesCountLabel;
 
     public FenetreCreationVente(ApplicationVAE appli) {
         super();
@@ -104,23 +103,18 @@ public class FenetreCreationVente extends GridPane {
         descSaleContent.getChildren().addAll(descSaleLabel,descSale);
 
         //Ajout d'images
+
+        //Liste d'images
+
         VBox filesSaleContent = new VBox();
-        // Label filesSaleLabel = new Label("Ajouter des images ");
-        // filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        // filesSaleLabel.setTextFill(Color.web("#5D48D7"));
-        // Label filesCountLabel = new Label("0/4");
-        // filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        // filesCountLabel.setTextFill(Color.web("#5D48D7"));
-        // FileChooser filesSaleFC = new FileChooser();
-        // Label temp = new Label("AHMET AHMET AHMET AHMET AHMET"); //File chooser pas dans VBox
         HBox filesSaleLabels = new HBox();
         Label filesSaleLabel = new Label("Ajouter des images ");
         filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filesSaleLabel.setTextFill(Color.web("#5D48D7"));
-        Label filesCountLabel = new Label("0/4");
-        filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        filesCountLabel.setTextFill(Color.web("#5D48D7"));
-        filesSaleLabels.getChildren().addAll(filesSaleLabel,filesCountLabel);
+        this.filesCountLabel = new Label(String.valueOf("0/4"));
+        this.filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.filesCountLabel.setTextFill(Color.web("#5D48D7"));
+        filesSaleLabels.getChildren().addAll(filesSaleLabel,this.filesCountLabel);
 
         // Création du file chooser
         FileChooser filesSaleFC = new FileChooser();
@@ -140,7 +134,7 @@ public class FenetreCreationVente extends GridPane {
 
         Button openButton = new Button("+");
         openButton.setEffect(ds);
-        openButton.setOnAction(new ControleurChoixPhoto(appli, filesSaleFC,filesSale));
+        openButton.setOnAction(new ControleurChoixPhoto(appli,this,filesSaleFC,filesSale));
         openButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         openButton.setPadding(new Insets(10,30,10,30));
         openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -153,9 +147,7 @@ public class FenetreCreationVente extends GridPane {
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
-        filtersList.add("Toutes catégories");
         categorySaleCB = new ComboBox<String>();
-        categorySaleCB.setValue("Toutes catégories");
         categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
@@ -612,6 +604,10 @@ public class FenetreCreationVente extends GridPane {
 
     public List<Map<String,String>> getListePhotos(){
         return this.filesSale;
+    }
+
+    public void setNbPics(int value) {
+        this.filesCountLabel.setText(String.valueOf(value)+"/4");
     }
     
 
