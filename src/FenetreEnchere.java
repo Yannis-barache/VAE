@@ -103,7 +103,10 @@ public class FenetreEnchere extends GridPane{
         actualBidLabel.setTextFill(Color.web("black"));
         this.actualPriceValue = this.vente.getPrixBase();
         try {
-            this.actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.vente).getMontant();
+            Enchere e = this.appli.getVenteBD().derniereEnchere(this.vente);
+            if (e != null){
+                this.actualPriceValue= e.getMontant();
+            }
         }
         catch(SQLException ex) {}
         Label actualBid = new Label(String.valueOf(this.actualPriceValue)+" €"); //PRIX ACTUEL

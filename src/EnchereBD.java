@@ -39,7 +39,7 @@ public class EnchereBD {
 
     public Enchere rechercherEnchereParNum(int idVe, int idUt, String dateheure)throws SQLException{
         st= this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("select * from ENCHERE where "+idUt+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%h:%i:%s')=dateheure");
+        ResultSet rs = st.executeQuery("select * from ENCHERIR where "+idUt+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%h:%i:%s')=dateheure");
         VenteBD venteBD = new VenteBD(connexMySQL);
         UtilisateurBD utilisateurBD = new UtilisateurBD(connexMySQL);
         rs.next();
@@ -51,7 +51,7 @@ public class EnchereBD {
     public List<Enchere> listeEncheres() throws SQLException{
         st= this.connexMySQL.createStatement();
         List<Enchere> liste = new ArrayList<>();
-        ResultSet rs = st.executeQuery("select * from ENCHERE");
+        ResultSet rs = st.executeQuery("select * from ENCHERIR");
         VenteBD venteBD = new VenteBD(connexMySQL);
         UtilisateurBD utilisateurBD = new UtilisateurBD(connexMySQL);
         while(rs.next()){
