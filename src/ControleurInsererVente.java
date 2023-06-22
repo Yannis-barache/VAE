@@ -10,6 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 
 public class ControleurInsererVente implements EventHandler<ActionEvent>{
     ApplicationVAE appli;
@@ -45,7 +47,15 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             String moisDeb = String.valueOf(dateDebut.getMonthValue());
             String anneeDeb = String.valueOf(dateDebut.getYear());
 
-        
+            Button bouton = (Button) actionEvent.getSource();
+            if(bouton.getText().equals("Mettre en ligne")){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Création de vente");
+                alert.setHeaderText("Création de la vente réussi");
+                alert.setContentText("Votre vente a bien été mis en ligne");
+                alert.showAndWait();
+                this.appli.fenetreMesVentes();
+            }
 
             if (moisDeb.length()==1){
             moisDeb="0"+moisDeb;
