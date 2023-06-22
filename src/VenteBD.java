@@ -132,5 +132,36 @@ public class VenteBD {
         rs.close();
         return nb;
     }
+
+    public List<Vente> VentesCommencantPar(String recherche) throws SQLException{
+        List<Vente> liste = new ArrayList<>();
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET where nomOb LIKE "+ recherche +"%");
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(1)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
+
+    public List<Vente> VentesParCategorie(String categorie) throws SQLException{
+        List<Vente> liste = new ArrayList<>();
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET natural join CATEGORIE where "+ categorie +" = nomCat");
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7), statutBD.rechercherStatutParNum(rs.getInt(8)), objetBD.rechercherObjetParNum(rs.getInt(2)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
+
+
+
 }
 
