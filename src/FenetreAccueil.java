@@ -34,6 +34,10 @@ public class FenetreAccueil extends BorderPane {
     private ApplicationVAE appli;
     private List<Vente> ventesEnCours;
     private List<Vente> searchResult;
+    private TextField search;
+    private ComboBox<String> CBfilters;
+    private DatePicker date;
+    private TextField price;
 
     public FenetreAccueil(ApplicationVAE appli,List<Vente> ventesEnCours)  {
         super();
@@ -60,14 +64,14 @@ public class FenetreAccueil extends BorderPane {
         Label searchLabel = new Label("Rechercher");
         searchLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         searchLabel.setTextFill(Color.web("#5D48D7"));
-        TextField search = new TextField();
-        search.setEffect(ds);
-        search.setPrefHeight(40);
-        search.setPrefWidth(1000);
-        search.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        search.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.search = new TextField();
+        this.search.setEffect(ds);
+        this.search.setPrefHeight(40);
+        this.search.setPrefWidth(1000);
+        this.search.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.search.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        searchBar.getChildren().addAll(searchLabel,search);      
+        searchBar.getChildren().addAll(searchLabel,this.search);      
     
         //Catégories
         VBox categories = new VBox();
@@ -75,14 +79,16 @@ public class FenetreAccueil extends BorderPane {
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
-        ComboBox<String> CBfilters = new ComboBox<String>();
-        CBfilters.getItems().addAll(filtersList);
-        CBfilters.setEffect(ds);
-        CBfilters.setPrefHeight(50);
-        CBfilters.setPrefWidth(300);
-        CBfilters.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        filtersList.add("Toutes catégories");
+        this.CBfilters = new ComboBox<String>();
+        this.CBfilters.setValue("Toutes catégories");
+        this.CBfilters.getItems().addAll(filtersList);
+        this.CBfilters.setEffect(ds);
+        this.CBfilters.setPrefHeight(50);
+        this.CBfilters.setPrefWidth(300);
+        this.CBfilters.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        categories.getChildren().addAll(filtersLabel,CBfilters);
+        categories.getChildren().addAll(filtersLabel,this.CBfilters);
 
 
         //Filtre prix
@@ -90,13 +96,13 @@ public class FenetreAccueil extends BorderPane {
         Label priceFilterLabel = new Label("Prix maximal");
         priceFilterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         priceFilterLabel.setTextFill(Color.web("#5D48D7"));
-        TextField price = new TextField();
-        price.setEffect(ds);
-        price.setPrefHeight(50);
-        price.setPrefWidth(300);
-        price.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        price.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
-        price.setTextFormatter(new TextFormatter<>(change -> {
+        this.price = new TextField();
+        this.price.setEffect(ds);
+        this.price.setPrefHeight(50);
+        this.price.setPrefWidth(300);
+        this.price.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        this.price.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.price.setTextFormatter(new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("\\d*")) {
                 return change;
@@ -104,16 +110,16 @@ public class FenetreAccueil extends BorderPane {
             return null;
         }));
 
-        priceFilter.getChildren().addAll(priceFilterLabel,price);
+        priceFilter.getChildren().addAll(priceFilterLabel,this.price);
 
         //Filtre date
         VBox dateFilter = new VBox();
         Label dateFilterLabel = new Label("Dernière minute");
         dateFilterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         dateFilterLabel.setTextFill(Color.web("#5D48D7"));
-        DatePicker date = new DatePicker();
-        date.getEditor().setDisable(true);
-        date.setPromptText("Choisissez une date de fin");
+        this.date = new DatePicker();
+        this.date.getEditor().setDisable(true);
+        this.date.setPromptText("Choisissez une date de fin");
             
         // Définition de la cellule de date pour la date de fin
         Callback<DatePicker, DateCell> startSaleCellFactory = new Callback<DatePicker, DateCell>() {
@@ -131,14 +137,14 @@ public class FenetreAccueil extends BorderPane {
                 };
             }
         };
-        date.setDayCellFactory(startSaleCellFactory);
-        date.setEffect(ds);
-        date.setPrefHeight(50);
-        date.setPrefWidth(350);
-        date.setStyle("-fx-control-inner-background: #F8F8F8");
-        date.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.date.setDayCellFactory(startSaleCellFactory);
+        this.date.setEffect(ds);
+        this.date.setPrefHeight(50);
+        this.date.setPrefWidth(350);
+        this.date.setStyle("-fx-control-inner-background: #F8F8F8");
+        this.date.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        dateFilter.getChildren().addAll(dateFilterLabel,date);
+        dateFilter.getChildren().addAll(dateFilterLabel,this.date);
 
         // Ajout du bouton rechercher
         VBox searchButtonBox = new VBox();
@@ -146,7 +152,7 @@ public class FenetreAccueil extends BorderPane {
         searchButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         searchButton.setPadding(new Insets(10,30,10,30));
         searchButton.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-        searchButton.setOnAction((key) -> System.out.println("next")); //ACTUALISER LA LISTE this.searchResult
+        searchButton.setOnAction(new ControleurRecherche(this.appli,this)); //ACTUALISER LA LISTE this.searchResult
         searchButton.setEffect(ds);
         searchButtonBox.setPadding(new Insets(30,0,0,0));
 
@@ -456,4 +462,41 @@ public class FenetreAccueil extends BorderPane {
         }
         this.setTop(searchContent);
     }
+
+    public void afficheVentes(List<Vente> ventes) {
+
+
+        System.out.println("test");
+    }
+
+
+
+
+
+
+
+
+
+
+
+    public String getRecherche() {
+        return this.search.getText();
+    }
+
+    public String getCategorie() {
+        return this.CBfilters.getValue();
+    }
+
+    public String getMontantMax() {
+        return this.price.getText();
+    }
+
+    public LocalDate getDateMax() {
+        return this.date.getValue();
+    }
+
+    public void setResult(List<Vente> result) {
+        this.searchResult = result;
+        System.out.println(searchResult.size());
+    } 
 }
