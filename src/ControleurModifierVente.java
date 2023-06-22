@@ -20,31 +20,39 @@ public class ControleurModifierVente implements EventHandler<ActionEvent>{
     @Override
     public void handle(ActionEvent actionEvent) {
         
-        try{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Confirmation");
-            alert.setHeaderText("Voulez-vous vraiment modifier cette vente ?");
-            alert.setContentText("Appuyez sur OK pour confirmer");
-            alert.showAndWait();
-            String finVe= fenetreEdit.getNewEnd();
-            String titre= fenetreEdit.getNewTitle();
-            String desc= fenetreEdit.getNewDesc();
-            String categorieString= fenetreEdit.getNewCategory();
+        if (!Valide.pasAvant(this.fenetreEdit.getVente().getdebutVente(), this.fenetreEdit.getNewEnd())){
+            this.fenetreEdit.setAlerte("La date de fin de vente doit être après la date de début de vente");
 
-            Button bouton = (Button) actionEvent.getSource();
-            ButtonType buttonClicked = alert.getResult();
-            if(bouton.getText().equals("Sauvegarder les modifications") && buttonClicked == ButtonType.OK){
-                this.appli.fenetreMesVentes();
-            } else{
-                alert.close();
-            }
-        
-            Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNum(categorieString);
-            this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
-            this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);
-        } catch (SQLException e) {
-            System.out.println("Erreur SQL : " + e.getMessage());
         }
+        else {
+            try{
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation");
+                alert.setHeaderText("Voulez-vous vraiment modifier cette vente ?");
+                alert.setContentText("Appuyez sur OK pour confirmer");
+                alert.showAndWait();
+                String finVe= fenetreEdit.getNewEnd();
+                String titre= fenetreEdit.getNewTitle();
+                String desc= fenetreEdit.getNewDesc();
+                String categorieString= fenetreEdit.getNewCategory();
+    
+                Button bouton = (Button) actionEvent.getSource();
+                ButtonType buttonClicked = alert.getResult();
+                if(bouton.getText().equals("Sauvegarder les modifications") && buttonClicked == ButtonType.OK){
+                    this.appli.fenetreMesVentes();
+                } else{
+                    alert.close();
+                }
+            
+                Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNum(categorieString);
+                this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
+                this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);
+            } catch (SQLException e) {
+                System.out.println("Erreur SQL : " + e.getMessage());
+            }
+
+        }
+        
 
 
     }

@@ -46,11 +46,11 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
         Stage stageFichier = new Stage();
         File fichierChoisi = fileChooser.showOpenDialog(stageFichier);
         if (fichierChoisi != null && this.listePhoto.size()<4 && this.fenetreCreationVente != null) {
-            System.out.println(fichierChoisi.getName());
             String chemin = "file:"+fichierChoisi.getAbsolutePath();
             this.listePhoto.add(Map.of(fichierChoisi.getName(), chemin));
             System.out.println(this.listePhoto);
             this.fenetreCreationVente.setNbPics(this.listePhoto.size());
+            this.fenetreCreationVente.majNomImage();
         }
 
         if (fichierChoisi!= null && this.listePhoto.size()<4 && this.fenetreEditionVente != null) {
@@ -66,6 +66,7 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
             
             
             this.fenetreEditionVente.setNbPics(this.listePhoto.size());
+            
             System.out.println(this.listePhoto.size());
         }
 

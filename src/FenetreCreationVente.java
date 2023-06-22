@@ -51,11 +51,13 @@ public class FenetreCreationVente extends GridPane {
     private Label alertErreur;
     private List<Map<String,String>> filesSale;
     private Label filesCountLabel;
+    private VBox filesSaleNames;
 
     public FenetreCreationVente(ApplicationVAE appli) {
         super();
         this.appli = appli;
         this.alertErreur = new Label();
+        this.filesSaleNames = new VBox();
         this.content();
     }
 
@@ -139,7 +141,7 @@ public class FenetreCreationVente extends GridPane {
         openButton.setPadding(new Insets(10,30,10,30));
         openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        filesSaleContent.getChildren().addAll(filesSaleLabels,openButton);
+        filesSaleContent.getChildren().addAll(filesSaleLabels,openButton,filesSaleNames);
 
         //Catégorie
         VBox categorySaleContent = new VBox();
@@ -533,6 +535,41 @@ public class FenetreCreationVente extends GridPane {
 
         this.add(cancelContent,0,5,1,1);
         this.add(sendContent,3,5,1,1);
+    }
+
+
+    public void majNomImage() {
+        // Ajout des titres des image à côté des boutons
+        this.filesSaleNames.getChildren().clear();
+        this.filesSaleNames.setSpacing(10);
+        this.filesSaleNames.setPadding(new Insets(10,10,10,10));
+        this.filesSaleNames.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.filesSaleNames.setPrefHeight(200);
+        this.filesSaleNames.setPrefWidth(200);
+        int i = 0;
+        for (Map<String,String> file : this.filesSale) {
+            i++;
+            HBox fileContent = new HBox();
+            fileContent.setSpacing(10);
+            fileContent.setPadding(new Insets(10,10,10,10));
+            Label fileName = new Label();
+            Button bouton = new Button("X");
+            bouton.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+            bouton.setPadding(new Insets(5,10,5,10));
+            bouton.setBackground(new Background(new BackgroundFill(Color.web("#e0584f"),CornerRadii.EMPTY,Insets.EMPTY)));
+            bouton.setTextFill(Color.web("#FFFFFF"));
+            bouton.setOnAction(new ControleurSupImage(this.getListePhotos(),i,this));
+
+            for (String key : file.keySet()){
+                
+                fileName.setText(key);
+                fileContent.getChildren().addAll(fileName,bouton);
+            }
+            System.out.println(file.get(0));
+            fileName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+            fileName.setTextFill(Color.web("#5D48D7"));
+            filesSaleNames.getChildren().add(fileContent);
+        }
     }
 
     public TextArea getDescSale() {
