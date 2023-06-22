@@ -13,12 +13,14 @@ import java.util.Map;
 
 public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
     ApplicationVAE appli;
+    FenetreCreationVente fenetreCreationVente;
     FileChooser fileChooser;
     List<Map<String, String>> listePhoto;
 
 
-    public ControleurChoixPhoto(ApplicationVAE appli, FileChooser fileChooser,List<Map<String, String>> listePhoto) {
+    public ControleurChoixPhoto(ApplicationVAE appli,FenetreCreationVente creationVente, FileChooser fileChooser,List<Map<String, String>> listePhoto) {
         this.appli=appli;
+        this.fenetreCreationVente = creationVente;
         this.fileChooser=fileChooser;
         this.listePhoto=listePhoto;
 
@@ -31,11 +33,14 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
     public void handle(ActionEvent actionEvent){
         Stage stageFichier = new Stage();
         File fichierChoisi = fileChooser.showOpenDialog(stageFichier);
-        if (fichierChoisi != null) {
+        if (fichierChoisi != null && this.listePhoto.size()<4) {
             System.out.println(fichierChoisi.getName());
             String chemin = "file:"+fichierChoisi.getAbsolutePath();
             this.listePhoto.add(Map.of(fichierChoisi.getName(), chemin));
-            System.out.println(this.listePhoto);
+            // System.out.println(this.listePhoto);
+            this.fenetreCreationVente.setNbPics(this.listePhoto.size());
+            System.out.println(this.listePhoto.size());
+                        
         }
 
     }
