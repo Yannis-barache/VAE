@@ -72,9 +72,7 @@ public class FenetreAccueil extends BorderPane {
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
-        filtersList.add("Toutes catégories");
         ComboBox<String> CBfilters = new ComboBox<String>();
-        CBfilters.setValue("Toutes catégories");
         CBfilters.getItems().addAll(filtersList);
         CBfilters.setEffect(ds);
         CBfilters.setPrefHeight(50);
@@ -177,7 +175,7 @@ public class FenetreAccueil extends BorderPane {
 
         if (ventesEnCours.size() > 0) {
 
-            for (int i=0;i<15;++i) {
+            for (int i=0;i<9;++i) {
                 int j = (int) (Math.random()*ventesEnCours.size());
                 List<Integer> indexs = new ArrayList<>();
                 indexs.add(j);
@@ -189,8 +187,25 @@ public class FenetreAccueil extends BorderPane {
     
                 //Image
                 VBox picContainer = new VBox();
-                ImageView pic = new ImageView(new Image("file:./img/blank.png"));
-                pic.setFitWidth(490);
+                this.ventesEnCours.get(j);
+                ImageView pic;
+                try {
+                    List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(this.ventesEnCours.get(j).getObjet());
+                    System.out.println(this.ventesEnCours.get(j).getObjet().getLesPhotos());
+                    for(Photo ph : liste){
+                        this.ventesEnCours.get(j).getObjet().ajoutePhoto(ph);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                try {
+                    System.out.println(this.ventesEnCours.get(j).getObjet().getLesPhotos());
+                    pic = new ImageView(this.ventesEnCours.get(j).getObjet().getLesPhotos().get(0).getImg());
+                } catch (Exception e) {
+                    System.out.println("erreur");
+                    pic=new ImageView(new Image("file:./img/blank.png"));
+                }
+                pic.setFitWidth(440);
                 pic.setPreserveRatio(true);
                 picContainer.getChildren().add(pic);
                 picContainer.setPadding(new Insets(0,0,50,0));
@@ -210,13 +225,10 @@ public class FenetreAccueil extends BorderPane {
                 actualPriceLabel.setTextFill(Color.web("black"));
                 int actualPriceValue = this.ventesEnCours.get(j).getPrixBase();
                 try {
-                    Enchere e = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j));
-                    if (e != null){
-                        actualPriceValue = e.getMontant();
-                    }
+                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j)).getMontant();
                 }
                 catch(SQLException ex) {}
-                Label actualPrice = new Label(String.valueOf(actualPriceValue)+" €"); //Get le prix de la vente
+                Label actualPrice = new Label(String.valueOf(actualPriceValue)); //Get le prix de la vente
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPrice.setTextFill(Color.web("#5D48D7"));
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -273,7 +285,8 @@ public class FenetreAccueil extends BorderPane {
                 
                 //Properties
                 item.setPadding(new Insets(30));
-                item.setPrefWidth(550);
+                item.setPrefWidth(500);
+                // item.setPrefHeight(520);
                 item.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
                 item.getChildren().addAll(picContainer,informations);
                 item.setEffect(ds);
