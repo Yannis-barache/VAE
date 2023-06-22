@@ -248,6 +248,14 @@ public class Vente {
     }
 
 
+    public LocalDateTime getDebut(){
+        return this.debut;
+    }
+
+    public LocalDateTime getFin(){
+        return this.fin;
+    }
+
     @Override 
     public String toString(){
         return "Vente( Id : "+this.getIdentifiant()+", Prix de base : "+this.getPrixBase()+", Prix minimum : "+this.getPrixMin()+", Debut Vente : "+this.getdebutVente()+", Fin Vente"+this.getFinVente()+", Statut : "+this.getStatus()+")";
@@ -263,7 +271,7 @@ public class Vente {
         }
         if (obj instanceof Vente){
             Vente v = (Vente) obj;
-            if (v.getIdentifiant() == this.getIdentifiant() && v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente() == this.getFinVente() && v.getStatus() == this.getStatus() && v.getObjet() == this.getObjet()){
+            if (v.getIdentifiant() == this.getIdentifiant() && v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente().equals(this.getFinVente()) && v.getStatus() .equals(this.getStatus()) && v.getObjet().equals(this.getObjet())){
                 return true;
             }
         }

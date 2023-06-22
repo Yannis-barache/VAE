@@ -111,9 +111,6 @@ public class UtilisateurBD {
 
     public Utilisateur rechercherUtilisateurParNum(int idUt)throws SQLException{
         st= this.connexMySQL.createStatement();
-
-
-
         ResultSet rs = st.executeQuery("select * from UTILISATEUR where "+idUt+"=idUt");
         rs.next();
         boolean admin=false;
@@ -182,10 +179,78 @@ public class UtilisateurBD {
             }
             Utilisateur u=new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),actif,admin);
             liste.add(u);
-    }
+        }
         rs.close();
         return liste;
     }
 
-    // public void activerUtilisateur
+    public List<Utilisateur> rechercheUtilisateursParChaine(String chaine){
+        List<Utilisateur> liste = new ArrayList<>();
+        if (chaine.equals("")){
+            return liste;
+        }
+        try{
+            st= this.connexMySQL.createStatement();
+            ResultSet rs =st.executeQuery("select * from UTILISATEUR where pseudoUt like '"+chaine+"%'"); 
+            while (rs.next()){
+                boolean admin=false;
+                boolean actif = true;
+                if(rs.getInt(6)==1){
+                    admin=true;
+                }
+                if(rs.getString(5).equals("N")){
+                    actif=false;
+                }
+                Utilisateur u=new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),actif,admin);
+                liste.add(u);
+                
+
+            }
+            
+            
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        System.out.println(liste);
+        return liste;
+
+    }
+
+    public void desactiverUtilisateur(Utilisateur u )throws SQLException{
+        try{
+            st= this.connexMySQL.createStatement();
+            ResultSet rs =st.executeQuery("select * from UTILISATEUR where "+u.getIdentifiant()+"=idUt");
+            rs.next();
+            if (rs.getString("activeUt").equals("O")){
+                PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE UTILISATEUR SET activeUt = ? where idut="+u.getIdentifiant());
+                ps.setString(1, "N");
+                ps.executeUpdate();
+            }
+            
+            rs.close();
+
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+
+    }
+
+    public void activerUtilisateur(Utilisateur u ) throws SQLException{
+        try{
+            st= this.connexMySQL.createStatement();
+            ResultSet rs =st.executeQuery("select * from UTILISATEUR where "+u.getIdentifiant()+"=idUt");
+            rs.next();
+            if (rs.getString("activeUt").equals("N")){
+                PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE UTILISATEUR SET activeUt = ? where idut="+u.getIdentifiant());
+                ps.setString(1, "O");
+                ps.executeUpdate();
+            }
+            
+            rs.close();
+
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+    }
+
 }

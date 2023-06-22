@@ -4,6 +4,8 @@ import javafx.scene.control.Button;
 
 import java.sql.SQLException;
 
+import javax.swing.plaf.metal.MetalBorders.ToolBarBorder;
+
 
 public class ControleurAdminUser implements EventHandler<ActionEvent>{
     ApplicationVAE appli;
@@ -28,19 +30,19 @@ public class ControleurAdminUser implements EventHandler<ActionEvent>{
             System.out.println("Supprimer");
 
         } else if (buttonName.equals("Désactiver")) {
-            // try {
-            //  this.appli.getUtilisateurBD().desactiverUtilisateur(this.user);
-            // } catch (SQLException e) {
-            //    e.printStackTrace();
-            // }
+            try {
+             this.appli.getUtilisateurBD().desactiverUtilisateur(this.user);
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }
             System.out.println("Désactiver");
 
         } else if (buttonName.equals("Activer")) {
-            // try {
-            //    this.appli.getUtilisateurBD().activerUtilisateur(this.user);
-            // } catch (SQLException e) {
-            //    e.printStackTrace();
-            // }
+            try {
+               this.appli.getUtilisateurBD().activerUtilisateur(this.user);
+            } catch (SQLException e) {
+               e.printStackTrace();
+            }
             System.out.println("Activer");
         }
 

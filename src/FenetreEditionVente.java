@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.collections.FXCollections;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -29,6 +30,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.Bidi;
 import java.util.ArrayList;
 
@@ -40,12 +42,23 @@ public class FenetreEditionVente extends GridPane {
     private DatePicker endSale;
     private TextArea newDesc;
     private ComboBox<String> categorySaleCB;
+    private List<Photo> listePhoto;
+    private List<Map<String,String>> listePhotoBD;
+    private int nbPics;
 
     public FenetreEditionVente(ApplicationVAE appli,Vente vente) {
         super();
         this.appli = appli;
         this.vente = vente;
-
+        this.listePhotoBD = new ArrayList<Map<String,String>>();
+        try{
+            this.listePhoto = this.appli.getPhotoBD().rechercherPhotosParObjet(this.vente.getObjet());
+            
+        }catch (SQLException ex){
+            System.out.println("Peut pas récupérer les images");
+        }
+        
+        this.nbPics = this.listePhoto.size();
         this.content();
     }
 
@@ -97,28 +110,42 @@ public class FenetreEditionVente extends GridPane {
 
         //Ajout d'images
         VBox newFilesContent = new VBox();
-        // Label filesSaleLabel = new Label("Ajouter des images ");
-        // filesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        // filesSaleLabel.setTextFill(Color.web("#5D48D7"));
-        // Label filesCountLabel = new Label("0/4");
-        // filesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        // filesCountLabel.setTextFill(Color.web("#5D48D7"));
-        // FileChooser filesSaleFC = new FileChooser();
-        // Label temp = new Label("AHMET AHMET AHMET AHMET AHMET"); //File chooser pas dans VBox
+
+        
         HBox newFilesSaleLabels = new HBox();
         Label newFilesSaleLabel = new Label("Ajouter des images ");
         newFilesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newFilesSaleLabel.setTextFill(Color.web("#5D48D7"));
-        Label newFilesCountLabel = new Label("0/4");
+
+        PhotoBD photoBD = this.appli.getPhotoBD();
+        int nbPhotos = 0;
+        try {
+            nbPhotos = photoBD.rechercherPhotosParObjet(this.vente.getObjet()).size();
+        }
+        catch(SQLException ex) {}
+        Label newFilesCountLabel = new Label(String.valueOf(nbPhotos)+"/4");
         newFilesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newFilesCountLabel.setTextFill(Color.web("#5D48D7"));
         newFilesSaleLabels.getChildren().addAll(newFilesSaleLabel,newFilesCountLabel);
+        // Création du file chooser
+        FileChooser filesSaleFC = new FileChooser();
+
+        // Ajout des filtres
+        filesSaleFC.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"),
+            new FileChooser.ExtensionFilter("All Files", "*.*"));
+
+        // Définition du titre    
+        filesSaleFC.setTitle("Choisir une image");
+
+        // Définition du répertoire initial
+        filesSaleFC.setInitialDirectory(new File(System.getProperty("user.home")));
+
         Button openButton = new Button("+");
         openButton.setEffect(ds);
-        openButton.setOnAction((key) -> System.out.println("controleur filechooser"));
-        openButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
-        openButton.setPadding(new Insets(10,30,10,30));
-        openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        openButton.setOnAction(new ControleurChoixPhoto(appli,this,filesSaleFC,listePhotoBD));
+        openButton.setPrefHeight(40);
+        openButton.setPrefWidth(40);
 
         newFilesContent.getChildren().addAll(newFilesSaleLabels,openButton);
 
@@ -242,6 +269,14 @@ public class FenetreEditionVente extends GridPane {
 
     public Vente getVente() {
         return this.vente;
+    }
+
+    public List<Map<String, String>> getNewFiles() {
+        return this.listePhotoBD;
+    }
+
+    public void setNbPics(int nbPics) {
+        this.nbPics = nbPics;
     }
 
 
