@@ -186,4 +186,6 @@ public class UtilisateurBD {
         rs.close();
         return liste;
     }
+
+    // public void activerUtilisateur
 }

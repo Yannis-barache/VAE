@@ -28,7 +28,7 @@ CREATE TABLE `OBJET` (
 CREATE TABLE `PHOTO` (
   `idph` decimal(6,0),
   `titreph` varchar(50),
-  `imgph` blob,
+  `imgph` longblob,
   `idob` decimal(6,0),
   PRIMARY KEY (`idph`)
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
