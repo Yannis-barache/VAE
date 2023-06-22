@@ -36,7 +36,7 @@ public class FenetreManageVente extends VBox {
         //    users = this.appli.getUtilisateurBD().listeUtilisateurs();
         //    categories = this.appli.getCategorieBD().listeCategories();
         //    objets = this.appli.getObjetBD().listeObjets();
-        //    ventes = this.appli.getVenteBD().listeVentes();   
+        //    ventes = this.appli.getVenteBD().listeVentesEnCours();
         //}catch (SQLException e){
         //    this.getChildren().add(new Label("Il n'y a pas d'utilisateurs dans la base de données"));
         //}
@@ -61,20 +61,21 @@ public class FenetreManageVente extends VBox {
 
 
             ImageView image = new ImageView(new Image(vente.getObjet().getLesPhotos().get(0).getImg()));
+            image.setFitHeight(100);
+            image.setFitWidth(100);
+
             Label titre = new Label(vente.getObjet().getNom());
             Label description = new Label(vente.getObjet().getDescription());
+            Label tempsRestant = new Label("Temps restant : " + vente.tempsRestant());
             Button delete = new Button("Supprimer");
-            Button modify = new Button("Modifier");
 
             delete.setOnAction(new ControleurAdminVente(this.appli, vente ));
-            modify.setOnAction(new ControleurAdminVente(this.appli, vente));
 
-            saleContent.add(image, 0, 0);
-            saleContent.add(titre, 1, 0);
-            saleContent.add(description, 1, 1);
-            saleContent.add(delete, 2, 0);
-            saleContent.add(modify, 2, 1);
-
+            saleContent.add(image, 0, 0,2,3);
+            saleContent.add(titre, 2, 0);
+            saleContent.add(description, 2, 1);
+            saleContent.add(tempsRestant, 2, 2);
+            saleContent.add(delete, 0, 3,2,1);
 
             this.getChildren().add(saleContent);
 

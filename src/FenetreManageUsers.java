@@ -47,6 +47,7 @@ public class FenetreManageUsers extends VBox {
         barreDeRecherche.setOnKeyTyped(new ControleurBarreDeRecherche(this.appli, barreDeRecherche,this));
         this.getChildren().add(new Label("Gestion des utilisateurs"));
         this.getChildren().add(barreDeRecherche);
+
         
 
         for (Utilisateur user : utilisateurs) {
@@ -86,9 +87,15 @@ public class FenetreManageUsers extends VBox {
 
         }
 
-        if (this.utilisateurs.size() == 0) {
-            this.getChildren().add(new Label("Aucun utilisateur trouvé"));
+        if (this.barreDeRecherche.getText().equals("")){
+            this.setAlerte("Aucune recherche lancée");
         }
+        if (this.utilisateurs.size() == 0) {
+            this.setAlerte("Aucun utilisateur trouvé");
+        }
+
+
+        this.getChildren().add(this.alerte);
 
 
 
