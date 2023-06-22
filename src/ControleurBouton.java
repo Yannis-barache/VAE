@@ -6,6 +6,7 @@ import javafx.scene.control.ButtonType;
 
 
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -36,25 +37,27 @@ public class ControleurBouton implements EventHandler<ActionEvent> {
                 System.out.println("modifier");
             } else{
                 if (bouton.getText().equals("Sauvegarder")){
-                    System.out.println("sauvegarder");
-                    // alert.setTitle("Confirmation");
-                    // alert.setHeaderText("Voulez-vous vraiment modifier votre profil ?");
-                    // alert.setContentText("Appuyez sur OK pour confirmer");
-                    // alert.showAndWait();
-    
                     String pseudo= fenetreMonProfil.getPseudo();
                     String mail= fenetreMonProfil.getMail();
                     String mdp= fenetreMonProfil.getMdp();
-                    System.out.println(pseudo +" / " + mail + " / " +mdp);
-                    this.appli.getUtilisateur().setPseudo(pseudo);
-                    this.appli.getUtilisateur().setMail(mail);
-                    this.appli.getUtilisateur().setMdp(mdp);
-                    this.appli.getUtilisateurBD().modifierUtilisateur(this.appli.getUtilisateur());
-                    System.out.println(this.appli.getUtilisateur());
-                    System.out.println("-------------");
-                    this.fenetreMonProfil.modeTF();
-                    this.fenetreMonProfil.getButton().setText("Modifier");
-                    this.appli.fenetreMonProfil();
+                    if(!Valide.emailValide(mail)){
+                        this.fenetreMonProfil.setErreur("Veuillez entrer un email valide");
+                    } else {
+                        try{
+                            this.appli.getUtilisateur().setPseudo(pseudo);
+                            this.appli.getUtilisateur().setMail(mail);
+                            this.appli.getUtilisateur().setMdp(mdp);
+                            this.appli.getUtilisateurBD().modifierUtilisateur(this.appli.getUtilisateur());
+                            System.out.println(this.appli.getUtilisateur());
+                            this.fenetreMonProfil.modeTF();
+                            this.fenetreMonProfil.getButton().setText("Modifier");
+                            this.appli.fenetreMonProfil();
+                        }
+                        catch(SQLIntegrityConstraintViolationException ex){
+                            this.fenetreMonProfil.setErreur("Pseudo déjà utilisé");
+                        }
+                        
+                    }
                 } 
             }
         }
