@@ -23,6 +23,7 @@ import javafx.scene.paint.CycleMethod;
 import java.util.List;
 
 import javax.swing.plaf.metal.MetalBorders.TextFieldBorder;
+import javax.swing.text.LabelView;
 
 import java.util.Arrays;
 import java.io.File;
@@ -40,10 +41,12 @@ public class FenetreMonProfil extends GridPane {
     private Button button;
     private Button buttonSupprimer;
 
+    private Label alerteErreur;
+
     public FenetreMonProfil(ApplicationVAE appli) {
         super();
         this.appli = appli;
-
+        this.alerteErreur = new Label("");
         this.content();
     }
 
@@ -80,7 +83,9 @@ public class FenetreMonProfil extends GridPane {
         this.tfContentPseudo.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentPseudo.setStyle("-fx-text-fill: #5D48D7;");
         this.tfContentPseudo.setEditable(false);
- 
+
+        this.alerteErreur.setStyle("-fx-text-fill: red;");
+    
         this.tfContentMail = new TextField(this.appli.getUtilisateur().getMail());
         this.tfContentMail.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         this.tfContentMail.setStyle("-fx-text-fill: #5D48D7;");
@@ -120,6 +125,7 @@ public class FenetreMonProfil extends GridPane {
         gridPaneProfil.add(tfContentMDP,1,4);
         gridPaneProfil.add(tfContentNDV,1,5);
         gridPaneProfil.add(button,0,6);
+        gridPaneProfil.add(alerteErreur,0,7);
         gridPaneProfil.add(buttonSupprimer,1,6);
 
 
@@ -137,6 +143,22 @@ public class FenetreMonProfil extends GridPane {
 
     }
     
+    public void setErreur(String alert){
+        this.alerteErreur.setText(alert);
+    }
+
+
+    public String getPseudo(){
+        return this.tfContentPseudo.getText();
+    }
+
+    public String getMail(){
+        return this.tfContentMail.getText();
+    }
+
+    public String getMdp(){
+        return this.tfContentMDP.getText();
+    }
 
     public Button getButton(){
         return this.button;
