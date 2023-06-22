@@ -72,7 +72,9 @@ public class FenetreAccueil extends BorderPane {
         filtersLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         filtersLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        filtersList.add("Toutes catégories");
         ComboBox<String> CBfilters = new ComboBox<String>();
+        CBfilters.setValue("Toutes catégories");
         CBfilters.getItems().addAll(filtersList);
         CBfilters.setEffect(ds);
         CBfilters.setPrefHeight(50);
@@ -188,7 +190,7 @@ public class FenetreAccueil extends BorderPane {
                 //Image
                 VBox picContainer = new VBox();
                 ImageView pic = new ImageView(new Image("file:./img/blank.png"));
-                pic.setFitWidth(440);
+                pic.setFitWidth(490);
                 pic.setPreserveRatio(true);
                 picContainer.getChildren().add(pic);
                 picContainer.setPadding(new Insets(0,0,50,0));
@@ -211,7 +213,7 @@ public class FenetreAccueil extends BorderPane {
                     actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j)).getMontant();
                 }
                 catch(SQLException ex) {}
-                Label actualPrice = new Label(String.valueOf(actualPriceValue)); //Get le prix de la vente
+                Label actualPrice = new Label(String.valueOf(actualPriceValue)+" €"); //Get le prix de la vente
                 actualPrice.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
                 actualPrice.setTextFill(Color.web("#5D48D7"));
                 actualPrice.setAlignment(Pos.BASELINE_RIGHT);
@@ -268,8 +270,7 @@ public class FenetreAccueil extends BorderPane {
                 
                 //Properties
                 item.setPadding(new Insets(30));
-                item.setPrefWidth(500);
-                // item.setPrefHeight(520);
+                item.setPrefWidth(550);
                 item.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
                 item.getChildren().addAll(picContainer,informations);
                 item.setEffect(ds);
