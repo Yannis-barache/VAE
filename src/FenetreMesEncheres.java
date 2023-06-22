@@ -152,7 +152,7 @@ public class FenetreMesEncheres extends BorderPane {
                     bid.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
                     bid.setDisable(true);
                 } else {
-                    bid.setOnAction((key) -> this.appli.fenetreEnchere(enchere.getVente(),"encheres"));
+                    bid.setOnAction((key) -> this.appli.fenetreEnchere(enchere.getVente(),this));
                     bid.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
                     bid.setAlignment(Pos.BASELINE_RIGHT);
                 }                
