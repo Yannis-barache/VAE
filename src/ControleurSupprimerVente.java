@@ -45,7 +45,6 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
                 this.appli.getObjetBD().supprimerObjet(this.fenetreEdit.getVente().getObjet());
                 this.appli.fenetreMesVentes();
             } catch (SQLException e) {
-                System.out.println("Erreur SQL : " + e.getMessage());
                 this.appli.fenetreMesVentes();
             }
         }
