@@ -1,4 +1,5 @@
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.*;
@@ -42,6 +43,15 @@ public class VenteBD {
         int idVe = v.getIdentifiant();
         st= this.connexMySQL.createStatement();
         ResultSet rs = st.executeQuery("DELETE from VENTE where "+idVe+"=idVe");
+
+        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+            this.changeStatut(v, 2);
+        }
+
+        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+            this.changeStatut(v, 4);
+            
+        }
         rs.next();
         rs.close();
         v.getObjet().getVendeur().supprimerVente(v);
@@ -60,10 +70,18 @@ public class VenteBD {
         StatutBD statutBD = new StatutBD(connexMySQL);
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         rs.next();
+        Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+            this.changeStatut(v, 2);
+        }
+
+        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+            this.changeStatut(v, 4);
             
-            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+        }
         rs.close();
         return v;
+        
     }
 
     public List<Vente> listeVentes() throws SQLException{
@@ -74,8 +92,21 @@ public class VenteBD {
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            
+
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             liste.add(v);
         }
+    //     (1,'A venir'),
+	// (2,'En cours'),
+	// (3,'A valider'),
         rs.close();
         return liste;
     }
@@ -88,6 +119,14 @@ public class VenteBD {
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             liste.add(v);
         }
         rs.close();
@@ -100,7 +139,16 @@ public class VenteBD {
         try {
             ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" order by montant desc limit 1;");
             rs.next();
-                Enchere e = new Enchere(v, uBd.rechercherUtilisateurParNum(rs.getInt(1)) , rs.getInt(4), rs.getString(3));
+
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
+            Enchere e = new Enchere(v, uBd.rechercherUtilisateurParNum(rs.getInt(1)) , rs.getInt(4), rs.getString(3));
             rs.close();
             return e;
         } catch (Exception e) {
@@ -115,7 +163,15 @@ public class VenteBD {
         try {
             ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" and  idUt = "+ u.getIdentifiant() +" order by montant desc limit 1;");
             rs.next();
-                Enchere e = new Enchere(v, u , rs.getInt(4), rs.getString(3));
+            Enchere e = new Enchere(v, u , rs.getInt(4), rs.getString(3));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             rs.close();
             return e;
         } catch (Exception e) {
@@ -128,6 +184,14 @@ public class VenteBD {
         st = this.connexMySQL.createStatement();
         ResultSet rs = st.executeQuery("select Count(*) nb from ENCHERIR where idve="+v.getIdentifiant());
         rs.next();
+        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+            this.changeStatut(v, 2);
+        }
+
+        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+            this.changeStatut(v, 4);
+            
+        }
         int nb = rs.getInt(1);
         rs.close();
         return nb;
@@ -141,6 +205,14 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET where nomOb LIKE '%"+ recherche +"%'");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(1)));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             liste.add(v);
         }
         rs.close();
@@ -155,6 +227,15 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET natural join CATEGORIE where '"+ categorie +"' = nomCat");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7), statutBD.rechercherStatutParNum(rs.getInt(8)), objetBD.rechercherObjetParNum(rs.getInt(2)));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
+            
             liste.add(v);
         }
         rs.close();
@@ -169,6 +250,14 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE where idve in (select idve from ENCHERIR E1 natural join VENTE V natural join STATUT S where nomSt='Validée' and montant<"+prix+" and montant>= all( select montant from ENCHERIR E2 where E1.idVe=E2.idVe))");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             liste.add(v);
         }
         rs.close();
@@ -183,10 +272,31 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE where DATEDIFF( finve, STR_TO_DATE("+date+",'%d/%m/%Y:%H:%i:%s'))<0");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+                this.changeStatut(v, 2);
+            }
+
+            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
+                this.changeStatut(v, 4);
+                
+            }
             liste.add(v);
         }
         rs.close();
         return liste;
+    }
+
+
+    public void changeStatut(Vente vente,int idStatut){
+        System.out.println("Changement de statut pour "+ idStatut);
+        vente.setStatut(new Statut("Terminé"));
+        try{
+            PreparedStatement ps=this.connexMySQL.prepareStatement("UPDATE VENTE SET idStatut = ?  where "+vente.getIdentifiant()+"=idVe");
+            ps.setInt(1, idStatut);
+        } catch (SQLException ex){
+            System.out.println("Changement impossible");
+        }
+        
     }
 
 
