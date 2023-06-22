@@ -49,7 +49,7 @@ public class ControleurRecherche implements EventHandler<ActionEvent>{
         }
 
 
-        fenetreAccueil.setResult(resultRe);
+        fenetreAccueil.afficheVentes(resultRe);
 
 
         
