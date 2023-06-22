@@ -72,7 +72,23 @@ public class FenetreMesEncheres extends BorderPane {
                 VBox leftSide = new VBox();
 
                 //image (gauche)
-                ImageView encherePic = new ImageView(new Image("file:./img/blank.png"));
+                ImageView encherePic;
+                try {
+                    List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(enchere.getVente().getObjet());
+                    System.out.println(enchere.getVente().getObjet().getLesPhotos());
+                    for(Photo ph : liste){
+                        enchere.getVente().getObjet().ajoutePhoto(ph);
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                try {
+                    System.out.println(enchere.getVente().getObjet().getLesPhotos());
+                    encherePic = new ImageView(enchere.getVente().getObjet().getLesPhotos().get(0).getImg());
+                } catch (Exception e) {
+                    System.out.println("erreur");
+                    encherePic=new ImageView(new Image("file:./img/blank.png"));
+                }
                 encherePic.setFitHeight(350);
                 encherePic.setPreserveRatio(true);    
 

@@ -74,7 +74,23 @@ public class FenetreEnchere extends GridPane{
         titleDesc.getChildren().addAll(bidTitle,bidDesc);
 
         //Image de l'enchère
-        ImageView bidPic = new ImageView(new Image("file:./img/blank.png"));
+        ImageView bidPic;
+        try {
+            List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(vente.getObjet());
+            System.out.println(vente.getObjet().getLesPhotos());
+            for(Photo ph : liste){
+                vente.getObjet().ajoutePhoto(ph);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            System.out.println(vente.getObjet().getLesPhotos());
+            bidPic = new ImageView(vente.getObjet().getLesPhotos().get(0).getImg());
+        } catch (Exception e) {
+            System.out.println("erreur");
+            bidPic = new ImageView(new Image("file:./img/blank.png"));
+        }
         bidPic.setFitWidth(440);
         bidPic.setPreserveRatio(true);
 
