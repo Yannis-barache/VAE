@@ -164,6 +164,10 @@ public class Vente {
         return statut;
     }
 
+    public Utilisateur getEncherisseur(){
+        return this.getEncherisseur();
+    }
+
     /**
      * Définit le statut de la vente.
      *
