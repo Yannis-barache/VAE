@@ -116,7 +116,13 @@ public class FenetreMesEncheres extends BorderPane {
                     }
                 }
                 catch(SQLException ex) {}
-                Label actualEnchere = new Label(String.valueOf(ourPriceValue)+" €");
+                String ourPriceFlex = "";
+                if (actualPriceValue == ourPriceValue) {
+                    ourPriceFlex = "Vous êtes le meneur !";
+                } else {
+                    ourPriceFlex = String.valueOf(ourPriceValue)+" €";
+                }
+                Label actualEnchere = new Label(ourPriceFlex);
                 actualEnchere.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
                 actualEnchere.setTextFill(Color.web("#5D48D7"));  
                 actualEnchere.setAlignment(Pos.BASELINE_RIGHT);

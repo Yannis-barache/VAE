@@ -146,7 +146,7 @@ public class FenetreAccueil extends BorderPane {
         searchButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         searchButton.setPadding(new Insets(10,30,10,30));
         searchButton.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-        searchButton.setOnAction((key) -> System.out.println("next"));
+        searchButton.setOnAction((key) -> System.out.println("next")); //ACTUALISER LA LISTE this.searchResult
         searchButton.setEffect(ds);
         searchButtonBox.setPadding(new Insets(30,0,0,0));
 

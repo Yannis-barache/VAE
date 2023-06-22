@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.sql.SQLException;
 import java.text.Bidi;
 import java.util.ArrayList;
 
@@ -109,7 +110,14 @@ public class FenetreEditionVente extends GridPane {
         Label newFilesSaleLabel = new Label("Ajouter des images ");
         newFilesSaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newFilesSaleLabel.setTextFill(Color.web("#5D48D7"));
-        Label newFilesCountLabel = new Label("0/4");
+
+        PhotoBD photoBD = this.appli.getPhotoBD();
+        int nbPhotos = 0;
+        try {
+            nbPhotos = photoBD.rechercherPhotosParObjet(this.vente.getObjet()).size();
+        }
+        catch(SQLException ex) {}
+        Label newFilesCountLabel = new Label(String.valueOf(nbPhotos)+"/4");
         newFilesCountLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         newFilesCountLabel.setTextFill(Color.web("#5D48D7"));
         newFilesSaleLabels.getChildren().addAll(newFilesSaleLabel,newFilesCountLabel);
