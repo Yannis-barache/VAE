@@ -210,7 +210,10 @@ public class FenetreAccueil extends BorderPane {
                 actualPriceLabel.setTextFill(Color.web("black"));
                 int actualPriceValue = this.ventesEnCours.get(j).getPrixBase();
                 try {
-                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j)).getMontant();
+                    Enchere e = this.appli.getVenteBD().derniereEnchere(this.ventesEnCours.get(j));
+                    if (e != null){
+                        actualPriceValue = e.getMontant();
+                    }
                 }
                 catch(SQLException ex) {}
                 Label actualPrice = new Label(String.valueOf(actualPriceValue)+" €"); //Get le prix de la vente
@@ -249,7 +252,7 @@ public class FenetreAccueil extends BorderPane {
                 buttonItem.setPadding(new Insets(10,30,10,30));
                 buttonItem.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
                 Vente v = this.ventesEnCours.get(j);
-                buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v,"accueil"));
+                buttonItem.setOnAction((key) -> this.appli.fenetreEnchere(v,this));
                 buttonItem.setEffect(ds);
                 buttonContainer.getChildren().add(buttonItem);
                 buttonContainer.setAlignment(Pos.BASELINE_RIGHT);
