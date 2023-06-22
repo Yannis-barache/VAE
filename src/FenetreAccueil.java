@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.SetProperty;
 import javafx.collections.FXCollections;
@@ -162,7 +163,6 @@ public class FenetreAccueil extends BorderPane {
         searchContent.add(priceFilter,1,1,1,1);
         searchContent.add(dateFilter,2,1,1,1);
         searchContent.add(searchButtonBox,3,0,1,1);
-
         //Decouvrez
         VBox discoverContent = new VBox();
         VBox discoverLabelContainer = new VBox();
@@ -181,7 +181,7 @@ public class FenetreAccueil extends BorderPane {
 
             //Si il y a des ventes en cours
             if (this.ventesEnCours.size() > 0) {
-                for (int i=0;i<9;++i) {
+                for (int i=0;i<15;++i) {
                     int j = (int) (Math.random()*ventesEnCours.size());
                     List<Integer> indexs = new ArrayList<>();
                     indexs.add(j);
@@ -207,7 +207,6 @@ public class FenetreAccueil extends BorderPane {
                         System.out.println(e);
                     }
                     try {
-                        System.out.println(actualVente.getObjet().getLesPhotos());
                         pic = new ImageView(actualVente.getObjet().getLesPhotos().get(0).getImg());
                     } catch (Exception e) {
                         System.out.println("erreur");

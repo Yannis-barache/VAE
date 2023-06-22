@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -83,9 +84,11 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreAccueil(this,ventesEnCours));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
-        sc.setVvalue(0.1);
-        sc.setHvalue(1.5);
+        sc.setFitToHeight(true);
         this.scene.setRoot(sc);
+        sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
            
     }
 
@@ -97,7 +100,6 @@ public class ApplicationVAE extends Application{
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
         sc.setFitToHeight(true);
-
         this.scene.setRoot(sc);   
     }
 
