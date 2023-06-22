@@ -86,7 +86,7 @@ public class FenetreMesVentes extends BorderPane {
                         vente.getObjet().ajoutePhoto(ph);
                     }
                 } catch (Exception e) {
-                    System.out.println("mefee");
+                    System.out.println(e);
                 }
                 try {
                     System.out.println(vente.getObjet().getLesPhotos());

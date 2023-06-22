@@ -20,6 +20,11 @@ public class FenetreManageUsers extends VBox {
     public FenetreManageUsers(ApplicationVAE appli){
         super();
         this.appli = appli;
+        this.setPadding(new Insets(200, 10, 10, 10));
+        this.setStyle("-fx-background-color: #FFFFFF;");
+        this.setEffect(new DropShadow());
+        this.setSpacing(10);
+        this.setAlignment(Pos.CENTER);
         this.alerte = new Label();
 
         this.content();
