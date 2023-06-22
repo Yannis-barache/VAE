@@ -248,6 +248,14 @@ public class Vente {
     }
 
 
+    public LocalDateTime getDebut(){
+        return this.debut;
+    }
+
+    public LocalDateTime getFin(){
+        return this.fin;
+    }
+
     @Override 
     public String toString(){
         return "Vente( Id : "+this.getIdentifiant()+", Prix de base : "+this.getPrixBase()+", Prix minimum : "+this.getPrixMin()+", Debut Vente : "+this.getdebutVente()+", Fin Vente"+this.getFinVente()+", Statut : "+this.getStatus()+")";

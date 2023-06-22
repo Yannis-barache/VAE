@@ -48,15 +48,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             String moisDeb = String.valueOf(dateDebut.getMonthValue());
             String anneeDeb = String.valueOf(dateDebut.getYear());
 
-            Button bouton = (Button) actionEvent.getSource();
-            if(bouton.getText().equals("Mettre en ligne")){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Création de vente");
-                alert.setHeaderText("Création de la vente réussi");
-                alert.setContentText("Votre vente a bien été mis en ligne");
-                alert.showAndWait();
-                this.appli.fenetreMesVentes();
-            }
+            
 
             if (moisDeb.length()==1){
             moisDeb="0"+moisDeb;
@@ -196,6 +188,15 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
 
                         vente.setDebut(this.fenetreCreate.getStartDateTime());
                         vente.setFin(this.fenetreCreate.getEndDateTime());
+                        Button bouton = (Button) actionEvent.getSource();
+                        if(bouton.getText().equals("Mettre en ligne")){
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert.setTitle("Création de vente");
+                            alert.setHeaderText("Création de la vente réussi");
+                            alert.setContentText("Votre vente a bien été mis en ligne");
+                            alert.showAndWait();
+                            this.appli.fenetreMesVentes();
+                        }
                         this.fenetreCreate.setAlertErreur("Vente créée avec succès");
         
                     } catch(SQLException ex){

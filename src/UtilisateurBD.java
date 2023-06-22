@@ -111,9 +111,6 @@ public class UtilisateurBD {
 
     public Utilisateur rechercherUtilisateurParNum(int idUt)throws SQLException{
         st= this.connexMySQL.createStatement();
-
-
-
         ResultSet rs = st.executeQuery("select * from UTILISATEUR where "+idUt+"=idUt");
         rs.next();
         boolean admin=false;

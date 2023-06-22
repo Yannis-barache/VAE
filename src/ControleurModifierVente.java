@@ -30,7 +30,7 @@ public class ControleurModifierVente implements EventHandler<ActionEvent>{
             String titre= fenetreEdit.getNewTitle();
             String desc= fenetreEdit.getNewDesc();
             String categorieString= fenetreEdit.getNewCategory();
-            
+
             Button bouton = (Button) actionEvent.getSource();
             ButtonType buttonClicked = alert.getResult();
             if(bouton.getText().equals("Sauvegarder les modifications") && buttonClicked == ButtonType.OK){
