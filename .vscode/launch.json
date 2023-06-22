@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ApplicationVAE",
+            "request": "launch",
+            "mainClass": "ApplicationVAE",
+            "projectName": "sae_vae_5cbbde40"
+        },
+        {
+            "type": "java",
             "name": "ExecutableTest",
             "request": "launch",
             "mainClass": "ExecutableTest",

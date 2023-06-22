@@ -263,7 +263,8 @@ public class Vente {
         }
         if (obj instanceof Vente){
             Vente v = (Vente) obj;
-            if (v.getIdentifiant() == this.getIdentifiant() && v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente() == this.getFinVente() && v.getStatus() == this.getStatus() && v.getObjet() == this.getObjet()){
+            //&& v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente().equals(this.getFinVente()) && v.getStatus() .equals(this.getStatus())
+            if (v.getIdentifiant() == this.getIdentifiant()){
                 return true;
             }
         }
