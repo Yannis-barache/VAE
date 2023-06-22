@@ -35,6 +35,7 @@ public class VenteBD {
         ps.executeUpdate();
         v.setIdentifiant(num);
         v.getObjet().getVendeur().ajouterVente(v);
+        System.out.println(v.getObjet().getLesPhotos());
     }
 
     public void supprimerVente(Vente v)throws SQLException{

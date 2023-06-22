@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.HashMap;
 import java.io.File;
+import java.text.Bidi;
 import java.util.ArrayList;
 
 public class FenetreEditionVente extends GridPane {
@@ -175,15 +176,23 @@ public class FenetreEditionVente extends GridPane {
 
         newEndContent.getChildren().addAll(newEndLabel,endSale);
 
-        //Buttons
-        VBox cancelContent = new VBox();
+        //Buttons cancel et delete
+        HBox canceldeleteContent = new HBox();
         Button cancel = new Button("Annuler");
         cancel.setEffect(ds);
-        cancel.setOnAction((key) -> this.appli.fenetreMesVentes());
+        cancel.setOnAction(new ControleurRetourMesVentes(appli));
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
-        cancelContent.getChildren().add(cancel);
+        Button delete = new Button("Supprimer");
+        delete.setEffect(ds);
+        delete.setOnAction(new ControleurSupprimerVente(appli,this));
+        delete.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
+        delete.setPadding(new Insets(10,30,10,30));
+        delete.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));
+        canceldeleteContent.setSpacing(50);
+        canceldeleteContent.getChildren().addAll(cancel, delete);
+        
 
         VBox sendContent = new VBox(5);
         Button send = new Button("Sauvegarder les modifications");
@@ -211,7 +220,7 @@ public class FenetreEditionVente extends GridPane {
         this.add(newCategoryContent,1,3,1,1);
         this.add(newEndContent,2,1,1,1);
         
-        this.add(cancelContent,0,4,1,1);
+        this.add(canceldeleteContent,0,4,1,1);
         this.add(sendContent,2,4,1,1);
     }    
 

@@ -5,6 +5,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -77,7 +78,23 @@ public class FenetreMesVentes extends BorderPane {
                 VBox leftSide = new VBox();
 
                 //et image (gauche) 
-                ImageView ventePic = new ImageView(new Image("file:./img/blank.png"));
+                ImageView ventePic ;
+                try {
+                    List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(vente.getObjet());
+                    System.out.println(vente.getObjet().getLesPhotos());
+                    for(Photo ph : liste){
+                        vente.getObjet().ajoutePhoto(ph);
+                    }
+                } catch (Exception e) {
+                    System.out.println("mefee");
+                }
+                try {
+                    System.out.println(vente.getObjet().getLesPhotos());
+                    ventePic = new ImageView(vente.getObjet().getLesPhotos().get(0).getImg());
+                } catch (Exception e) {
+                    System.out.println("erreur");
+                    ventePic = new ImageView(new Image("file:./img/blank.png"));
+                }
                 ventePic.setFitHeight(350);
                 ventePic.setPreserveRatio(true);    
 
@@ -185,6 +202,9 @@ public class FenetreMesVentes extends BorderPane {
             emptyVentes.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
             emptyVentes.setTextFill(Color.web("black")); 
             Button createVente = new Button("Mettre en ligne une vente maintenant !");
+            createVente.setOnMouseEntered(event -> {
+                createVente.setCursor(Cursor.HAND);
+            });
             createVente.setOnAction((key) -> this.appli.fenetreCreationVente());
             createVente.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
             createVente.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));

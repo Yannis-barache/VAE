@@ -27,6 +27,7 @@ import java.text.SimpleDateFormat;
 import javafx.util.converter.DateTimeStringConverter;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Arrays;
 import java.io.File;
 import java.security.Timestamp;
@@ -48,6 +49,7 @@ public class FenetreCreationVente extends GridPane {
     private DatePicker startSale,endSale;
     private ComboBox<String> categorySaleCB;
     private Label alertErreur;
+    private List<Map<String,String>> filesSale;
 
 
 
@@ -133,10 +135,12 @@ public class FenetreCreationVente extends GridPane {
 
         // Définition du répertoire initial
         filesSaleFC.setInitialDirectory(new File(System.getProperty("user.home")));
-        
+
+        this.filesSale = new ArrayList<Map<String,String>>();
+
         Button openButton = new Button("+");
         openButton.setEffect(ds);
-        openButton.setOnAction(new ControleurChoixPhoto(appli, filesSaleFC));
+        openButton.setOnAction(new ControleurChoixPhoto(appli, filesSaleFC,filesSale));
         openButton.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         openButton.setPadding(new Insets(10,30,10,30));
         openButton.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
@@ -604,6 +608,10 @@ public class FenetreCreationVente extends GridPane {
 
     public LocalDateTime getEndDateTime() {
         return LocalDateTime.of(this.endSale.getValue().getYear(),this.endSale.getValue().getMonth(),this.endSale.getValue().getDayOfMonth(),Integer.parseInt(this.endHourValue.getText()),Integer.parseInt(this.endMinuteValue.getText()));
+    }
+
+    public List<Map<String,String>> getListePhotos(){
+        return this.filesSale;
     }
     
 
