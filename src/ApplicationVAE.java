@@ -107,7 +107,7 @@ public class ApplicationVAE extends Application{
     public void fenetreMesVentes() {
 
         Utilisateur utilisateur = getUtilisateur();
-        // utilisateur.getVentes().clear();
+        utilisateur.getVentes().clear();
         try {
             utilisateurBD.ventesUtilisateur(utilisateur); //Récupérer les ventes de la DB de l'utilisateur
         }
