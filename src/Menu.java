@@ -127,7 +127,7 @@ public class Menu extends BorderPane {
         MenuItem pannelAdministrationItem = new MenuItem("Pannel Administration");
         pannelAdministrationItem.setVisible(false);
         pannelAdministrationItem.setStyle("-fx-font-family: Verdana; -fx-font-weight: bold; -fx-font-size: 20;");
-        pannelAdministrationItem.setOnAction(new ControleurPannelAdministration(this.appli));
+        pannelAdministrationItem.setOnAction(new ControleurPanelAdministration(this.appli));
         if(this.appli.getUtilisateur().isAdmin()){
             pannelAdministrationItem.setVisible(true);
         }

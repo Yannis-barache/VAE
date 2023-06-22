@@ -1,23 +1,27 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-
-
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ControleurAdminPage implements EventHandler<ActionEvent> {
+
+    /**
+     * L'application VAE
+     */
     private ApplicationVAE appli;
 
 
+    /**
+     * Constructeur de la classe ControleurAdminPage
+     * @param appli l'application VAE
+     */
     public ControleurAdminPage(ApplicationVAE appli) {
         this.appli=appli;
     }
 
+    /**
+     * Méthode qui gère les actions sur les boutons de la page admin
+     * @param actionEvent l'action sur le bouton
+     */
     @Override
     public void handle(ActionEvent actionEvent){
         Button bouton = (Button) actionEvent.getSource();

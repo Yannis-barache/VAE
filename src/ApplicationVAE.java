@@ -16,23 +16,78 @@ import java.sql.*;
 
 public class ApplicationVAE extends Application{
 
+    /**
+     * Scene principale de l'application
+     */
     private Scene scene;
+
+    /**
+     * Le scrollPane de la scene
+     */
     private ScrollPane sc;
+
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL laConnexion;
+
+    /**
+     * Des scripts pour accéder à la base de données
+     */
     private ScriptJDBC script;
+
+    /**
+     * Les requêtes SQL concernant les utilisateurs
+     */
     private UtilisateurBD utilisateurBD;
+
+    /**
+     * Les requêtes SQL concernant les statuts
+     */
     private StatutBD statutBD;
+
+    /**
+     * Les requêtes SQL concernant les photos
+     */
     private PhotoBD photoBD;
+
+    /**
+     * Les requêtes SQL concernant les objets
+     */
     private ObjetBD objetBD;
+
+    /**
+     * Les requêtes SQL concernant les ventes
+     */
     private VenteBD venteBD;
+
+    /**
+     * Les requêtes SQL concernant les enchères
+     */
     private EnchereBD enchereBD;
+
+    /**
+     * Les requêtes SQL concernant les catégories
+     */
     private CategorieBD categorieBD;
+
+    /**
+     * Un label notifiant l'utilisateur d'une inscription réussie
+     */
     private Label notifReussie;
+
+    /**
+     * L'utilisateur connecté
+     */
     private Utilisateur utilisateur;
 
 
+    /**
+     * Initialisation des attributs de l'application
+     */
     @Override
     public void init() {
+
         try{
             ConnexionMySQL laConnexion= new ConnexionMySQL();
             this.notifReussie = new Label();
@@ -59,18 +114,27 @@ public class ApplicationVAE extends Application{
         }
     }
 
+    /**
+     * Affiche la fenêtre de connexion
+     */
      public void fenetreConnexion() {
         BorderPane root = new FenetreConnexion(this,this.notifReussie);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.scene.setRoot(root);
     }
 
-    public void fenetreRegiser() {
+    /**
+     * Affiche la fenêtre d'inscription
+     */
+    public void fenetreRegister() {
         BorderPane root = new FenetreInscription(this);
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         this.scene.setRoot(root);
     }
 
+    /**
+     * Affiche la fenêtre d'accueil
+     */
     public void fenetreAccueil() {
         List<Vente> ventesEnCours = new ArrayList<Vente>();
         try {
@@ -92,6 +156,10 @@ public class ApplicationVAE extends Application{
            
     }
 
+
+    /**
+     * Affiche la fenêtre de création d'une vente
+     */
     public void fenetreCreationVente() {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -103,6 +171,10 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+
+    /**
+     * Affiche la fenêtre comportant les ventes de l'utilisateur connecté
+     */
     public void fenetreMesVentes() {
 
         Utilisateur utilisateur = getUtilisateur();
@@ -122,6 +194,10 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    /**
+     * Affiche la fenêtre de modification d'une vente
+     * @param vente la vente à modifier
+     */
     public void fenetreEditionVente(Vente vente) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -133,6 +209,9 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    /**
+     * Affiche la fenêtre comportant les enchères de l'utilisateur connecté
+     */
     public void fenetreMesEncheres() {
 
        Utilisateur utilisateur = getUtilisateur();
@@ -153,6 +232,11 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    /**
+     * Affiche la fenêtre pour enchérir sur une vente
+     * @param vente la vente sur laquelle on veut enchérir
+     * @param precFenetre la fenêtre précédente (pour pouvoir revenir dessus)
+     */
     public void fenetreEnchere(Vente vente,BorderPane precFenetre) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -164,6 +248,9 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
+    /**
+     * Affiche la fenêtre comportant les informations de l'utilisateur connecté
+     */
     public void fenetreMonProfil() {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -176,7 +263,10 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetrePannelAdministration() {
+    /**
+     * Affiche la fenêtre du panel d'administration
+     */
+    public void fenetrePanelAdministration() {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         sc.setPrefWidth(1920);
@@ -188,6 +278,10 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);
     }
 
+
+    /**
+     * Affiche la fenêtre permettant à l'administrateur de gérer les utilisateurs
+     */
     public void fenetreManageUsers(){
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -202,6 +296,10 @@ public class ApplicationVAE extends Application{
 
     }
 
+
+    /**
+     * Affiche la fenêtre permettant à l'administrateur de gérer les ventes
+     */
     public void fenetreManageSales(){
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
@@ -215,57 +313,108 @@ public class ApplicationVAE extends Application{
 
     }
 
+
+    /**
+     * Renvoi la connexion à la base de données
+     * @return la connexion à la base de données
+     */
     public ConnexionMySQL getConnexionMySQL() {
         return this.laConnexion;
     }
 
+    /**
+     * Renvoi le script JDBC
+     * @return le script JDBC
+     */
     public ScriptJDBC getScriptJDBC() {
         return this.script;
     }
 
+    /**
+     * Renvoi l'utilisateur connecté
+     * @return l'utilisateur connecté
+     */
     public Utilisateur getUtilisateur() {
         return this.script.getUtilisateur();
     }
 
+    /**
+     * Renvoi l'attribut utilisateurBD pour pouvoir accéder à la base de données
+     * @return l'attribut utilisateurBD
+     */
     public UtilisateurBD getUtilisateurBD(){
         return this.utilisateurBD;
     }
 
+    /**
+     * Renvoi l'attribut objetBD pour pouvoir accéder à la base de données
+     * @return l'attribut objetBD
+     */
     public ObjetBD getObjetBD(){
         return this.objetBD;
     }
 
+    /**
+     * Renvoi l'attribut statutBD pour pouvoir accéder à la base de données
+     * @return l'attribut statutBD
+     */
     public StatutBD getStatutBD() {
         return this.statutBD;
     }
 
+    /**
+     * Renvoi l'attribut venteBD pour pouvoir accéder à la base de données
+     * @return l'attribut venteBD
+     */
     public VenteBD getVenteBD() {
         return this.venteBD;
     }
 
+    /**
+     * Renvoi l'attribut enchereBD pour pouvoir accéder à la base de données
+     * @return l'attribut enchereBD
+     */
     public EnchereBD getEnchereBD() {
         return this.enchereBD;
     }
 
+    /**
+     * Renvoi l'attribut categorieBD pour pouvoir accéder à la base de données
+     * @return l'attribut categorieBD
+     */
     public CategorieBD getCategorieBD() {
         return this.categorieBD;
     }
 
+    /**
+     * Renvoi l'attribut photoBD pour pouvoir accéder à la base de données
+     * @return l'attribut photoBD
+     */
     public PhotoBD getPhotoBD() {
         return this.photoBD;
     }
 
+    /**
+     * Permet de changer le texte de la notification réussie
+     * @param notif le texte de la notification
+     */
     public void setNotifReussie(String notif){
         this.notifReussie.setText(notif);
     }
 
+    /**
+     * Renvoi la notification réussie
+     * @return la notification réussie
+     */
     public Label getNotifReussie(){
         return this.notifReussie;
     }
 
 
-
-
+    /**
+     * Lance l'application
+     * @param stage la fenêtre principale
+     */
     @Override
     public void start(Stage stage) {
         BorderPane root = new FenetreConnexion(this,this.notifReussie);
@@ -278,6 +427,10 @@ public class ApplicationVAE extends Application{
         stage.show();
     }
 
+    /**
+     * Lance l'application
+     * @param args les arguments (inutilisés)
+     */
     public static void main(String[] args) {
         launch(args);
     }

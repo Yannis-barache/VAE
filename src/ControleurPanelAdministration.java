@@ -6,14 +6,14 @@ public class ControleurPannelAdministration implements EventHandler<ActionEvent>
     
     ApplicationVAE appli;
 
-    public ControleurPannelAdministration(ApplicationVAE appli) {
+    public ControleurPanelAdministration(ApplicationVAE appli) {
         this.appli=appli;
 
     }
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        this.appli.fenetrePannelAdministration();
+        this.appli.fenetrePanelAdministration();
         
     }
 }

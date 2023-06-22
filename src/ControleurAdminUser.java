@@ -1,21 +1,40 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-
 import java.sql.SQLException;
 
-import javax.swing.plaf.metal.MetalBorders.ToolBarBorder;
 
-
+/**
+ * ControleurAdminUser est la classe qui represente le controleur de la fenetre permettant de gerer les utilisateurs
+ */
 public class ControleurAdminUser implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application vae
+     */
     ApplicationVAE appli;
+
+    /**
+     * L'utilisateur
+     */
     Utilisateur user;
 
+
+    /**
+     * Constructeur ControleurAdminUser
+     * @param appli l'application vae
+     * @param user l'utilisateur
+     */
     public ControleurAdminUser(ApplicationVAE appli, Utilisateur user) {
         this.appli=appli;
         this.user=user;
     }
 
+
+    /**
+     * Methode permettant de gerer les actions sur les boutons de la fenêtre de gestion des utilisateurs
+     * @param actionEvent l'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
 
