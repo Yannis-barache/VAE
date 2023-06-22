@@ -269,7 +269,7 @@ public class VenteBD {
         StatutBD statutBD = new StatutBD(connexMySQL);
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         st = this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("select * from VENTE where DATEDIFF( finve, STR_TO_DATE("+date+",'%d/%m/%Y:%H:%i:%s'))<0");
+        ResultSet rs = st.executeQuery("select * from VENTE where DATEDIFF( finve, STR_TO_DATE('"+date+"','%d/%m/%Y:%H:%i:%s'))<0 and idSt = 2");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
             if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
@@ -283,6 +283,7 @@ public class VenteBD {
             liste.add(v);
         }
         rs.close();
+        System.out.println(liste);
         return liste;
     }
 

@@ -200,8 +200,14 @@ public class FenetreAccueil extends BorderPane {
 
     public void afficheVentes(List<Vente> ventes) {
         this.discoverItems.getChildren().clear();
-    
-        for (int i=0;i<ventes.size();++i) {
+        
+        
+        int tailleListe = ventes.size();
+        if (tailleListe > 12){
+            tailleListe = 12;
+        }
+
+        for (int i=0;i<tailleListe;++i) {
             // int j = (int) (Math.random()*ventesEnCours.size());
             // List<Integer> indexs = new ArrayList<>();
             // indexs.add(j);
@@ -215,7 +221,6 @@ public class FenetreAccueil extends BorderPane {
 
             //Image
             VBox picContainer = new VBox();
-            this.ventesEnCours.get(i);
             ImageView pic;
             try {
                 List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(actualVente.getObjet());
@@ -251,7 +256,7 @@ public class FenetreAccueil extends BorderPane {
             Label actualPriceLabel = new Label("Prix actuel :");
             actualPriceLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
             actualPriceLabel.setTextFill(Color.web("black"));
-            int actualPriceValue = this.ventesEnCours.get(i).getPrixBase();
+            int actualPriceValue = actualVente.getPrixBase();
             try {
                 Enchere e = this.appli.getVenteBD().derniereEnchere(actualVente);
                 if (e != null){

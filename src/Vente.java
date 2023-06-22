@@ -271,7 +271,8 @@ public class Vente {
         }
         if (obj instanceof Vente){
             Vente v = (Vente) obj;
-            if (v.getIdentifiant() == this.getIdentifiant() && v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente().equals(this.getFinVente()) && v.getStatus() .equals(this.getStatus()) && v.getObjet().equals(this.getObjet())){
+            //&& v.getPrixBase() == this.getPrixBase() && v.getPrixMin() == this.getPrixMin() && v.getdebutVente() == this.getdebutVente() && v.getFinVente().equals(this.getFinVente()) && v.getStatus() .equals(this.getStatus())
+            if (v.getIdentifiant() == this.getIdentifiant()){
                 return true;
             }
         }
