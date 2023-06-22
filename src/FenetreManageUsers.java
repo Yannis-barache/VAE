@@ -59,9 +59,6 @@ public class FenetreManageUsers extends VBox {
             userContent.setVgap(10);
 
 
-            ImageView image = new ImageView(new Image("file:src/images/vae2.png"));
-            image.setFitHeight(50);
-            image.setFitWidth(50);
             Label pseudo = new Label(user.getPseudo());
             Label mail = new Label(user.getMail());
             Button delete = new Button("Supprimer");
@@ -78,8 +75,6 @@ public class FenetreManageUsers extends VBox {
             desactivate.setOnAction(new ControleurAdminUser(this.appli, user ));
             activate.setOnAction(new ControleurAdminUser(this.appli, user ));
 
-
-            userContent.add(image, 0, 0, 2, 2);
             userContent.add(pseudo, 2, 0);
             userContent.add(mail, 2, 1);
             userContent.add(delete, 0, 2);

@@ -60,7 +60,7 @@ public class FenetreManageVente extends VBox {
             saleContent.setVgap(10);
 
 
-            ImageView image = new ImageView(new Image("file:../img/blank.png"));
+            ImageView image = new ImageView(new Image(vente.getObjet().getLesPhotos().get(0).getImg()));
             Label titre = new Label(vente.getObjet().getNom());
             Label description = new Label(vente.getObjet().getDescription());
             Button delete = new Button("Supprimer");

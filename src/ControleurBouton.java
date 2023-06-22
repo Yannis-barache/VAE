@@ -24,10 +24,6 @@ public class ControleurBouton implements EventHandler<ActionEvent> {
         try{
     
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-            
-
-
             Button bouton = (Button) actionEvent.getSource();
             ButtonType buttonClicked = alert.getResult();
             
