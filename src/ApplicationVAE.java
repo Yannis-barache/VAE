@@ -83,8 +83,6 @@ public class ApplicationVAE extends Application{
         root.setCenter(new FenetreAccueil(this,ventesEnCours));
         root.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         sc.setFitToWidth(true);
-        sc.setVvalue(0.1);
-        sc.setHvalue(1.5);
         this.scene.setRoot(sc);
            
     }
