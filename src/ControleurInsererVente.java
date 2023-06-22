@@ -174,6 +174,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                             statut=1;
                         }
 
+                        
         
                         Objet objet = new Objet(titre, description,this.appli.getCategorieBD().rechercherCategorieParNum(idCategorie), this.appli.getUtilisateur());
                         this.appli.getObjetBD().insererObjet(objet);
