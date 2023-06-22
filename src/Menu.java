@@ -116,6 +116,8 @@ public class Menu extends BorderPane {
         profil.setStyle("-fx-translate-y: 0;");
         profil.setFocusTraversable(false);
 
+
+
         ContextMenu contextMenu = new ContextMenu();
         
         MenuItem monProfilItem = new MenuItem("Mon profil");
@@ -140,10 +142,10 @@ public class Menu extends BorderPane {
         profil.setOnAction(event -> {
             contextMenu.show(profil, Side.BOTTOM, 0, 0);
         });
-        
+    
         profilContent.getChildren().addAll(profil);
 
-        //Indicateur de la vue actuelle
+        //Indicateur de la vue actuelle 
         if (this.associatedView == 0) accueilBtn.setTextFill(Color.web("#FEE159"));
         if (this.associatedView == 1) createVBtn.setTextFill(Color.web("#FEE159"));
         if (this.associatedView == 2) ventesBtn.setTextFill(Color.web("#FEE159"));

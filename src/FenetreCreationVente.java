@@ -153,7 +153,9 @@ public class FenetreCreationVente extends GridPane {
         categorySaleLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         categorySaleLabel.setTextFill(Color.web("#5D48D7"));
         List<String> filtersList = this.appli.getScriptJDBC().getCategories();
+        filtersList.add("Toutes catégories");
         categorySaleCB = new ComboBox<String>();
+        categorySaleCB.setValue("Toutes catégories");
         categorySaleCB.getItems().addAll(filtersList);
         categorySaleCB.setEffect(ds);
         categorySaleCB.setPrefHeight(50);
