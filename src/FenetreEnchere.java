@@ -33,12 +33,12 @@ public class FenetreEnchere extends GridPane{
     
     private ApplicationVAE appli;
     private Vente vente;
-    private String precFenetre;
+    private BorderPane precFenetre;
     private TextField newBid;
     private int actualPriceValue;
     private Label alertVerifNewBid;
 
-    public FenetreEnchere(ApplicationVAE appli,Vente vente,String precFenetre) {
+    public FenetreEnchere(ApplicationVAE appli,Vente vente,BorderPane precFenetre) {
         super();
         this.appli = appli;
         this.vente = vente;
@@ -148,11 +148,14 @@ public class FenetreEnchere extends GridPane{
         VBox cancelContent = new VBox();
         Button cancel = new Button("Annuler");
         cancel.setEffect(ds);
-        if (precFenetre.equals("accueil")) {
+
+
+        if (precFenetre.getClass().getName().equals("FenetreAccueil")) {
             cancel.setOnAction((key) -> this.appli.fenetreAccueil());
         } else {
             cancel.setOnAction((key) -> this.appli.fenetreMesEncheres());
         }
+
         cancel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         cancel.setPadding(new Insets(10,30,10,30));
         cancel.setBackground(new Background(new BackgroundFill(Color.web("#FEE159"),CornerRadii.EMPTY,Insets.EMPTY)));

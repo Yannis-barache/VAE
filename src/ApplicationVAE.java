@@ -154,7 +154,7 @@ public class ApplicationVAE extends Application{
         this.scene.setRoot(sc);   
     }
 
-    public void fenetreEnchere(Vente vente,String precFenetre) {
+    public void fenetreEnchere(Vente vente,BorderPane precFenetre) {
         BorderPane root = new BorderPane();
         ScrollPane sc = new ScrollPane(root);
         root.setCenter(new FenetreEnchere(this,vente,precFenetre));
