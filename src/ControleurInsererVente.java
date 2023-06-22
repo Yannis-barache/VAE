@@ -38,6 +38,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             String categorie = this.fenetreCreate.getCategorySale();
 
             String heureDebut = String.valueOf(this.fenetreCreate.getHeureDebut());
+            String minuteDebut= String.valueOf(this.fenetreCreate.getMinuteDebut());
             String heureFin = String.valueOf(this.fenetreCreate.getHeureFin());
             int statut = 2;
 
@@ -59,9 +60,15 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
                 heureDebut="0"+heureDebut;
             }
 
+            if (minuteDebut.length()==1){
+                minuteDebut="0"+minuteDebut;
+            }
+
             if (heureFin.length()==1){
                 heureFin="0"+heureFin;
             }
+
+            heureDebut+=":"+minuteDebut;
 
 
             
@@ -117,7 +124,19 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             String anneeFin = String.valueOf(dateFin.getYear());
 
             LocalDateTime maintenant = LocalDateTime.now();
-            String heureMinute = String.valueOf(maintenant.getHour())+ ":" + String.valueOf(maintenant.getMinute());
+            String heureMinute = String.valueOf(maintenant.getHour());
+
+            if (heureMinute.length()==1){
+                heureMinute="0"+heureMinute;
+            }
+
+
+            if (String.valueOf(maintenant.getMinute()).length()==1){
+                heureMinute+=":0"+maintenant.getMinute();
+            }
+            else{
+                heureMinute+=":"+maintenant.getMinute();
+            }
            
 
             if (jourFin.length()==1){
@@ -125,6 +144,8 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
             }
 
 
+            System.out.println(heureMinute);
+            System.out.println(heureDebut);
             if (heureMinute.compareTo(heureDebut)>0 && jourDeb.equals(String.valueOf(maintenant.getDayOfMonth()))){
                 this.fenetreCreate.setAlertErreur("L'heure de début doit être supérieure à l'heure actuelle");
             }

@@ -20,28 +20,30 @@ public class ControleurAdminUser implements EventHandler<ActionEvent>{
         Button button = (Button) actionEvent.getSource();
         String buttonName = button.getText();
         if (buttonName.equals("Supprimer")) {
-            //try {
+            // try {
             //    this.appli.getUtilisateurBD().supprimerUtilisateur(this.user);
-            //} catch (SQLException e) {
+            // } catch (SQLException e) {
             //   System.out.println("Erreur lors de la suppression de l'utilisateur");
-            //}
+            // }
             System.out.println("Supprimer");
 
         } else if (buttonName.equals("Désactiver")) {
-            //try {
+            // try {
             //  this.appli.getUtilisateurBD().desactiverUtilisateur(this.user);
-            //} catch (SQLException e) {
+            // } catch (SQLException e) {
             //    e.printStackTrace();
-            //}
+            // }
             System.out.println("Désactiver");
 
         } else if (buttonName.equals("Activer")) {
-            //try {
+            // try {
             //    this.appli.getUtilisateurBD().activerUtilisateur(this.user);
-            //} catch (SQLException e) {
+            // } catch (SQLException e) {
             //    e.printStackTrace();
-            //}
+            // }
             System.out.println("Activer");
         }
+
+        this.appli.fenetreManageUsers();
     }
 }
