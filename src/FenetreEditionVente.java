@@ -45,11 +45,13 @@ public class FenetreEditionVente extends GridPane {
     private List<Photo> listePhoto;
     private List<Map<String,String>> listePhotoBD;
     private int nbPics;
+    private Label alerte;
 
     public FenetreEditionVente(ApplicationVAE appli,Vente vente) {
         super();
         this.appli = appli;
         this.vente = vente;
+        this.alerte = new Label("");
         this.listePhotoBD = new ArrayList<Map<String,String>>();
         try{
             this.listePhoto = this.appli.getPhotoBD().rechercherPhotosParObjet(this.vente.getObjet());
@@ -201,7 +203,7 @@ public class FenetreEditionVente extends GridPane {
         endSale.setStyle("-fx-control-inner-background: #F8F8F8");
         endSale.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
 
-        newEndContent.getChildren().addAll(newEndLabel,endSale);
+        newEndContent.getChildren().addAll(newEndLabel,endSale,alerte);
 
         //Buttons cancel et delete
         HBox canceldeleteContent = new HBox();
@@ -277,6 +279,10 @@ public class FenetreEditionVente extends GridPane {
 
     public void setNbPics(int nbPics) {
         this.nbPics = nbPics;
+    }
+
+    public void setAlerte(String alerte) {
+        this.alerte.setText(alerte);
     }
 
 

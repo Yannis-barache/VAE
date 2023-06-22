@@ -52,5 +52,9 @@ public class Valide {
         return !heureDebut.equals(heureFin);
     }
 
+    public static boolean pasAvant(String dateDebut, String dateFin){
+        return dateDebut.compareTo(dateFin) < 0;
+    }
+
 
 }
