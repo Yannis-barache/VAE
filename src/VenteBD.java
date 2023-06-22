@@ -161,6 +161,35 @@ public class VenteBD {
         return liste;
     }
 
+    public List<Vente> VentePrixActuelInf(int prix) throws SQLException{
+        List<Vente> liste = new ArrayList<>();
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from VENTE where idve in (select idve from ENCHERIR E1 natural join VENTE V natural join STATUT S where nomSt='Validée' and montant<"+prix+" and montant>= all( select montant from ENCHERIR E2 where E1.idVe=E2.idVe))");
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
+
+    public List<Vente> VenteDateFinInf(String date) throws SQLException{
+        List<Vente> liste = new ArrayList<>();
+        StatutBD statutBD = new StatutBD(connexMySQL);
+        ObjetBD objetBD = new ObjetBD(connexMySQL);
+        st = this.connexMySQL.createStatement();
+        ResultSet rs = st.executeQuery("select * from VENTE where DATEDIFF( finve, STR_TO_DATE("+date+",'%d/%m/%Y:%H:%i:%s'))<0");
+        while(rs.next()){
+            Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
+            liste.add(v);
+        }
+        rs.close();
+        return liste;
+    }
+
+
 
 
 }
