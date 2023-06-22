@@ -7,7 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
 import javafx.scene.paint.Color;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;

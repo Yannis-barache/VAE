@@ -1,4 +1,3 @@
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,17 +15,25 @@ import java.util.List;
 public class FenetreManageUsers extends VBox {
     ApplicationVAE appli;
     Label alerte;
+    List<Utilisateur> utilisateurs;
+    TextField barreDeRecherche;
 
     public FenetreManageUsers(ApplicationVAE appli){
         super();
         this.appli = appli;
-        this.setPadding(new Insets(200, 10, 10, 10));
+        this.setPadding(new Insets(10, 200, 10, 200));
         this.setStyle("-fx-background-color: #FFFFFF;");
         this.setEffect(new DropShadow());
         this.setSpacing(10);
         this.setAlignment(Pos.CENTER);
         this.alerte = new Label();
-
+        this.utilisateurs = new ArrayList<Utilisateur>();
+        this.barreDeRecherche = new TextField();
+        this.barreDeRecherche.setPromptText("Rechercher un utilisateur");
+        this.barreDeRecherche.setPrefWidth(200);
+        this.barreDeRecherche.setMaxWidth(200);
+        this.barreDeRecherche.setMinWidth(200);
+        this.barreDeRecherche.setAlignment(Pos.CENTER);
         this.content();
     }
 
@@ -36,17 +43,13 @@ public class FenetreManageUsers extends VBox {
      */
     private void content() {
 
+        
+        barreDeRecherche.setOnKeyTyped(new ControleurBarreDeRecherche(this.appli, barreDeRecherche,this));
         this.getChildren().add(new Label("Gestion des utilisateurs"));
-        List<Utilisateur> users = new ArrayList<>();
-        //try{
-        //    users = this.appli.getUtilisateurBD().listeUtilisateurs();
-        //}catch (SQLException e){
-        //    this.getChildren().add(new Label("Il n'y a pas d'utilisateurs dans la base de données"));
-        //}
-        users.add(new Utilisateur("pseudo1", "mail1", "mdp1", true, false));
-        users.add(new Utilisateur("pseudo2", "mail2", "mdp2", false, true));
+        this.getChildren().add(barreDeRecherche);
+        
 
-        for (Utilisateur user : users) {
+        for (Utilisateur user : utilisateurs) {
             GridPane userContent = new GridPane();
             userContent.setAlignment(Pos.CENTER);
             userContent.setPadding(new Insets(10, 10, 10, 10));
@@ -56,7 +59,9 @@ public class FenetreManageUsers extends VBox {
             userContent.setVgap(10);
 
 
-            ImageView image = new ImageView(new Image("file:../img/blank.png"));
+            ImageView image = new ImageView(new Image("file:src/images/vae2.png"));
+            image.setFitHeight(50);
+            image.setFitWidth(50);
             Label pseudo = new Label(user.getPseudo());
             Label mail = new Label(user.getMail());
             Button delete = new Button("Supprimer");
@@ -86,6 +91,10 @@ public class FenetreManageUsers extends VBox {
 
         }
 
+        if (this.utilisateurs.size() == 0) {
+            this.getChildren().add(new Label("Aucun utilisateur trouvé"));
+        }
+
 
 
 
@@ -99,4 +108,13 @@ public class FenetreManageUsers extends VBox {
         this.alerte.setText(alerte);
     }
 
+
+    public void setListeUsers(List<Utilisateur> utilisateurs) {
+        this.utilisateurs = utilisateurs;
+    }
+
+    public void majAffichage() {
+        this.getChildren().clear();
+        this.content();
+    }
 }
