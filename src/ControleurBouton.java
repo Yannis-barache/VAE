@@ -2,6 +2,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+
 
 import java.sql.SQLException;
 
@@ -18,19 +20,48 @@ public class ControleurBouton implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent){
-        Button bouton = (Button) actionEvent.getSource();
-        if (bouton.getText().equals("Modifier")){
-            this.fenetreMonProfil.modeTF();
-            this.fenetreMonProfil.getButton().setText("Sauvegarder");
+        try{
+    
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
             
-        }
-        else {
-            this.fenetreMonProfil.modeTF();
-            this.fenetreMonProfil.getButton().setText("Modifier");
 
-        }
 
-        
+            Button bouton = (Button) actionEvent.getSource();
+            ButtonType buttonClicked = alert.getResult();
+            
+            if (bouton.getText().equals("Modifier")){
+                this.fenetreMonProfil.modeTF();
+                this.fenetreMonProfil.getButton().setText("Sauvegarder");
+                System.out.println("modifier");
+            } else{
+                if (bouton.getText().equals("Sauvegarder")){
+                    System.out.println("sauvegarder");
+                    // alert.setTitle("Confirmation");
+                    // alert.setHeaderText("Voulez-vous vraiment modifier votre profil ?");
+                    // alert.setContentText("Appuyez sur OK pour confirmer");
+                    // alert.showAndWait();
+    
+                    String pseudo= fenetreMonProfil.getPseudo();
+                    String mail= fenetreMonProfil.getMail();
+                    String mdp= fenetreMonProfil.getMdp();
+                    System.out.println(pseudo +" / " + mail + " / " +mdp);
+                    this.appli.getUtilisateur().setPseudo(pseudo);
+                    this.appli.getUtilisateur().setMail(mail);
+                    this.appli.getUtilisateur().setMdp(mdp);
+                    this.appli.getUtilisateurBD().modifierUtilisateur(this.appli.getUtilisateur());
+                    System.out.println(this.appli.getUtilisateur());
+                    System.out.println("-------------");
+                    this.fenetreMonProfil.modeTF();
+                    this.fenetreMonProfil.getButton().setText("Modifier");
+                    this.appli.fenetreMonProfil();
+                } 
+            }
+        }
+        catch(SQLException ex){
+            System.out.println(ex);
+        }
+           
     }
 
     
