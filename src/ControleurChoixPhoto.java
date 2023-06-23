@@ -92,11 +92,15 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
 
         // Si on édite une vente
         if (fichierChoisi!= null && this.listePhoto.size()<4 && this.fenetreEditionVente != null) {
+
             System.out.println(fichierChoisi.getName());
             String chemin = "file:"+fichierChoisi.getAbsolutePath();
             try{
                 Objet objet = this.fenetreEditionVente.getVente().getObjet();
+                this.listePhoto.add(Map.of(fichierChoisi.getName(), chemin));
                 this.appli.getPhotoBD().insererPhoto(objet,new Photo(fichierChoisi.getName(), new Image(chemin)));
+                this.fenetreEditionVente.setNbPics(this.listePhoto.size());
+                this.fenetreEditionVente.majNomImage();
 
             } catch (SQLException ex){
                 System.out.println("Impossible !!!");

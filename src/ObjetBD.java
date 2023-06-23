@@ -4,7 +4,13 @@ import java.util.List;
 import java.sql.*;
 
 public class ObjetBD {
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL connexMySQL;
+    /**
+     * La requête SQL
+     */
     private Statement st;
 
         /**

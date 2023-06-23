@@ -46,20 +46,27 @@ public class FenetreEditionVente extends GridPane {
     private List<Map<String,String>> listePhotoBD;
     private int nbPics;
     private Label alerte;
+    private VBox filesSaleNames;
 
     public FenetreEditionVente(ApplicationVAE appli,Vente vente) {
         super();
         this.appli = appli;
         this.vente = vente;
         this.alerte = new Label("");
+        this.filesSaleNames= new VBox();
         this.listePhotoBD = new ArrayList<Map<String,String>>();
         try{
             this.listePhoto = this.appli.getPhotoBD().rechercherPhotosParObjet(this.vente.getObjet());
             
+            
         }catch (SQLException ex){
-            System.out.println("Peut pas récupérer les images");
+            System.out.println("Ne peut pas récupérer les images");
         }
-        
+        for (Photo photo : this.listePhoto){
+            Map<String,String> map= new HashMap<>();
+            map.put(photo.getTitre(), photo.getChemin());
+            this.listePhotoBD.add(map);
+        }
         this.nbPics = this.listePhoto.size();
         this.content();
     }
@@ -149,7 +156,7 @@ public class FenetreEditionVente extends GridPane {
         openButton.setPrefHeight(40);
         openButton.setPrefWidth(40);
 
-        newFilesContent.getChildren().addAll(newFilesSaleLabels,openButton);
+        newFilesContent.getChildren().addAll(newFilesSaleLabels,openButton,filesSaleNames);
 
         //Catégorie
         VBox newCategoryContent = new VBox();
@@ -251,7 +258,46 @@ public class FenetreEditionVente extends GridPane {
         
         this.add(canceldeleteContent,0,4,1,1);
         this.add(sendContent,2,4,1,1);
+        this.majNomImage();
+
     }    
+
+
+    public void majNomImage() {
+        // Ajout des titres des image à côté des boutons
+        this.filesSaleNames.getChildren().clear();
+        this.filesSaleNames.setSpacing(10);
+        this.filesSaleNames.setPadding(new Insets(10,10,10,10));
+        this.filesSaleNames.setBackground(new Background(new BackgroundFill(Color.web("#F8F8F8"),CornerRadii.EMPTY,Insets.EMPTY)));
+        this.filesSaleNames.setPrefHeight(200);
+        this.filesSaleNames.setPrefWidth(200);
+        int i = 0;
+        for (Map<String,String> file : this.listePhotoBD) {
+            i++;
+            HBox fileContent = new HBox();
+            fileContent.setSpacing(10);
+            fileContent.setPadding(new Insets(10,10,10,10));
+            Label fileName = new Label();
+            Button bouton = new Button("X");
+            bouton.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+            bouton.setPadding(new Insets(5,10,5,10));
+            bouton.setBackground(new Background(new BackgroundFill(Color.web("#e0584f"),CornerRadii.EMPTY,Insets.EMPTY)));
+            bouton.setTextFill(Color.web("#FFFFFF"));
+            bouton.setOnAction(new ControleurSupImageEdit(this.getNewFiles(),i,this));
+
+            for (String key : file.keySet()){
+                fileName.setText(key);
+                fileContent.getChildren().addAll(fileName,bouton);
+            }
+            fileName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+            fileName.setTextFill(Color.web("#5D48D7"));
+            filesSaleNames.getChildren().add(fileContent);
+
+        }
+    }
+
+
+
 
     public String getNewTitle() {
         return this.newTitle.getText();

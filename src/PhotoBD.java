@@ -16,12 +16,29 @@ import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 
 public class PhotoBD {
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL connexMySQL;
+    /**
+     * La requête SQL
+     */
     private Statement st;
 
+    /**
+     * Constructeur de la classe PhotoBD.
+     *
+     * @param connexMySQL La connexion à la base de données.
+     */
     public PhotoBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
     }
+
+    /**
+     * Obtient l'identifiant maximum des photo
+     * @return l'identifiant maximum des photo
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public int numPhotoMax()throws SQLException{
         st= this.connexMySQL.createStatement();
         // execute la requte sql
@@ -31,7 +48,11 @@ public class PhotoBD {
         rs.close();
         return res;
     }
-
+    /**
+     * Insère une Photo dans la base de données.
+     * @param o la photo à insérer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void insererPhoto(Objet o, Photo ph)throws SQLException{
         o.ajoutePhoto(ph);
         int num = this.numPhotoMax()+1;
@@ -64,7 +85,11 @@ public class PhotoBD {
         }
         catch(Exception e){System.out.println("try inserer "+e);}
     }
-
+    /**
+     * Supprime une photo de la base de données.
+     * @param o La photo à supprimer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void supprimerPhoto(Photo ph)throws SQLException{
         int idph = ph.getIdentifiant();
         st= this.connexMySQL.createStatement();
@@ -72,7 +97,11 @@ public class PhotoBD {
         rs.next();
         rs.close();
     }
-
+    /**
+     * Modifie une photo dans la base de données.
+     * @param o La photo à modifier.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void modifierPhoto( Photo ph)throws SQLException{
         PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE PHOTO SET titreph = ? , imgph = ? where idph="+ph.getIdentifiant());
         File imgF = new File(ph.getChemin());
@@ -84,7 +113,12 @@ public class PhotoBD {
         }
         catch(Exception e){System.out.println(e);}
     }
-
+    /**
+     * Recherche une photo dans la base de données.
+     * @param idOb L'identifiant de la photo à rechercher.
+     * @return l'objet recherchée.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public Photo rechercherPhotoParNum(int idph)throws SQLException{
         try {
             st= this.connexMySQL.createStatement();

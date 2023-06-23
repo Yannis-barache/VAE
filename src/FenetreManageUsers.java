@@ -87,12 +87,17 @@ public class FenetreManageUsers extends VBox {
 
         }
 
+        if (this.utilisateurs.isEmpty()) {
+            this.setAlerte("Aucun utilisateur trouvé");
+        }else {
+            this.setAlerte("");
+        }
+
         if (this.barreDeRecherche.getText().equals("")){
             this.setAlerte("Aucune recherche lancée");
         }
-        if (this.utilisateurs.size() == 0) {
-            this.setAlerte("Aucun utilisateur trouvé");
-        }
+
+        
 
 
         this.getChildren().add(this.alerte);

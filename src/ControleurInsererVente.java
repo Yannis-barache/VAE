@@ -185,7 +185,7 @@ public class ControleurInsererVente implements EventHandler<ActionEvent>{
 
 
         
-                        Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),    deb   ,   fin  ,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
+                        Vente vente = new Vente(Integer.parseInt(prixBase), Integer.parseInt(prixMin),deb,fin,this.appli.getStatutBD().rechercherStatutParNum(statut),objet);
                         this.appli.getVenteBD().insererVente(vente);
 
 

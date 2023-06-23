@@ -1,46 +1,20 @@
-import javafx.application.Application;
-import javafx.beans.property.SetProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.control.ButtonBar.ButtonData ;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.paint.CycleMethod;
-import java.text.SimpleDateFormat;
-import javafx.util.converter.DateTimeStringConverter;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
 import java.io.File;
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import javafx.util.Callback;
-import javafx.scene.control.TextFormatter.Change;
-
-import java.util.function.UnaryOperator;
-import javafx.util.StringConverter;
-
 public class FenetreCreationVente extends GridPane {
     
     private ApplicationVAE appli;
@@ -288,6 +262,7 @@ public class FenetreCreationVente extends GridPane {
         Label startTimeLabel = new Label("Heure de début");
         startTimeLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 25));
         startTimeLabel.setTextFill(Color.web("#5D48D7"));
+
         //Grille pour l'heure
         GridPane startTimeValues = new GridPane();
 
@@ -325,6 +300,7 @@ public class FenetreCreationVente extends GridPane {
             }
             return null;
         }));
+
         //Indicatif heure
         VBox startHourLabelContent = new VBox();
         Label sHourLabel = new Label("h");
@@ -558,7 +534,7 @@ public class FenetreCreationVente extends GridPane {
             bouton.setPadding(new Insets(5,10,5,10));
             bouton.setBackground(new Background(new BackgroundFill(Color.web("#e0584f"),CornerRadii.EMPTY,Insets.EMPTY)));
             bouton.setTextFill(Color.web("#FFFFFF"));
-            bouton.setOnAction(new ControleurSupImage(this.getListePhotos(),i,this));
+            bouton.setOnAction(new ControleurSupImageCrea(this.getListePhotos(),i,this));
 
             for (String key : file.keySet()){
                 

@@ -1,3 +1,4 @@
+import javafx.beans.property.ListProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class ControleurSupImage implements EventHandler<ActionEvent>{
+public class ControleurSupImageEdit implements EventHandler<ActionEvent>{
 
     /**
      * La liste des photos
@@ -23,7 +24,7 @@ public class ControleurSupImage implements EventHandler<ActionEvent>{
     /**
      * La fenetre de creation de vente
      */
-    FenetreCreationVente fenetreCreationVente;
+    FenetreEditionVente fenetreEditionVente;
 
 
     /**
@@ -32,10 +33,11 @@ public class ControleurSupImage implements EventHandler<ActionEvent>{
      * @param i L'indice de la photo
      * @param fenetreCreationVente La fenetre de creation de vente
      */
-    public ControleurSupImage(List<Map<String,String>> listePhoto, int i, FenetreCreationVente fenetreCreationVente) {
+
+    public ControleurSupImageEdit(List<Map<String,String>> listePhoto, int i, FenetreEditionVente fenetreEditionVente){
         this.listePhoto=listePhoto;
         this.i=i-1;
-        this.fenetreCreationVente=fenetreCreationVente;
+        this.fenetreEditionVente=fenetreEditionVente;
     }
 
     /**
@@ -46,8 +48,9 @@ public class ControleurSupImage implements EventHandler<ActionEvent>{
     public void handle(ActionEvent actionEvent) {
         if (this.listePhoto.size()>0) {
             this.listePhoto.remove(this.i);
+            this.fenetreEditionVente.setNbPics(listePhoto.size());
         }
-        this.fenetreCreationVente.majNomImage();
+        this.fenetreEditionVente.majNomImage();
         
     }
 
