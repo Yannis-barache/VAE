@@ -112,7 +112,11 @@ public class FenetreMesEncheres extends BorderPane {
                 actualPriceLabel.setTextFill(Color.web("black"));
                 int actualPriceValue = enchere.getVente().getPrixBase();
                 try {
-                    actualPriceValue = this.appli.getVenteBD().derniereEnchere(enchere.getVente()).getMontant();
+
+                    Enchere e = this.appli.getVenteBD().derniereEnchere(enchere.getVente());
+                    if (e!= null){
+                        actualPriceValue = e.getMontant();
+                    }
                 }
                 catch(SQLException ex) {}
                 Label actualPrice = new Label(String.valueOf(actualPriceValue)+" €"); //Get le prix de la vente
