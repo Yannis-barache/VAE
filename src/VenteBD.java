@@ -227,14 +227,7 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET natural join CATEGORIE where '"+ categorie +"' = nomCat");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getString(6), rs.getString(7), statutBD.rechercherStatutParNum(rs.getInt(8)), objetBD.rechercherObjetParNum(rs.getInt(2)));
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
-
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
+            
             
             liste.add(v);
         }
