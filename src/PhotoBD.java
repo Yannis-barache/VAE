@@ -85,7 +85,11 @@ public class PhotoBD {
         }
         catch(Exception e){System.out.println("try inserer "+e);}
     }
-
+    /**
+     * Supprime une photo de la base de données.
+     * @param o La photo à supprimer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void supprimerPhoto(Photo ph)throws SQLException{
         int idph = ph.getIdentifiant();
         st= this.connexMySQL.createStatement();
@@ -93,7 +97,11 @@ public class PhotoBD {
         rs.next();
         rs.close();
     }
-
+    /**
+     * Modifie une photo dans la base de données.
+     * @param o La photo à modifier.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void modifierPhoto( Photo ph)throws SQLException{
         PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE PHOTO SET titreph = ? , imgph = ? where idph="+ph.getIdentifiant());
         File imgF = new File(ph.getChemin());
@@ -105,7 +113,12 @@ public class PhotoBD {
         }
         catch(Exception e){System.out.println(e);}
     }
-
+    /**
+     * Recherche une photo dans la base de données.
+     * @param idOb L'identifiant de la photo à rechercher.
+     * @return l'objet recherchée.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public Photo rechercherPhotoParNum(int idph)throws SQLException{
         try {
             st= this.connexMySQL.createStatement();
