@@ -61,7 +61,7 @@ public class ControleurModifierVente implements EventHandler<ActionEvent>{
                     alert.close();
                 }
             
-                Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNum(categorieString);
+                Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNom(categorieString);
                 this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
                 this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);
             } catch (SQLException e) {

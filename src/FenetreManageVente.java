@@ -29,57 +29,71 @@ public class FenetreManageVente extends VBox {
      * Création du contenu de la fenêtre de gestion des utilisateurs
      */
     private void content() {
+        Label label=new Label("Gestion des Ventes");
 
-        this.getChildren().add(new Label("Gestion des Ventes"));
+        this.getChildren().add(label);
+        this.setPadding(new Insets(10,10,10,10));
         List<Vente> ventes = new ArrayList<>();
-        //try{
-        //    users = this.appli.getUtilisateurBD().listeUtilisateurs();
-        //    categories = this.appli.getCategorieBD().listeCategories();
-        //    objets = this.appli.getObjetBD().listeObjets();
-        //    ventes = this.appli.getVenteBD().listeVentesEnCours();
-        //}catch (SQLException e){
-        //    this.getChildren().add(new Label("Il n'y a pas d'utilisateurs dans la base de données"));
-        //}
-        Utilisateur user1=new Utilisateur("pseudo1", "mail1", "mdp1", true, false);
-        Utilisateur user2=new Utilisateur("pseudo2", "mail2", "mdp2", false, true);
-        Objet objet1=new Objet("objet1", "description1",new Categorie("test"), user1);
-        Objet objet2=new Objet("objet2", "description2",new Categorie("test"), user2);
-        Vente vente1=new Vente(10,20,"2022-12-4 12:27:00", "2022-12-4 12:27:00",new Statut("test"), objet1);
-        Vente vente2=new Vente(10,20,"2022-12-4 12:27:00", "2022-12-4 12:27:00",new Statut("test"), objet2);
-        ventes.add(vente1);
-        ventes.add(vente2);
-
-
-        for (Vente vente : ventes) {
-            GridPane saleContent = new GridPane();
-            saleContent.setAlignment(Pos.CENTER);
-            saleContent.setPadding(new Insets(10, 10, 10, 10));
-            saleContent.setStyle("-fx-background-color: #FFFFFF;");
-            saleContent.setEffect(new DropShadow());
-            saleContent.setHgap(10);
-            saleContent.setVgap(10);
-
-
-            ImageView image = new ImageView(new Image(vente.getObjet().getLesPhotos().get(0).getImg()));
-            image.setFitHeight(100);
-            image.setFitWidth(100);
-
-            Label titre = new Label(vente.getObjet().getNom());
-            Label description = new Label(vente.getObjet().getDescription());
-            Label tempsRestant = new Label("Temps restant : " + vente.tempsRestant());
-            Button delete = new Button("Supprimer");
-
-            delete.setOnAction(new ControleurAdminVente(this.appli, vente ));
-
-            saleContent.add(image, 0, 0,2,3);
-            saleContent.add(titre, 2, 0);
-            saleContent.add(description, 2, 1);
-            saleContent.add(tempsRestant, 2, 2);
-            saleContent.add(delete, 0, 3,2,1);
-
-            this.getChildren().add(saleContent);
-
+        try{
+           ventes = this.appli.getVenteBD().listeVentesEnCours();
+        }catch (SQLException e){
+           this.getChildren().add(new Label("Il n'y a pas d'utilisateurs dans la base de données"));
         }
+        
+
+        try{
+            if (ventes.size()>0){
+                for (Vente vente : ventes) {
+                    GridPane saleContent = new GridPane();
+                    saleContent.setAlignment(Pos.CENTER);
+                    saleContent.setPadding(new Insets(10, 10, 10, 10));
+                    saleContent.setStyle("-fx-background-color: #FFFFFF;");
+                    saleContent.setEffect(new DropShadow());
+                    saleContent.setHgap(10);
+                    saleContent.setVgap(10);
+        
+        
+                    ImageView ventePic=new ImageView();
+                    try {
+                        List<Photo> liste =this.appli.getPhotoBD().rechercherPhotosParObjet(vente.getObjet());
+                        System.out.println(vente.getObjet().getLesPhotos());
+                        for(Photo ph : liste){
+                            vente.getObjet().ajoutePhoto(ph);
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e);
+                    }
+                    try {
+                        System.out.println(vente.getObjet().getLesPhotos());
+                        ventePic = new ImageView(vente.getObjet().getLesPhotos().get(0).getImg());
+                    } catch (Exception e) {
+                        ventePic = new ImageView(new Image("file:./img/blank.png"));
+                    }
+        
+                    Label titre = new Label(vente.getObjet().getNom());
+                    Label description = new Label(vente.getObjet().getDescription());
+                    Label tempsRestant = new Label("Temps restant : " + vente.tempsRestant());
+                    Button delete = new Button("Supprimer");
+        
+                    delete.setOnAction(new ControleurAdminVente(this.appli, vente ));
+        
+                    ventePic.setFitHeight(100);
+                    ventePic.setFitWidth(100);
+                    saleContent.add(ventePic, 0, 0,2,3);
+                    saleContent.add(titre, 2, 0);
+                    saleContent.add(description, 2, 1);
+                    saleContent.add(tempsRestant, 2, 2);
+                    saleContent.add(delete, 0, 3,2,1);
+        
+                    this.getChildren().add(saleContent);
+        
+                }
+            }
+        } catch (IndexOutOfBoundsException ex){
+            this.alerte.setText("Aucune vente");
+        }
+
+
 
 
 

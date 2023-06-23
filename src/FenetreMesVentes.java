@@ -92,7 +92,6 @@ public class FenetreMesVentes extends BorderPane {
                     System.out.println(vente.getObjet().getLesPhotos());
                     ventePic = new ImageView(vente.getObjet().getLesPhotos().get(0).getImg());
                 } catch (Exception e) {
-                    System.out.println("erreur");
                     ventePic = new ImageView(new Image("file:./img/blank.png"));
                 }
                 ventePic.setFitHeight(350);

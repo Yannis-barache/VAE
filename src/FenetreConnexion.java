@@ -126,7 +126,7 @@ public class FenetreConnexion extends BorderPane {
         register.setOnMouseEntered(event -> {
             register.setCursor(Cursor.HAND);
         });
-        register.setOnAction((key) -> this.appli.fenetreRegiser());
+        register.setOnAction((key) -> this.appli.fenetreRegister());
         register.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
         register.setBackground(new Background(new BackgroundFill(Color.web("white"),CornerRadii.EMPTY,Insets.EMPTY)));
         register.setTextFill(Color.web("#5D48D7"));
