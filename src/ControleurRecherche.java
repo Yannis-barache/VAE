@@ -74,6 +74,7 @@ public class ControleurRecherche implements EventHandler<ActionEvent>{
         String priceMax = fenetreAccueil.getMontantMax();
         String category = fenetreAccueil.getCategorie();
         LocalDate date = fenetreAccueil.getDateMax();
+        System.out.println(category);
 
         List<Vente> resultRe = new ArrayList<>();
         if (keyWord.length()>0) {

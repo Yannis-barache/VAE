@@ -12,19 +12,21 @@ public class ObjetBD {
      * La requête SQL
      */
     private Statement st;
-    
-    /**
-     * Constructeur de la classe ObjetBD.
+
+        /**
+     * Initialise un nouvel objet ObjetBD avec la connexion MySQL spécifiée.
      *
-     * @param connexMySQL La connexion à la base de données.
+     * @param connexMySQL La connexion MySQL à utiliser.
      */
     public ObjetBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
     }
-    /**
-     * Obtient l'identifiant maximum des Objets.
-     * @return L'identifiant maximum des Objets.
-     * @throws SQLException Si une erreur SQL se produit.
+
+        /**
+     * Renvoie le numéro maximum d'objet dans la base de données.
+     *
+     * @return Le numéro maximum d'objet.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public int numObjetMax()throws SQLException{
         st= this.connexMySQL.createStatement();
@@ -35,10 +37,12 @@ public class ObjetBD {
         rs.close();
         return res;
     }
+
     /**
-     * Insère un Objet dans la base de données.
-     * @param o L'Objet à insérer.
-     * @throws SQLException Si une erreur SQL se produit.
+     * Insère un nouvel objet dans la base de données.
+     *
+     * @param o L'objet à insérer.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public void insererObjet(Objet o)throws SQLException{
         int num = this.numObjetMax()+1;
@@ -51,10 +55,12 @@ public class ObjetBD {
         ps.executeUpdate();
         o.setIdentifiant(num);
     }
-    /**
-     * Supprime un Objet de la base de données.
-     * @param o L'Objet à supprimer.
-     * @throws SQLException Si une erreur SQL se produit.
+
+     /**
+     * Supprime un objet de la base de données.
+     *
+     * @param o L'objet à supprimer.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public void supprimerObjet(Objet o)throws SQLException{
         int idOb = o.getIdentifiant();
@@ -63,10 +69,15 @@ public class ObjetBD {
         rs.next();
         rs.close();
     }
+
     /**
-     * Modifie un Objet dans la base de données.
-     * @param o L'Objet à modifier.
-     * @throws SQLException Si une erreur SQL se produit.
+     * Modifie les informations d'un objet dans la base de données.
+     *
+     * @param id L'identifiant de l'objet à modifier.
+     * @param nom Le nouveau nom de l'objet.
+     * @param description La nouvelle description de l'objet.
+     * @param categorie La nouvelle catégorie de l'objet.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public void modifierObjet(int id,String nom, String description,Categorie categorie)throws SQLException{
         // UPDATE table SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3' WHERE condition
@@ -76,11 +87,13 @@ public class ObjetBD {
         ps.setInt(3, categorie.getIdentifiant());
         ps.executeUpdate();
     }
+
     /**
-     * Recherche un objet dans la base de données.
-     * @param idOb L'identifiant de l'objet à rechercher.
-     * @return l'objet recherchée.
-     * @throws SQLException Si une erreur SQL se produit.
+     * Recherche un objet dans la base de données en fonction de son numéro.
+     *
+     * @param idOb Le numéro de l'objet à rechercher.
+     * @return L'objet trouvé.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public Objet rechercherObjetParNum(int idOb)throws SQLException{
         st= this.connexMySQL.createStatement();
@@ -92,10 +105,12 @@ public class ObjetBD {
         rs.close();
         return o;
     }
+
     /**
-     * Renvvoi la liste de tout les objets de la base de donnée
-     * @return
-     * @throws SQLException
+     * Renvoie une liste de tous les objets dans la base de données.
+     *
+     * @return La liste des objets.
+     * @throws SQLException Si une erreur SQL se produit lors de l'exécution de la requête.
      */
     public List<Objet> listeObjets() throws SQLException{
         st= this.connexMySQL.createStatement();

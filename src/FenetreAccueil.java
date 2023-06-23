@@ -267,9 +267,6 @@ public class FenetreAccueil extends BorderPane {
         
         
         int tailleListe = ventes.size();
-        if (tailleListe > 12){
-            tailleListe = 12;
-        }
 
         for (int i=0;i<tailleListe;++i) {
             // int j = (int) (Math.random()*ventesEnCours.size());
