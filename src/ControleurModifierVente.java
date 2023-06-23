@@ -56,14 +56,16 @@ public class ControleurModifierVente implements EventHandler<ActionEvent>{
                 Button bouton = (Button) actionEvent.getSource();
                 ButtonType buttonClicked = alert.getResult();
                 if(bouton.getText().equals("Sauvegarder les modifications") && buttonClicked == ButtonType.OK){
+                    Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNom(categorieString);
+                    this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
+                    this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);
                     this.appli.fenetreMesVentes();
+                    
                 } else{
                     alert.close();
                 }
             
-                Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNom(categorieString);
-                this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
-                this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);
+                
             } catch (SQLException e) {
                 System.out.println("Erreur SQL : " + e.getMessage());
             }

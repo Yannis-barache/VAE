@@ -1,3 +1,4 @@
+import javafx.beans.property.ListProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
@@ -46,6 +47,7 @@ public class ControleurSupImage implements EventHandler<ActionEvent>{
     public void handle(ActionEvent actionEvent) {
         if (this.listePhoto.size()>0) {
             this.listePhoto.remove(this.i);
+            this.fenetreCreationVente.setNbPics(listePhoto.size());
         }
         this.fenetreCreationVente.majNomImage();
         
