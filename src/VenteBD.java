@@ -58,17 +58,8 @@ public class VenteBD {
      */
     public void supprimerVente(Vente v)throws SQLException{
         int idVe = v.getIdentifiant();
-        st= this.connexMySQL.createStatement();
+        st= this.connexMySQL.createStatement(); 
         ResultSet rs = st.executeQuery("DELETE from VENTE where "+idVe+"=idVe");
-
-        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-            this.changeStatut(v, 2);
-        }
-
-        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-            this.changeStatut(v, 4);
-            
-        }
         rs.next();
         rs.close();
         v.getObjet().getVendeur().supprimerVente(v);

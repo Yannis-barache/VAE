@@ -47,10 +47,23 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             try {
-                this.appli.getVenteBD().supprimerVente(this.fenetreEdit.getVente());
-                this.appli.getObjetBD().supprimerObjet(this.fenetreEdit.getVente().getObjet());
+                Vente vente = this.fenetreEdit.getVente();
+                List<Enchere> le = this.appli.getEnchereBD().listeEncheresParVente(vente);
+                for(Enchere e : le){
+                    this.appli.getEnchereBD().supprimerEnchere(e);
+                }
+                this.appli.getVenteBD().supprimerVente(vente);
+                try {
+                    List<Photo> lph = this.appli.getPhotoBD().rechercherPhotosParObjet(vente.getObjet());
+                    for(Photo ph : lph){
+                        this.appli.getPhotoBD().supprimerPhoto(ph);
+                    }
+                    this.appli.getObjetBD().supprimerObjet(this.fenetreEdit.getVente().getObjet());
+                } catch (Exception e) {
+                    System.out.println("1 "+e);
+                }
             } catch (SQLException e) {
-                this.appli.fenetreMesVentes();
+                System.out.println("2 "+e);
             }
         }
         this.appli.fenetreMesVentes();

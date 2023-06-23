@@ -93,4 +93,23 @@ public class EnchereBD {
         rs.close();
         return liste;
     }
+
+    /**
+     * Recherche toutes les enchères de la base.
+     * @return La liste des enchères.
+     */
+    public List<Enchere> listeEncheresParVente(Vente v) throws SQLException{
+        st= this.connexMySQL.createStatement();
+        int numV = v.getIdentifiant();
+        List<Enchere> liste = new ArrayList<>();
+        ResultSet rs = st.executeQuery("select * from ENCHERIR where idve="+numV);
+        VenteBD venteBD = new VenteBD(connexMySQL);
+        UtilisateurBD utilisateurBD = new UtilisateurBD(connexMySQL);
+        while(rs.next()){
+            Enchere e = new Enchere(venteBD.rechercherVenteParNum(rs.getInt(2)), utilisateurBD.rechercherUtilisateurParNum(rs.getInt(1)), rs.getInt(4), rs.getString(3));
+            liste.add(e);
+        }
+        rs.close();
+        return liste;
+    }
 }
