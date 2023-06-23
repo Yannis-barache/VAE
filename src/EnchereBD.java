@@ -47,14 +47,19 @@ public class EnchereBD {
      * @throws SQLException Si une erreur survient lors de la suppression.
      */
     public void supprimerEnchere(Enchere e)throws SQLException{
+        try{
         int idUT = e.getEncherisseur().getIdentifiant();
         int idVe = e.getVente().getIdentifiant();
         String dateheure = e.getDate();
+        dateheure=dateheure.replace(" ",":");
+        dateheure=dateheure.replace(".0","");
         st= this.connexMySQL.createStatement();
-        ResultSet rs = st.executeQuery("DELETE from ENCHERIR where "+idUT+"=idUT and "+idVe+"=idVe and STR_TO_DATE('"+dateheure+"','%d/%m/%Y:%H:%i:%s')=dateheure");
+        ResultSet rs = st.executeQuery("DELETE from ENCHERIR where "+idVe+"=idVe");
         rs.next();
         rs.close();
         e.getEncherisseur().supprimerEnchere(e);
+        }
+        catch(Exception ex){System.out.println("eeeee "+ex);}
     }
 
     /**

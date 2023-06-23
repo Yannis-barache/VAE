@@ -49,9 +49,14 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
             try {
                 Vente vente = this.fenetreEdit.getVente();
                 List<Enchere> le = this.appli.getEnchereBD().listeEncheresParVente(vente);
+                System.out.println(le);
                 for(Enchere e : le){
-                    this.appli.getEnchereBD().supprimerEnchere(e);
+                    try {
+                        this.appli.getEnchereBD().supprimerEnchere(e);
+                    } catch (Exception e1) {
+                        System.out.println(e1);   
                 }
+            }
                 this.appli.getVenteBD().supprimerVente(vente);
                 try {
                     List<Photo> lph = this.appli.getPhotoBD().rechercherPhotosParObjet(vente.getObjet());
@@ -59,8 +64,8 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
                         this.appli.getPhotoBD().supprimerPhoto(ph);
                     }
                     this.appli.getObjetBD().supprimerObjet(this.fenetreEdit.getVente().getObjet());
-                } catch (Exception e) {
-                    System.out.println("1 "+e);
+                } catch (Exception e2) {
+                    System.out.println("1 "+e2);
                 }
             } catch (SQLException e) {
                 System.out.println("2 "+e);
@@ -71,3 +76,4 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
 
 
 }
+
