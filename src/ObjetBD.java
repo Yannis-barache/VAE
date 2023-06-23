@@ -4,12 +4,28 @@ import java.util.List;
 import java.sql.*;
 
 public class ObjetBD {
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL connexMySQL;
+    /**
+     * La requête SQL
+     */
     private Statement st;
-
+    
+    /**
+     * Constructeur de la classe ObjetBD.
+     *
+     * @param connexMySQL La connexion à la base de données.
+     */
     public ObjetBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
     }
+    /**
+     * Obtient l'identifiant maximum des Objets.
+     * @return L'identifiant maximum des Objets.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public int numObjetMax()throws SQLException{
         st= this.connexMySQL.createStatement();
         // execute la requte sql
@@ -19,7 +35,11 @@ public class ObjetBD {
         rs.close();
         return res;
     }
-
+    /**
+     * Insère un Objet dans la base de données.
+     * @param o L'Objet à insérer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void insererObjet(Objet o)throws SQLException{
         int num = this.numObjetMax()+1;
         PreparedStatement ps = this.connexMySQL.prepareStatement("insert into OBJET(idOb,nomOb,descriptionOb,idCat,idUt) values (?,?,?,?,?)");
@@ -31,7 +51,11 @@ public class ObjetBD {
         ps.executeUpdate();
         o.setIdentifiant(num);
     }
-
+    /**
+     * Supprime un Objet de la base de données.
+     * @param o L'Objet à supprimer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void supprimerObjet(Objet o)throws SQLException{
         int idOb = o.getIdentifiant();
         st= this.connexMySQL.createStatement();
@@ -39,7 +63,11 @@ public class ObjetBD {
         rs.next();
         rs.close();
     }
-
+    /**
+     * Modifie un Objet dans la base de données.
+     * @param o L'Objet à modifier.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void modifierObjet(int id,String nom, String description,Categorie categorie)throws SQLException{
         // UPDATE table SET colonne_1 = 'valeur 1', colonne_2 = 'valeur 2', colonne_3 = 'valeur 3' WHERE condition
         PreparedStatement ps = this.connexMySQL.prepareStatement("UPDATE OBJET SET nomOb = ?,descriptionOb = ?,idCat = ? where "+id+"=idOb");
@@ -48,7 +76,12 @@ public class ObjetBD {
         ps.setInt(3, categorie.getIdentifiant());
         ps.executeUpdate();
     }
-
+    /**
+     * Recherche un objet dans la base de données.
+     * @param idOb L'identifiant de l'objet à rechercher.
+     * @return l'objet recherchée.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public Objet rechercherObjetParNum(int idOb)throws SQLException{
         st= this.connexMySQL.createStatement();
         ResultSet rs = st.executeQuery("select * from OBJET where "+idOb+"=idOb");
@@ -59,7 +92,11 @@ public class ObjetBD {
         rs.close();
         return o;
     }
-
+    /**
+     * Renvvoi la liste de tout les objets de la base de donnée
+     * @return
+     * @throws SQLException
+     */
     public List<Objet> listeObjets() throws SQLException{
         st= this.connexMySQL.createStatement();
         List<Objet> liste = new ArrayList<>();

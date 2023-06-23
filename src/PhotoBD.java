@@ -16,12 +16,29 @@ import java.awt.image.RenderedImage;
 import java.io.ByteArrayInputStream;
 
 public class PhotoBD {
+    /**
+     * La connexion à la base de données
+     */
     private ConnexionMySQL connexMySQL;
+    /**
+     * La requête SQL
+     */
     private Statement st;
 
+    /**
+     * Constructeur de la classe PhotoBD.
+     *
+     * @param connexMySQL La connexion à la base de données.
+     */
     public PhotoBD(ConnexionMySQL connexMySQL){
         this.connexMySQL=connexMySQL;
     }
+
+    /**
+     * Obtient l'identifiant maximum des photo
+     * @return l'identifiant maximum des photo
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public int numPhotoMax()throws SQLException{
         st= this.connexMySQL.createStatement();
         // execute la requte sql
@@ -31,7 +48,11 @@ public class PhotoBD {
         rs.close();
         return res;
     }
-
+    /**
+     * Insère une Photo dans la base de données.
+     * @param o la photo à insérer.
+     * @throws SQLException Si une erreur SQL se produit.
+     */
     public void insererPhoto(Objet o, Photo ph)throws SQLException{
         o.ajoutePhoto(ph);
         int num = this.numPhotoMax()+1;
