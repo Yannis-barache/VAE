@@ -2,9 +2,11 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
 import javafx.scene.control.Button;
 
 import java.sql.SQLException;
+import java.util.Map;
 
 
 public class ControleurModifierVente implements EventHandler<ActionEvent>{
@@ -56,6 +58,12 @@ public class ControleurModifierVente implements EventHandler<ActionEvent>{
                 Button bouton = (Button) actionEvent.getSource();
                 ButtonType buttonClicked = alert.getResult();
                 if(bouton.getText().equals("Sauvegarder les modifications") && buttonClicked == ButtonType.OK){
+                    for (Map<String,String> photo: this.fenetreEdit.getNewFiles()){
+                        for (String nom : photo.keySet()){
+                            this.appli.getPhotoBD().supprimerPhoto(new Photo(nom,new Image(photo.get(nom))));
+                            this.appli.getPhotoBD().insererPhoto(this.fenetreEdit.getVente().getObjet(), new Photo(nom, photo.get(nom)));
+                        }
+                    }
                     Categorie categorie = this.appli.getCategorieBD().rechercherCategorieParNom(categorieString);
                     this.appli.getObjetBD().modifierObjet(this.fenetreEdit.getVente().getIdentifiant(),titre, desc, categorie);
                     this.appli.getVenteBD().modifierVente(this.fenetreEdit.getVente().getIdentifiant() ,finVe);

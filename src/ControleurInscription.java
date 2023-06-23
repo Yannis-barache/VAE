@@ -50,6 +50,7 @@ public class ControleurInscription implements EventHandler<ActionEvent>{
                 this.appli.fenetreConnexion();
 
             } catch(SQLException ex){
+                System.out.println(ex.getMessage());
                 if(ex.getErrorCode()==1062){
                     this.fenetreInscription.setAlertLogin("Pseudo déjà utilisé. Veuillez en choisir un autre");
                 }
