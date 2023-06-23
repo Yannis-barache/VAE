@@ -59,6 +59,7 @@ public class VenteBD {
     public void supprimerVente(Vente v)throws SQLException{
         int idVe = v.getIdentifiant();
         st= this.connexMySQL.createStatement(); 
+        System.out.println("DELETE from VENTE where "+idVe+"=idVe");
         ResultSet rs = st.executeQuery("DELETE from VENTE where "+idVe+"=idVe");
         rs.next();
         rs.close();
@@ -89,14 +90,6 @@ public class VenteBD {
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         rs.next();
         Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
-        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-            this.changeStatut(v, 2);
-        }
-
-        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-            this.changeStatut(v, 4);
-            
-        }
         rs.close();
         return v;
         
@@ -113,17 +106,9 @@ public class VenteBD {
         StatutBD statutBD = new StatutBD(connexMySQL);
         ObjetBD objetBD = new ObjetBD(connexMySQL);
         while(rs.next()){
+            
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
             
-
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
-
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
             liste.add(v);
         }
     //     (1,'A venir'),
@@ -148,7 +133,6 @@ public class VenteBD {
             if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
                 this.changeStatut(v, 2);
             }
-
             if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
                 this.changeStatut(v, 4);
                 
@@ -171,11 +155,9 @@ public class VenteBD {
         try {
             ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" order by montant desc limit 1;");
             rs.next();
-
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
+            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0){
                 this.changeStatut(v, 2);
             }
-
             if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
                 this.changeStatut(v, 4);
                 
@@ -204,14 +186,7 @@ public class VenteBD {
             ResultSet rs = st.executeQuery("select * from ENCHERIR where idVe ="+ v.getIdentifiant() +" and  idUt = "+ u.getIdentifiant() +" order by montant desc limit 1;");
             rs.next();
             Enchere e = new Enchere(v, u , rs.getInt(4), rs.getString(3));
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
 
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
             rs.close();
             return e;
         } catch (Exception e) {
@@ -232,14 +207,6 @@ public class VenteBD {
         st = this.connexMySQL.createStatement();
         ResultSet rs = st.executeQuery("select Count(*) nb from ENCHERIR where idve="+v.getIdentifiant());
         rs.next();
-        if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-            this.changeStatut(v, 2);
-        }
-
-        if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-            this.changeStatut(v, 4);
-            
-        }
         int nb = rs.getInt(1);
         rs.close();
         return nb;
@@ -260,14 +227,6 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE natural join OBJET where nomOb LIKE '%"+ recherche +"%'");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getString(5), rs.getString(6), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(1)));
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
-
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
             liste.add(v);
         }
         rs.close();
@@ -310,14 +269,6 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE where idve in (select idve from ENCHERIR E1 natural join VENTE V natural join STATUT S where montant<"+prix+" and montant>= all( select montant from ENCHERIR E2 where E1.idVe=E2.idVe))");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
-
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
             liste.add(v);
         }
         rs.close();
@@ -339,14 +290,6 @@ public class VenteBD {
         ResultSet rs = st.executeQuery("select * from VENTE where DATEDIFF( finve, STR_TO_DATE('"+date+"','%d/%m/%Y:%H:%i:%s'))<0 and idSt = 2");
         while(rs.next()){
             Vente v = new Vente(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), statutBD.rechercherStatutParNum(rs.getInt(7)), objetBD.rechercherObjetParNum(rs.getInt(6)));
-            if ( (v.getDebut()+":00").compareTo(""+LocalDateTime.now())>0 && rs.getInt(7)!=2){
-                this.changeStatut(v, 2);
-            }
-
-            if ((v.getFin()+":00").compareTo(""+LocalDateTime.now())>0 ){
-                this.changeStatut(v, 4);
-                
-            }
             liste.add(v);
         }
         rs.close();
