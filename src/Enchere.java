@@ -1,7 +1,23 @@
 public class Enchere {
+
+    /**
+     * La vente associée à l'enchère.
+     */
     private Vente vente;
+
+    /**
+     * L'utilisateur encherisseur.
+     */
     private Utilisateur encherisseur;
+
+    /**
+     * Le montant de l'enchère.
+     */
     private int montant;
+
+    /**
+     * La date de l'enchère.
+     */
     private String date;
 
     /**
@@ -55,11 +71,21 @@ public class Enchere {
         return date;
     }
 
+
+    /**
+     * Méthode permettant de transformer une enchère en chaîne de caractères.
+     * @return La chaîne de caractères.
+     */
     @Override
     public String toString(){
         return "Enchere(Vente : "+this.getVente()+", Encherrisseur : "+this.getEncherisseur().getPseudo()+", Montant : "+this.getMontant()+", Date : "+this.getDate()+")";
     }
 
+    /**
+     * Méthode permettant de comparer deux enchères.
+     * @param obj L'objet à comparer.
+     * @return Vrai si les deux enchères sont identiques, faux sinon.
+     */
     @Override
     public boolean equals(Object obj){
         if (obj == this){

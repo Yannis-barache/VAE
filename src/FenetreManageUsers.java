@@ -47,6 +47,7 @@ public class FenetreManageUsers extends VBox {
         barreDeRecherche.setOnKeyTyped(new ControleurBarreDeRecherche(this.appli, barreDeRecherche,this));
         this.getChildren().add(new Label("Gestion des utilisateurs"));
         this.getChildren().add(barreDeRecherche);
+
         
 
         for (Utilisateur user : utilisateurs) {
@@ -59,9 +60,6 @@ public class FenetreManageUsers extends VBox {
             userContent.setVgap(10);
 
 
-            ImageView image = new ImageView(new Image("file:src/images/vae2.png"));
-            image.setFitHeight(50);
-            image.setFitWidth(50);
             Label pseudo = new Label(user.getPseudo());
             Label mail = new Label(user.getMail());
             Button delete = new Button("Supprimer");
@@ -78,8 +76,6 @@ public class FenetreManageUsers extends VBox {
             desactivate.setOnAction(new ControleurAdminUser(this.appli, user ));
             activate.setOnAction(new ControleurAdminUser(this.appli, user ));
 
-
-            userContent.add(image, 0, 0, 2, 2);
             userContent.add(pseudo, 2, 0);
             userContent.add(mail, 2, 1);
             userContent.add(delete, 0, 2);
@@ -91,9 +87,15 @@ public class FenetreManageUsers extends VBox {
 
         }
 
-        if (this.utilisateurs.size() == 0) {
-            this.getChildren().add(new Label("Aucun utilisateur trouvé"));
+        if (this.barreDeRecherche.getText().equals("")){
+            this.setAlerte("Aucune recherche lancée");
         }
+        if (this.utilisateurs.size() == 0) {
+            this.setAlerte("Aucun utilisateur trouvé");
+        }
+
+
+        this.getChildren().add(this.alerte);
 
 
 

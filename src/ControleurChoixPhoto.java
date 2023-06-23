@@ -1,25 +1,52 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 
+/**
+ * ControleurChoixPhoto est la classe qui represente le controleur du choix de photo
+ */
 public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre de creation de vente
+     */
     FenetreCreationVente fenetreCreationVente;
+
+    /**
+     * Le fileChooser permettant de choisir une photo
+     */
     FileChooser fileChooser;
+
+    /**
+     * La liste des photos
+     */
     List<Map<String, String>> listePhoto;
+
+    /**
+     * La fenetre d'edition de vente
+     */
     FenetreEditionVente fenetreEditionVente;
 
 
+    /**
+     * Constructeur ControleurChoixPhoto
+     * @param appli L'application
+     * @param creationVente La fenetre de creation de vente
+     * @param fileChooser Le fileChooser permettant de choisir une photo
+     * @param listePhoto La liste des photos
+     */
     public ControleurChoixPhoto(ApplicationVAE appli,FenetreCreationVente creationVente, FileChooser fileChooser,List<Map<String, String>> listePhoto) {
         this.appli=appli;
         this.fenetreCreationVente = creationVente;
@@ -29,6 +56,13 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
 
     }
 
+    /**
+     * Constructeur ControleurChoixPhoto
+     * @param appli L'application
+     * @param fenetreEditionVente La fenetre d'edition de vente
+     * @param fileChooser Le fileChooser permettant de choisir une photo
+     * @param listePhoto La liste des photos
+     */
     public ControleurChoixPhoto(ApplicationVAE appli, FenetreEditionVente fenetreEditionVente, FileChooser fileChooser, List<Map<String, String>> listePhoto) {
         this.appli=appli;
         this.fenetreEditionVente = fenetreEditionVente;
@@ -38,13 +72,16 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
 
     }
 
-    /** L'action consiste à changer le fichier pris en compte pour le dictionnaire
+
+    /** L'action consiste à ajouter une photo à la liste des photos et la lier à l'objet dans la base de données
      * @param actionEvent l'événement action
      */
     @Override
     public void handle(ActionEvent actionEvent){
         Stage stageFichier = new Stage();
         File fichierChoisi = fileChooser.showOpenDialog(stageFichier);
+
+        // Si on crée une vente
         if (fichierChoisi != null && this.listePhoto.size()<4 && this.fenetreCreationVente != null) {
             String chemin = "file:"+fichierChoisi.getAbsolutePath();
             this.listePhoto.add(Map.of(fichierChoisi.getName(), chemin));
@@ -53,6 +90,7 @@ public class ControleurChoixPhoto implements EventHandler<ActionEvent>{
             this.fenetreCreationVente.majNomImage();
         }
 
+        // Si on édite une vente
         if (fichierChoisi!= null && this.listePhoto.size()<4 && this.fenetreEditionVente != null) {
             System.out.println(fichierChoisi.getName());
             String chemin = "file:"+fichierChoisi.getAbsolutePath();

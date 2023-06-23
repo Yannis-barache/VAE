@@ -30,21 +30,77 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class FenetreAccueil extends BorderPane {
-    
+
+    /**
+     * L'application
+     */
     private ApplicationVAE appli;
+
+    /**
+     * La liste des ventes en cours
+     */
     private List<Vente> ventesEnCours;
+
+    /**
+     * Le résultat de la recherche
+     */
     private List<Vente> searchResult;
+
+    /**
+     * Le texte de la recherche
+     */
     private TextField search;
+
+    /**
+     * La combobox des filtres
+     */
     private ComboBox<String> CBfilters;
+
+    /**
+     * Le datepicker
+     */
     private DatePicker date;
+
+    /**
+     * Le prix
+     */
     private TextField price;
+
+    /**
+     * L'effet de l'ombre
+     */
     private DropShadow ds;
+
+    /**
+     * Le container des ventes
+     */
     private VBox discoverContent;
+
+    /**
+     * Le container des labels
+     */
     private VBox discoverLabelContainer;
+
+    /**
+     * Le container des items
+     */
     private VBox discoverItemsContainer;
+
+    /**
+     * Le label des ventes
+     */
     private Label discoverLabel;
+
+    /**
+     * Le container des items
+     */
     private TilePane discoverItems;
 
+    /**
+     * Le constructeur de la fenetre d'accueil
+     * @param appli L'application
+     * @param ventesEnCours La liste des ventes en cours
+     */
     public FenetreAccueil(ApplicationVAE appli,List<Vente> ventesEnCours)  {
         super();
         this.appli = appli;
@@ -55,6 +111,9 @@ public class FenetreAccueil extends BorderPane {
         this.content();
     }
 
+    /**
+     * Méthode permettant de créer le contenu de la fenetre d'accueil
+     */
     private void content() {
 
         //Shadows
@@ -198,6 +257,11 @@ public class FenetreAccueil extends BorderPane {
         afficheVentes(ventesEnCours);
     }
 
+
+    /**
+     * Affiche les ventes en cours
+     * @param ventes la liste des ventes en cours
+     */
     public void afficheVentes(List<Vente> ventes) {
         this.discoverItems.getChildren().clear();
         
@@ -332,18 +396,36 @@ public class FenetreAccueil extends BorderPane {
     }
 
 
+    /**
+     * Renvoie le texte de la barre de recherche
+     * @return Le texte de la barre de recherche
+     */
     public String getRecherche() {
         return this.search.getText();
     }
 
+
+    /**
+     * Renvoie la catégorie sélectionnée dans la combobox
+     * @return La catégorie sélectionnée dans la combobox
+     */
     public String getCategorie() {
         return this.CBfilters.getValue();
     }
 
+
+    /**
+     * Renvoie le texte du prix maximum
+     * @return Le texte du prix maximum
+     */
     public String getMontantMax() {
         return this.price.getText();
     }
 
+    /**
+     * Renvoie la date maximum
+     * @return La date maximum
+     */
     public LocalDate getDateMax() {
         return this.date.getValue();
     }

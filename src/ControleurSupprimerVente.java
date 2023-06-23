@@ -8,17 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+/**
+ * ControleurSupprimerVente est la classe qui represente le controleur de la fenetre de suppression de vente
+ */
 public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
-    
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
+
+    /**
+     * La fenetre de suppression de vente
+     */
     FenetreEditionVente fenetreEdit;
 
+    /**
+     * Constructeur ControleurSupprimerVente
+     * @param appli L'application
+     * @param fenetreEdit La fenetre d'édition de vente
+     */
     public ControleurSupprimerVente(ApplicationVAE appli, FenetreEditionVente fenetreEdit) {
         this.appli=appli;
         this.fenetreEdit=fenetreEdit;
 
     }
 
+    /**
+     * Méthode permettant de supprimer une vente
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -28,8 +47,6 @@ public class ControleurSupprimerVente implements EventHandler<ActionEvent>{
         alert.showAndWait();
         if (alert.getResult() == ButtonType.OK) {
             try {
-                
-                
                 Vente vente =this.fenetreEdit.getVente();  
                 Objet objet = this.fenetreEdit.getVente().getObjet();
                 for(Enchere enchere : this.appli.getEnchereBD().listeEncheres()){

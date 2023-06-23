@@ -50,44 +50,32 @@ public class FenetrePannelAdministration extends BorderPane{
 
         //Titre
         HBox titleContent = new HBox();
-        Label title = new Label("Bienvenu sur la page d'administration : Yannis"  ); //this.appli.getUtilisateur().getPseudo()
+        Label title = new Label("Bienvenu sur la page d'administration :"+ this.appli.getUtilisateur().getPseudo());
         title.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         titleContent.getChildren().add(title);
 
 
-        //
-        TilePane tileButtons = new TilePane();  //TilePane
+
+        HBox HboxButtons = new HBox();  //HBox
 
         //Ajout des boutons à la page
         Button manageUsers = new Button("Gérer les utilisateurs");
-        Button manageItems = new Button("Gérer les items");
         Button manageSales = new Button("Gérer les ventes");
-        Button managePurchases = new Button("Gérer les achats");
 
-        manageUsers.setPrefSize(500, 100);
-        manageItems.setPrefSize(500, 100);
-        manageSales.setPrefSize(200, 100);
-        managePurchases.setPrefSize(200, 100);
+        manageUsers.setPrefSize(800, 200);
+        manageSales.setPrefSize(800, 200);
         manageUsers.setEffect(ds);
-        manageItems.setEffect(ds);
         manageSales.setEffect(ds);
-        managePurchases.setEffect(ds);
 
-        manageUsers.setOnAction(e -> {
-            this.appli.fenetreManageUsers();
-        });
+        manageUsers.setOnAction(new ControleurAdminPage(this.appli));
+        manageSales.setOnAction(new ControleurAdminPage(this.appli));
 
-        manageSales.setOnAction(e -> {
-            this.appli.fenetreManageSales();
-        });
-        
 
-        tileButtons.getChildren().addAll(manageUsers, manageItems, manageSales, managePurchases);
-        tileButtons.setPadding(new Insets(10, 10, 10, 10));
+        HboxButtons.getChildren().addAll(manageUsers,manageSales);
 
-        content.getChildren().addAll(title,tileButtons);
+        content.getChildren().addAll(title,HboxButtons);
 
-        this.setTop(new Label("Le menu "));
+        this.setTop(new Label("Le menu de l'administrateur"));
         this.setCenter(content);
 
 

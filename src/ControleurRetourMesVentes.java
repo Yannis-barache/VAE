@@ -4,15 +4,29 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
 
+/**
+ * ControleurRetourMesVentes est la classe qui represente le controleur de la fenetre de mes ventes
+ */
 public class ControleurRetourMesVentes implements EventHandler<ActionEvent>{
-    
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
 
+    /**
+     * Constructeur ControleurRetourMesVentes
+     * @param appli L'application
+     */
     public ControleurRetourMesVentes(ApplicationVAE appli) {
         this.appli=appli;
 
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenetre de mes ventes
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         try{

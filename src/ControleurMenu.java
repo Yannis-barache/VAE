@@ -6,15 +6,30 @@ import javafx.scene.control.Button;
 import java.sql.SQLException;
 
 
+/**
+ * ControleurMenu est la classe qui represente le controleur du menu
+ */
 public class ControleurMenu implements EventHandler<ActionEvent>{
     
+
+    /**
+     * L'application
+     */
     ApplicationVAE appli;
 
+    /**
+     * Constructeur ControleurMenu
+     * @param appli L'application
+     */
     public ControleurMenu(ApplicationVAE appli) {
         this.appli=appli;
 
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons du menu
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         try{

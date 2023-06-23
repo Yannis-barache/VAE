@@ -3,16 +3,38 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+
+/**
+ * ControleurInscriptionKey est la classe qui represente le controleur de la fenetre d'inscription lors de l'appui sur la touche entrer
+ */
 public class ControleurInscriptionKey implements EventHandler<KeyEvent>{ 
+
+    /**
+     * L'application
+     */
     private ApplicationVAE appli;
+
+    /**
+     * La fenetre d'inscription
+     */
     private FenetreInscription fenetreInscription;
 
 
+    /**
+     * Constructeur ControleurInscriptionKey
+     * @param appli L'application
+     * @param fenetreInscription La fenetre d'inscription
+     */
     public ControleurInscriptionKey(ApplicationVAE appli, FenetreInscription fenetreInscription) {
         this.appli=appli;
         this.fenetreInscription=fenetreInscription;
     }
 
+
+    /**
+     * Methode servant a gerer les actions de la fenêtre d'inscription
+     * @param e L'evenement
+     */
     @Override
     public void handle(KeyEvent e) {
         if (e.getCode().equals(KeyCode.ENTER)){

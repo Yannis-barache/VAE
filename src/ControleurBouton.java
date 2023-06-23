@@ -3,31 +3,43 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-
-
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
-
+/**
+ * ControleurBouton est la classe qui represente le controleur des boutons de la fenetre de mon profil
+ */
 public class ControleurBouton implements EventHandler<ActionEvent> {
+
+    /**
+     * L'application
+     */
     private ApplicationVAE appli;
+
+    /**
+     * La fenetre de mon profil
+     */
     private FenetreMonProfil fenetreMonProfil;
 
+    /**
+     * Constructeur ControleurBouton
+     * @param appli L'application
+     * @param fenetreMonProfil La fenetre de mon profil
+     */
     public ControleurBouton(ApplicationVAE appli,FenetreMonProfil fenetreMonProfil) {
         this.appli=appli;
         this.fenetreMonProfil=fenetreMonProfil;
     }
 
+    /**
+     * Methode servant a gerer les actions sur les boutons de la fenêtre de mon profil
+     * @param actionEvent L'evenement
+     */
     @Override
     public void handle(ActionEvent actionEvent){
         try{
     
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-
-            
-
-
             Button bouton = (Button) actionEvent.getSource();
             ButtonType buttonClicked = alert.getResult();
             
